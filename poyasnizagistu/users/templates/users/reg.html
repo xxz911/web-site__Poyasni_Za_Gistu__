@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+
+{% for f in form %}
+  <p class="form-reg"><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+  <div class="form-error">{{f.errors}}</div>
+{% endfor %}
+  <div class="form-error">{{ form.non_field_errors }}</div>
+  <button type="submit" class="btn btn-outline-info btn-sm">Регистрация</button>
+</form>
+
+{% endblock %}

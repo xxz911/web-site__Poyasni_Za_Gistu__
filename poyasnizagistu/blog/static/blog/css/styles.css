@@ -1,0 +1,155 @@
+html {
+  position: relative;
+  min-height: 90%;
+}
+
+body {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-bottom: 6%;
+  background-color: rgba(72, 1, 58, 0.789);
+}
+
+/* ЭЛЕМЕНТЫ НАВБАРА */
+.navbar-dark {
+  padding: 1px;
+  margin-bottom: 2%;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 2%;
+}
+.logo {
+  border-radius: 50%; 
+  margin-right:7px;
+  margin-left: 1%; 
+  border: 0.9px solid rgb(255, 255, 255); padding: 0.1px;
+  box-shadow: 0 1px 5px rgb(255, 0, 200), 0 3px 3px rgb(255, 255, 255)
+}
+.logo:hover{
+  border: 0.9px solid rgb(0, 0, 0); padding: 0.1px;
+  box-shadow: 0 1px 5px rgb(251, 0, 255), 0 3px 3px rgb(255, 0, 217)
+}
+.btn {
+  margin: 6px;
+  font-weight: 648;
+  text-shadow: 1px 0 rgb(0, 0, 0), -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 0 -1px rgb(0, 0, 0),
+  1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
+}
+.btn-outline-danger {
+  background-color: rgba(101, 0, 0, 0);
+  border: 1.5px solid rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
+}
+.btn-outline-info {
+  color: rgb(255, 255, 255);
+}
+.btn-outline-danger:hover {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(255, 0, 0);
+}
+.btn-outline-info:hover {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(0, 174, 255);
+}
+
+/* ЭЛЕМЕНТЫ МЕНЮ С БУРГЕРОМ*/
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(255, 255, 255)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.navbar-dark .navbar-nav .nav-link, .navbar-dark .nav-link {
+  color: rgb(255, 255, 255);
+  font-size: 21px;
+  text-align: center;
+  padding-top: 0px;
+  padding-bottom: 4px;
+  font-weight: 358;
+  text-shadow: 1px 0 rgb(0, 0, 0), -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 0 -1px rgb(0, 0, 0),
+  1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+  color:rgb(255, 0, 0);
+}
+
+/* ЭЛЕМЕНТЫ ПОДВАЛА */
+footer {
+  margin-top: 30px;
+  position: absolute;
+  bottom: 0;
+  height: 0%;
+  width: 100%;
+  padding-left: 4%;
+  padding-right: 4%;
+  }
+.text-footer {
+  font-size: 80%;
+  text-align: center;
+  color: rgb(231, 226, 226);
+}
+.cont-right, .site-right {
+  font-size: 68%;
+  text-align: center;
+  color: rgb(234, 231, 231);
+  padding-left: 0cm;
+  padding-right: 0cm;
+}
+.text-mail, .text-mail:hover {
+  color: rgb(49, 174, 228);
+  text-decoration: none;
+  padding-bottom: 2%;
+}
+
+/* ТЕСТОВЫЕ СТИЛИ */
+.test-class {
+  color: rgba(255, 255, 255, 0.986);
+  margin-bottom: 0;
+}
+.content{
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 2%;
+  margin-bottom: 0.1%;
+  padding: 1.5%;
+  border-radius: 1em;
+  background-color:rgba(31, 30, 30, 0.917); 
+  /* background-color:rgba(255, 255, 255, 0.864);  */
+  /* box-shadow: 0 0px 3px rgb(255, 0, 111), 0 1px 2px rgb(185, 8, 255); */
+  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+}
+
+.form-reg {
+  text-align: center;
+}
+.form-input {
+    width: 50%;
+    font-size: x-large;
+
+
+}
+#id_avatar {
+
+/* text-align: right; */
+color: #7e7e7e;
+
+
+}
+.form-label {
+    /* width: 10%; */
+    /* display:flex; */
+    /* min-width: 70%;
+    max-width: 90%; */
+    vertical-align: middle;
+    color: white;
+    /* text-align: center; */
+    /* margin-left: 25%; */
+}
+
+.form-error {
+    list-style: none;
+    padding: 0;
+    color: #CC0000;
+}
