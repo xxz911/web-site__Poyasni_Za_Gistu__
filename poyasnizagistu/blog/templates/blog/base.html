@@ -18,8 +18,8 @@
             <a class="logo-container" href="{% url 'home' %}">
                 <img class="logo"  src='{% static "blog/images/logo.jpg" %}' alt="PoyasniZaGistu" width="60em" height="55em" >
             </a>
-            <button type="button" class="btn btn-outline-danger btn-sm" href="#">Вход</button>
-            <button type="button" class="btn btn-outline-info btn-sm" href="{% url 'register' %}">Регистрация</button>
+            <a href="{% url 'home' %}"><button type="button" class="btn btn-outline-danger btn-sm">Вход</button></a>
+            <a href="{% url 'reg' %}"><button type="button" class="btn btn-outline-info btn-sm" href="{% url 'home' %}">Регистрация</button></a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		        <span class="navbar-toggler-icon"></span>
 		    </button>
@@ -27,7 +27,7 @@
                 <ul class="navbar-nav ms-auto">
 {% for m in menu %}
                     <li class="nav-item">
-                        <a class="nav-link"  href="#">{{m.title}}</a>
+                        <a class="nav-link"  href="{% url m.url_name %}">{{m.title}}</a>
                     </li>
 {% endfor %}
 		        </ul>

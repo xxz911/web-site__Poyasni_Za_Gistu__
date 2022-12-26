@@ -1,9 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView
+
 from .models import *
 
+menu = [{'title': "Блог", 'url_name': 'blog'},
+{'title': "Статьи", 'url_name': 'home'},
+{'title': "Альбомы", 'url_name': 'home'},
+{'title': "Платное", 'url_name': 'home'},
+{'title': "О сайте", 'url_name': 'home'},
+]
 
-menu = ['Блог', 'Статьи', 'Альбомы', 'Платное', 'О сайте']
+
 
 
 def home(request):
