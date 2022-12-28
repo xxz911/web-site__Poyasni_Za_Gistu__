@@ -25,7 +25,7 @@ class CustomUser(AbstractUser):
                                  ]
                                 )
     # email = models.EmailField(_("email address"), blank=True)
-    email = models.EmailField(verbose_name='Электронная почта')
+    email = models.EmailField(unique=True)
 
     def __str__(self):
         return self.username

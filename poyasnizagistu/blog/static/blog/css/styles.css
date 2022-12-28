@@ -3,6 +3,7 @@ html {
   min-height: 90%;
 }
 
+
 body {
   background-repeat: no-repeat;
   background-position: center center;
@@ -15,6 +16,7 @@ body {
   background-color: rgba(72, 1, 58, 0.789);
 }
 
+
 /* ЭЛЕМЕНТЫ НАВБАРА */
 .navbar-dark {
   padding: 1px;
@@ -24,9 +26,9 @@ body {
   margin-top: 2%;
 }
 .logo {
-  border-radius: 50%; 
+  border-radius: 50%;
   margin-right:7px;
-  margin-left: 1%; 
+  margin-left: 1%;
   border: 0.9px solid rgb(255, 255, 255); padding: 0.1px;
   box-shadow: 0 1px 5px rgb(255, 0, 200), 0 3px 3px rgb(255, 255, 255)
 }
@@ -59,6 +61,8 @@ body {
 .btn-reg:hover {
  color: rgb(255, 255, 255);
 }
+
+
 /* ЭЛЕМЕНТЫ МЕНЮ С БУРГЕРОМ*/
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(255, 255, 255)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
@@ -76,6 +80,21 @@ body {
 .navbar-dark .navbar-nav .nav-link:hover {
   color:rgb(255, 0, 0);
 }
+
+
+/*БЛОК КОНТЕНТ */
+.content{
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-top: 2%;
+  margin-bottom: 0.1%;
+  padding: 3%;
+  padding-bottom: 1%;
+  border-radius: 1em;
+  background-color:rgba(31, 30, 30, 0.867);
+  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+}
+
 
 /* ЭЛЕМЕНТЫ ПОДВАЛА */
 footer {
@@ -105,72 +124,42 @@ footer {
   padding-bottom: 2%;
 }
 
-/* ТЕСТОВЫЕ СТИЛИ */
-.test-class {
-  color: rgba(255, 255, 255, 0.986);
-  margin-bottom: 0;
-}
-.content{
-  margin-left: 8%;
-  margin-right: 8%;
-  margin-top: 2%;
-  margin-bottom: 0.1%;
-  padding: 3%;
-  padding-bottom: 1%;
-  border-radius: 1em;
-  background-color:rgba(31, 30, 30, 0.867);
-  /* background-color:rgba(255, 255, 255, 0.864);  */
-  /* box-shadow: 0 0px 3px rgb(255, 0, 111), 0 1px 2px rgb(185, 8, 255); */
-  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
-}
 
-
-
-
-
+/* СТРАНИЦА РЕГИСТРАЦИИ */
 .form-input {
   width: 200px;
   font-size: 20px;
   background: #f1f1f1;
 }
-
 .form-label {
   display: inline-block;
   min-width: 200px;
   vertical-align: top;
   color: white;
 }
-
-
-
-
 input, select {
   padding-left: 1.5%;
   border:0.1px solid rgba(234, 0, 255, 0.92);
   border-radius: 27em;
   background-color: #ffffffbf;
-  width: 160px;
+  width: 65px;
   font-size: 15px;
-
 }
-
-
-
 .form-reg {
   text-align: center;
   margin-top: 3%;
 }
-
+#id_username, #id_first_name, #id_last_name, #id_password1, #id_password2,  #id_email {
+  width: 160px;
+}
 #id_age {
   width: 60px;
   margin-right: 100px;
  }
-
 #id_avatar {
   width: 100%;
   padding-left: 0px;
  }
-
 #id_gender {
   width: 100px;
   margin-right: 60px;
@@ -181,7 +170,6 @@ input, select {
   background-color: #00000074;
   border: 1px solid rgba(255, 0, 0, 0.92);
 }
-
 ::-webkit-file-upload-button:hover{
   border-radius: 27em;
   background-color: #ffffff00;
@@ -192,7 +180,6 @@ input, select {
   padding: 0;
   color: #CC0000;
 }
-
 .round-img {
   margin-top: 3%;
   margin-bottom: 1%;
@@ -205,7 +192,6 @@ input, select {
   padding: 0.2em;
   margin-bottom: 2em;
 }
-
 .reg-title {
   font-family: 'Comfortaa', cursive;
   padding-bottom: 4%;
@@ -219,3 +205,11 @@ input, select {
 }
 
 
+
+
+
+/* ТЕСТОВЫЕ СТИЛИ */
+.test-class {
+  color: rgba(255, 255, 255, 0.986);
+  margin-bottom: 0;
+}

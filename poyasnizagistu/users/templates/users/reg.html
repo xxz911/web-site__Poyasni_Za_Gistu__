@@ -7,14 +7,14 @@
     <div class="col">
       <img class="round-img"  src='{% static "blog/images/logo.jpg" %}' alt="PoyasniZaGistu" >
       <p class="fs-3 fw-weight-bolder text-white text-center">Приветствую тебя, мой дорогой друг!</p>
-      <p class="fst-italic text-white text-center">Меня зовут Эдгар. Спасибо тебе за проявленный интерес к Гистологии! Чтобы получить больше познавательного и увлекательного контента по этой замечательной науке, присоединяйся к нашему сообществу "Поясни За Гисту"</p>
+      <p class="fst-italic text-white text-center">Меня зовут Эдгар. Спасибо тебе за проявленный интерес к Гистологии! Чтобы получить больше познавательного и увлекательного контента по этой замечательной науке и получить возможность делится своими впечатлениями в комментариях, присоединяйся к нашему сообществу "Поясни За Гисту"</p>
     </div>
     <div class="col">
       <form method="post">
         {% csrf_token %}
         <p class="text-center reg-title">Регистрация</p>
         {% for f in form %}
-        <p><label class="form-label fw-light"  for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+        <p class="label-ul"><label class="form-label fw-light fst-italic"  for="{{f.id_for_label}}">{{f.label}}: </label>{{f}}</p>
         <div class="form-error">{{f.errors}}</div>
         <div class="form-error">{{ form.non_field_errors }}</div>
         {% endfor %}
@@ -23,7 +23,4 @@
     </div>
   </div>
 </div>
-
-
-
 {% endblock %}
