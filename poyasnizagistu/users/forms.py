@@ -6,6 +6,7 @@ from .models import CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
     captcha = CaptchaField(label='Код')
+    required_css_class = 'required'
     class Meta:
         model = CustomUser
         fields = ('username', 'password1', 'password2', 'email', 'first_name', 'last_name', 'avatar', 'gender', 'age')

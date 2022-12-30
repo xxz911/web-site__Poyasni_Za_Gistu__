@@ -1,6 +1,7 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 
+
 {% block content %}
 <div class="container">
   <div class="row">
@@ -14,7 +15,10 @@
         {% csrf_token %}
         <p class="text-center reg-title">Регистрация</p>
         {% for f in form %}
-        <p class="label-ul"><label class="form-label fw-light fst-italic"  for="{{f.id_for_label}}">{{f.label}}: </label>{{f}}</p>
+        <p class="label-ul"><label class="form-label fw-light fst-italic" for="{{f.id_for_label}}">{{ f.label }}
+        {% if f.field.required %}
+        <span class="required">*</span>
+        {% endif %} </label>{{f}}</p>
         <div class="form-error">{{f.errors}}</div>
         <div class="form-error">{{ form.non_field_errors }}</div>
         {% endfor %}

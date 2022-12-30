@@ -126,6 +126,10 @@ footer {
 
 
 /* СТРАНИЦА РЕГИСТРАЦИИ */
+.required {
+color:red;
+}
+
 .form-input {
   width: 200px;
   font-size: 20px;
