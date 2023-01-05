@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="fs-2 text-center title">Авторизация</div>
+{% if form.errors %}
+<p class="log-error">Введённые имя пользователя и пароль не верны. Пожалуйста, попробуйте еще.</p>
+{% endif %}
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+        {% for f in form %}
+        <p class="label-ul-log"><label class="form-label-log" for="{{f.id_for_label}}">{{ f.label }}</label>{{f}}</p>
+        {% endfor %}
+        <p class="res-password"><a class="res-password" href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+        <p class="form-log"><button type="submit" value="login" class="btn btn-outline-danger btn-log">Войти</button></p>
+</form>
+{% endblock %}

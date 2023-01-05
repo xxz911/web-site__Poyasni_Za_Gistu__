@@ -1,20 +1,22 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<ul>
+<div class="content">
+    <ul>
 
-    {% for p in post %}
-    <li>
-        <h2 class="text-light">{{p.title}}</h2>
-        {% if p.photo %}
-        <img src="{{p.photo.url}}" style="width:60px;">
-        {% endif %}
-        {% if p.text %}
-        <p class="text-light">{{p.text}}</p>
-        {% endif %}
-        <p class="text-light">{{p.time_create}}</p>
-        <hr>
-    </li>
-    {% endfor %}
-</ul>
+        {% for p in post %}
+        <li>
+            <h2 class="text-light">{{p.title}}</h2>
+            {% if p.photo %}
+            <img src="{{p.photo.url}}" style="width:60px;">
+            {% endif %}
+            {% if p.text %}
+            <p class="text-light">{{p.text}}</p>
+            {% endif %}
+            <p class="text-light">{{p.time_create}}</p>
+            <hr>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

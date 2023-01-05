@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+  <div class="content">
+    <div class="row">
+      <div class="col">
+        <img class="round-img"  src='{% static "blog/images/logo.jpg" %}' alt="PoyasniZaGistu">
+        <p class="fs-3 fw-weight-bolder text-white text-center">Приветствую тебя, мой дорогой друг!</p>
+        <p class="fst-italic text-white text-center">Меня зовут Эдгар. Спасибо тебе за проявленный интерес к Гистологии! Чтобы получить больше познавательного и увлекательного контента по этой замечательной науке и получить возможность делится своими впечатлениями в комментариях, присоединяйся к нашему сообществу "Поясни За Гисту"</p>
+      </div>
+      <div class="col">
+        <form method="post">
+          {% csrf_token %}
+          <p class="text-center title">Регистрация</p>
+          {% for f in form %}
+          <p class="label-ul text-center"><label class="form-label fw-light" for="{{f.id_for_label}}">{{ f.label }}
+          {% if f.field.required %}
+          <span class="required">*</span>
+          {% endif %} </label>{{f}}</p>
+          <div class="form-error">{{f.errors}}</div>
+          <div class="form-error">{{ form.non_field_errors }}</div>
+          {% endfor %}
+          <p class="fst-italic footnote"><span class="fs-6 required">*</span> обязательное поле</p>
+          <p class="form-reg"><button type="submit" class="btn btn-outline-warning btn-reg">Регистрация</button></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

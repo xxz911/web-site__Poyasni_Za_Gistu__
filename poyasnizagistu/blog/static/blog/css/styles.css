@@ -27,10 +27,10 @@ body {
 }
 .logo {
   border-radius: 50%;
-  margin-right:7px;
+  /* margin-right:7px; */
   margin-left: 1%;
-  border: 0.9px solid rgb(255, 255, 255); padding: 0.1px;
-  box-shadow: 0 1px 5px rgb(255, 0, 200), 0 3px 3px rgb(255, 255, 255)
+  border: 1px solid rgb(255, 255, 255); padding: 0.1px;
+  /* box-shadow: 0 1px 5px rgb(255, 0, 200), 0 3px 3px rgb(255, 255, 255) */ 
 }
 .logo:hover{
   border: 0.9px solid rgb(0, 0, 0); padding: 0.1px;
@@ -57,9 +57,6 @@ body {
 .btn-outline-info:hover {
   background-color: rgba(0, 0, 0, 0);
   color: rgb(0, 174, 255);
-}
-.btn-reg:hover {
- color: rgb(255, 255, 255);
 }
 
 
@@ -105,7 +102,7 @@ footer {
   width: 100%;
   padding-left: 4%;
   padding-right: 4%;
-  }
+}
 .text-footer {
   font-size: 80%;
   text-align: center;
@@ -126,10 +123,17 @@ footer {
 
 
 /* СТРАНИЦА РЕГИСТРАЦИИ */
-.required {
-color:red;
+.footnote {
+  color: rgb(198, 197, 197);
+  font-size: xx-small;
+  text-decoration: underline red;
+  margin-bottom: 0px;
+  margin-top: 5%;
+  text-align: center;
 }
-
+.required {
+  color:red;
+}
 .form-input {
   width: 200px;
   font-size: 20px;
@@ -143,7 +147,7 @@ color:red;
 }
 input, select {
   padding-left: 1.5%;
-  border:0.1px solid rgba(234, 0, 255, 0.92);
+  border:0.9px solid rgba(234, 0, 255, 0.92);
   border-radius: 27em;
   background-color: #ffffffbf;
   width: 65px;
@@ -151,28 +155,33 @@ input, select {
 }
 .form-reg {
   text-align: center;
-  margin-top: 3%;
+  margin-top: 0%;
 }
 #id_username, #id_first_name, #id_last_name, #id_password1, #id_password2,  #id_email {
   width: 160px;
 }
 #id_age {
-  width: 60px;
-  margin-right: 100px;
+  width: 160px;
+  padding-left: 70px;
  }
 #id_avatar {
-  width: 100%;
+  width: 160px;
+  height: 26px;
   padding-left: 0px;
+  font-size: xx-small;
  }
 #id_gender {
-  width: 100px;
-  margin-right: 60px;
+  width: 160px;
+  font-size: 15px;
+  padding-left: 40px;
 }
 ::-webkit-file-upload-button{
+  border-top: 0px;
   border-radius: 27em;
   border: 1px solid rgba(234, 0, 255, 0.92);
   background-color: #00000074;
   border: 1px solid rgba(255, 0, 0, 0.92);
+  height: 25px;
 }
 ::-webkit-file-upload-button:hover{
   border-radius: 27em;
@@ -193,10 +202,9 @@ input, select {
   width: 60%;
   border-radius: 20%;
   box-shadow: 0 0 25px rgba(255, 250, 255, 2);
-  padding: 0.2em;
   margin-bottom: 2em;
 }
-.reg-title {
+.title {
   font-family: 'Comfortaa', cursive;
   padding-bottom: 4%;
   font-size: xx-large;
@@ -207,9 +215,156 @@ input, select {
                0 8px 10px rgba(255, 245, 245, 0),
                0 10px 20px rgba(255, 255, 255, 0);
 }
+.btn-reg {
+  margin-top: 0px;
+}
+.btn-reg:hover, .btn-profile:hover {
+  color: rgb(255, 255, 255);
+}
+
+
+/* СТРАНИЦА АВТОРИЗАЦИИ */
+.form-label-log {
+color: white;
+display: inline-block;
+min-width: 200px;
+vertical-align: top;
+font-size: 20px;
+text-shadow: 1px 0 rgb(0, 0, 0), -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 0 -1px rgb(0, 0, 0),
+  1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
+}
+.label-ul-log  #id_password, .label-ul-log #id_username {
+  background-color: rgba(31, 30, 30, 0.867);
+  color: white;
+  width: 160px;
+  height: 30px;
+  padding-left: 5px;
+}
+.label-ul-log {
+  text-align: center;
+}
+.form-log {
+  text-align: center;
+}
+.res-password {
+  text-align: center;
+  color: rgb(4, 213, 227);
+  font-size: medium;
+  margin-bottom: 1%;
+  margin-top: 2%;
+}
+.res-password:hover {
+  color: yellow;
+}
+.log-error {
+  text-align: center;
+  color: rgb(229, 255, 0);
+}
+
+
+/* СТРАНИЦЫ ВОССТАНОВЛЕНИЯ ПАРОЛЯ ПО ПОЧТЕ */
+.email-reset {
+ margin-top: 5%;
+ color:white;
+ text-align: center;
+}
+.email-reset input#id_email {
+  padding-left: 0.5%;
+}
+.pass-leter {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.container-log {
+  background: none;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 1%;
+  margin-bottom: 0.1%;
+  padding: 1%;
+  border-radius: 1em;
+}
+#id_new_password1, #id_new_password2 {
+  width: 160px;
+  padding-left: 0.5%;
+}
+.btn-password {
+  margin-top: 3%;
+}
+.pass-marg {
+  margin-top: 2%;
+}
+.reg-h{
+  color: rgb(0, 170, 255);
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 5%;
+}
+ul.errorlist {
+  list-style-type: none;
+  padding-left: 0%;
+}
+
+
+/* СТРАНИЦА ПРОФИЛЯ */
+div.profile {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 2%;
+  margin-bottom: 0.1%;
+  padding: 3%;
+  padding-bottom: 1%;
+  border-radius: 1em;
+  background-color:rgba(31, 30, 30, 0.867);
+  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+}
+.avatar {
+  margin-bottom: 4%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(234, 145, 242, 0.92);
+}
+.avatar-container {
+  text-align: center;
+}
+
+
+/* СТРАНИЦА ИЗМЕНЕНИЯ ПРОФИЛЯ */
+div.profile form p.label-ul-log input#id_username {
+  padding-left: 1.5%;
+  border:0.9px solid rgba(234, 0, 255, 0.92);
+  border-radius: 27em;
+  background-color: #ffffffbf;
+  height: 25px;
+  font-size: 15px;
+  color: black;
+}
 
 
 
+/* СТРАНИЦА ИЗМЕНЕНИЯ ПАРОЛЯ */
+.passw {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 2%;
+  margin-bottom: 0.1%;
+  padding-top: 2%;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-bottom: 1%;
+  border-radius: 1em;
+  background-color:rgba(31, 30, 30, 0.867);
+  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+}
+.sm-text {
+  font-size: 15px;
+}
+#id_old_password {
+  width: 160px;
+  padding-left: 0.5%;
+}
 
 
 /* ТЕСТОВЫЕ СТИЛИ */

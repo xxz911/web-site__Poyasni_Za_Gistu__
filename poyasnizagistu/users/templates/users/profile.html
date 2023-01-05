@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+
+<div class="profile">
+  <div class="avatar-container">
+    <img class="avatar"  src='{{user.avatar.url}}' alt="PoyasniZaGistu" width="200em" height="195em">
+  </div>
+  <dl class="row row-cols-1 row-cols-md-1 row-cols-lg-1">
+    <dt class="col text-center text-danger">Имя пользователя:</dt>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.username}}</dd>
+
+    <dt class="col text-center text-danger">Имя :</dt>
+    <dd class="col text-center fw-light fst-italic text-white">{% if not user.first_name %} Не указано {% else %}{{user.first_name}}{%endif%}</dd>
+
+    <dt class="col text-center text-danger">Фамилия:</dt>
+    <dd class="col text-center fw-light fst-italic text-white">{% if not user.last_name %} Не указано {% else %}{{user.last_name}}{%endif%}</dd>
+
+    <dt class="col text-center text-danger">Электронная почта:</dt>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.email}}</dd>
+
+    <dt class="col text-center text-danger">Пол:</dt>
+    <dd class="col text-center fw-light fst-italic text-white">{% if not user.gender %} Не указано {% else %}{{user.get_gender_display}}{%endif%}</dd>
+
+    <dt class="col text-center text-danger">Возраст:</dt>
+    <dd class="col text-center fw-light fst-italic text-white">{% if user.age == 0 %} Не указано {% else %}{{user.age}} лет{%endif%}</dd>
+
+    <dt class="col text-center text-danger">Дата регистрации:</dt>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.date_joined}}</dd>
+
+    <a class="text-center" href="{% url 'profile_change' %}"><button type="submit" value="Update" class="btn btn-outline-danger btn-sm btn-log">Изменить информацию</button></a>
+    <a class="form-log" href="{% url 'password_change' %}"><button type="button" class="btn btn-outline-success btn-sm">Изменить пароль</button></a>
+  </dl>
+</div>
+
+{% endblock %}

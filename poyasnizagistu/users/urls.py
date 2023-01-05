@@ -1,9 +1,16 @@
 from django.urls import path, include
-from users.views import RegisterUser
+from users.views import RegisterUser, AccauntUser, profile
+
 
 urlpatterns = [
-    # path('login/', login, name='login'),
-    path('captcha/', include('captcha.urls')),
-    path('reg/', RegisterUser.as_view(), name='reg'),
 
+    path('captcha/', include('captcha.urls')),
+    path('registration/', RegisterUser.as_view(), name='register'),
+    path('profile/', profile, name='profile'),
+    path('profile_change/', AccauntUser.as_view(), name='profile_change'),
+
+]
+
+urlpatterns += [
+    path('', include('django.contrib.auth.urls')),
 ]

@@ -36,4 +36,4 @@ class CustomUserAdmin(UserAdmin):
     def get_avatar(self, object):
         return mark_safe(f"<img src='{object.avatar.url}' width=6"
                              f"0>")
-    get_avatar.short_description = 'Аватар'
+    get_avatar.short_description = 'Миниатюра'

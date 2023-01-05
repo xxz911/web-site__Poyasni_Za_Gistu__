@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="profile">
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+    {% for f in form %}
+        <p class="label-ul-log"><label class="form-label-log" for="{{f.id_for_label}}">{{ f.label }}{% if f.field.required %}
+            <span class="required">*</span>{% endif %} </label>{{f}}</p>
+        <div class="form-error">{{f.errors}}</div>
+    {% endfor %} 
+        <p class="fst-italic footnote"><span class="fs-6 required">*</span> обязательное поле</p>
+        <p class="form-log"><button type="submit" value="Update" class="btn btn-outline-danger btn-log">Сохранить информацию</button></p>
+    </form>
+</div>
+{% endblock %}

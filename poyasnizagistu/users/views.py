@@ -1,23 +1,33 @@
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.views.generic.edit import UpdateView
 
-from blog.views import menu
-from users.forms import CustomUserCreationForm
-
-menu = [{'title': "Блог", 'url_name': 'blog'},
-{'title': "Статьи", 'url_name': 'home'},
-{'title': "Альбомы", 'url_name': 'home'},
-{'title': "Платное", 'url_name': 'home'},
-{'title': "О сайте", 'url_name': 'home'},
-]
+from users.forms import ProfileChangeForm, CustomUserCreationForm
+from users.models import CustomUser
 
 
 class RegisterUser(CreateView):
     form_class = CustomUserCreationForm
-    template_name = 'users/reg.html'
-    success_url = reverse_lazy('home')
+    template_name = 'registration/register.html'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        return context
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
+
+class AccauntUser(LoginRequiredMixin, UpdateView):
+        model = CustomUser
+        form_class = ProfileChangeForm
+        template_name = 'registration/profile_change.html'
+        success_url = reverse_lazy('profile')
+
+        def get_object(self, queryset=None):
+            return self.request.user
+
+
+def profile(request):
+    return render(request, 'users/profile.html')
