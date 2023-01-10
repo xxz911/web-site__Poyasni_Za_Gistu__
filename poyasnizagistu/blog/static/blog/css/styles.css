@@ -181,7 +181,7 @@ input, select {
   border: 1px solid rgba(234, 0, 255, 0.92);
   background-color: #00000074;
   border: 1px solid rgba(255, 0, 0, 0.92);
-  height: 25px;
+  height: 24px;
 }
 ::-webkit-file-upload-button:hover{
   border-radius: 27em;
@@ -225,13 +225,13 @@ input, select {
 
 /* СТРАНИЦА АВТОРИЗАЦИИ */
 .form-label-log {
-color: white;
-display: inline-block;
-min-width: 200px;
-vertical-align: top;
-font-size: 20px;
-text-shadow: 1px 0 rgb(0, 0, 0), -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 0 -1px rgb(0, 0, 0),
-  1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
+  color: white;
+  display: inline-block;
+  min-width: 200px;
+  vertical-align: top;
+  font-size: 20px;
+  text-shadow: 1px 0 rgb(0, 0, 0), -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 0 -1px rgb(0, 0, 0),
+    1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
 }
 .label-ul-log  #id_password, .label-ul-log #id_username {
   background-color: rgba(31, 30, 30, 0.867);
@@ -343,7 +343,6 @@ div.profile form p.label-ul-log input#id_username {
 }
 
 
-
 /* СТРАНИЦА ИЗМЕНЕНИЯ ПАРОЛЯ */
 .passw {
   margin-left: 20%;
@@ -359,13 +358,15 @@ div.profile form p.label-ul-log input#id_username {
   box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
 }
 .sm-text {
-  font-size: 15px;
+  font-size: 17px;
 }
 #id_old_password {
   width: 160px;
   padding-left: 0.5%;
 }
-
+.label-psw {
+  min-width: 39%;
+}
 
 /* ТЕСТОВЫЕ СТИЛИ */
 .test-class {

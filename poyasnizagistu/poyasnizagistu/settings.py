@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -141,10 +141,26 @@ MEDIA_URL = 'media/'
 
 # CAPTCHA
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
-CAPTCHA_IMAGE_SIZE = (130, 30)
+CAPTCHA_IMAGE_SIZE = (110, 30)
 CAPTCHA_FONT_SIZE = (23)
 CAPTCHA_BACKGROUND_COLOR = 'red'
 CAPTCHA_FOREGROUND_COLOR = '#001100'
 CAPTCHA_LENGTH = 5
 
 
+# EMAIL
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "hystologyvk@gmail.com"
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+DEFAULT_FROM_EMAIL = 'Команда Поясни за гисту <hystologyvk@gmail.com >'
