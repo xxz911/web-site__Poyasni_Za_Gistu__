@@ -1,8 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.forms import FileInput, forms
-from django.utils.safestring import mark_safe
 
 
 class CustomUser(AbstractUser):
@@ -23,7 +21,7 @@ class CustomUser(AbstractUser):
                                 default=0,
                                 validators=[
                                             MaxValueValidator(110),
-                                            MinValueValidator(14)
+                                            MinValueValidator(18)
                                  ]
                                 )
     email = models.EmailField(unique=True)
@@ -31,6 +29,4 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
-
-
 

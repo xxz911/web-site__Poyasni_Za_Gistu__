@@ -368,6 +368,62 @@ div.profile form p.label-ul-log input#id_username {
   min-width: 39%;
 }
 
+
+/* СТИЛИ БЛОГА И КОНКРЕТНЫХ ПОСТОВ*/
+div.profile-2 {
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding-bottom: 0.1%;
+  padding-top: 0.1%;
+  border-radius: 1em;
+  background-color:rgba(31, 30, 30, 0.867);
+  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+}
+.profile-cust {
+  margin: 3%;
+  margin-top: 3%;
+  padding: 2%;
+  border-radius: 1em;
+  background-color:rgba(23, 23, 23, 0.99);
+  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+}
+.time {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-size: 12px;
+}
+ul.dropdown-menu.show {
+  background-color:rgba(49, 49, 49, 0.773);
+  text-align: center;
+  padding: 0%;
+}
+button.dropdown-item {
+  color: #ffffff;
+  padding: 0%;
+}
+.cat {
+  text-decoration: none !important;
+}
+button.dropdown-item.active {
+  color: red;
+  background-color: rgba(255, 0, 0, 0);
+}
+.categ {
+  background-color: black;
+  margin: 3%;
+  border: 1px solid white;
+  border-radius: 2em;
+  color: white;
+}
+.text-blog {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  text-align:justify;
+}
+
+
 /* ТЕСТОВЫЕ СТИЛИ */
 .test-class {
   color: rgba(255, 255, 255, 0.986);

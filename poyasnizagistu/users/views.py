@@ -30,4 +30,10 @@ class AccauntUser(LoginRequiredMixin, UpdateView):
 
 
 def profile(request):
+    profil = CustomUser.objects.all()
+
+
     return render(request, 'users/profile.html')
+
+
+

@@ -1,7 +1,10 @@
 {% extends 'blog/base.html' %}
+
+{% block title %}
+    <title>Профиль</title>
+{% endblock %}
+
 {% block content %}
-
-
 <div class="profile">
   <div class="avatar-container">
     <img class="avatar"  src='{{user.avatar.url}}' alt="PoyasniZaGistu" width="200em" height="195em">
@@ -27,6 +30,8 @@
 
     <dt class="col text-center text-danger">Дата регистрации:</dt>
     <dd class="col text-center fw-light fst-italic text-white">{{user.date_joined}}</dd>
+    
+    <hr class="text-white" style="margin-top:0%">
 
     <a class="text-center" href="{% url 'profile_change' %}"><button type="submit" value="Update" class="btn btn-outline-danger btn-sm btn-log">Изменить информацию</button></a>
     <a class="form-log" href="{% url 'password_change' %}"><button type="button" class="btn btn-outline-success btn-sm">Изменить пароль</button></a>
