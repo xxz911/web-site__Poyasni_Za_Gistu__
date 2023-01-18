@@ -5,13 +5,14 @@ from blog.models import *
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('cat', 'id', 'title', 'get_photo', 'text', 'time_create', 'is_published')
-    list_display_links = ('id', 'title', 'get_photo')
+    list_display = ('is_published', 'cat', 'id', 'title', 'get_photo', 'text', 'time_create')
+    list_display_links = ('id', 'title', 'get_photo', 'text')
     list_editable = ('is_published', 'cat')
-    list_filter = ('time_create', 'is_published')
-    fields = ('cat', 'title', 'photo', 'get_photo', 'text', 'is_published', 'time_create')
+    list_filter = ('time_create', 'is_published', 'cat')
+    fields = ('cat', 'title', 'slug', 'photo', 'get_photo', 'text', 'is_published', 'time_create')
     readonly_fields = ('time_create', 'get_photo')
-    search_fields = ('cat', 'id', 'title', 'photo', 'text', 'time_create')
+    search_fields = ('id', 'title', 'text', 'time_create')
+    prepopulated_fields = {"slug": ('title',)}
 
     def get_photo(self, object):
         if object.photo:
@@ -21,8 +22,16 @@ class PostAdmin(admin.ModelAdmin):
     get_photo.short_description = 'Фото'
 
 
-
 admin.site.register(Post, PostAdmin)
-admin.site.register(CategoryPost)
+
+
+class PostCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_display_links = ('name',)
+    fields = ('name', 'slug')
+    prepopulated_fields = {"slug": ('name',)}
+
+
+admin.site.register(CategoryPost, PostCategoryAdmin)
 
 

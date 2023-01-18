@@ -1,6 +1,5 @@
 from django.http import HttpResponseNotFound, Http404
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
 
 from .models import *
 
@@ -11,9 +10,7 @@ def home(request):
 
 def blog(request):
     posts = Post.objects.all().order_by('-time_create')
-    cats = CategoryPost.objects.all()
     context = {
-    'cats':cats,
     'posts': posts,
     'cat_selected': 0
     }
@@ -21,18 +18,17 @@ def blog(request):
     return render(request, 'blog/blog.html', context=context)
 
 
-def show_post(request, post_id):
-    one_post = Post.objects.get(pk=post_id)
+def show_post(request, post_slug):
+    one_post = get_object_or_404(Post, slug=post_slug)
 
     return render(request, 'blog/post.html', {'one_post': one_post})
 
-def show_category(request, cat_id):
-    posts = Post.objects.filter(cat=cat_id).order_by('-time_create')
-    cats = CategoryPost.objects.all()
+def show_category(request, cat_slug):
+    posts = Post.objects.filter(cat__slug=cat_slug)
+
     context = {
-    'cats':cats,
     'posts': posts,
-    'cat_selected': cat_id
+    'cat_selected': cat_slug
     }
 
     if len(posts) == 0:

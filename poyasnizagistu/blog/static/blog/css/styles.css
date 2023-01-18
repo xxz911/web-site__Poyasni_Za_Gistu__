@@ -88,7 +88,7 @@ body {
   padding: 3%;
   padding-bottom: 1%;
   border-radius: 1em;
-  background-color:rgba(31, 30, 30, 0.867);
+  background-color:rgba(23, 23, 23, 0.99);
   box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
 }
 
@@ -234,7 +234,7 @@ input, select {
     1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
 }
 .label-ul-log  #id_password, .label-ul-log #id_username {
-  background-color: rgba(31, 30, 30, 0.867);
+  background-color:rgba(23, 23, 23, 0.99);
   color: white;
   width: 160px;
   height: 30px;
@@ -285,6 +285,7 @@ input, select {
   border-radius: 1em;
 }
 #id_new_password1, #id_new_password2 {
+
   width: 160px;
   padding-left: 0.5%;
 }
@@ -316,7 +317,7 @@ div.profile {
   padding: 3%;
   padding-bottom: 1%;
   border-radius: 1em;
-  background-color:rgba(31, 30, 30, 0.867);
+  background-color:rgba(23, 23, 23, 0.99);
   box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
 }
 .avatar {
@@ -354,7 +355,7 @@ div.profile form p.label-ul-log input#id_username {
   padding-right: 3%;
   padding-bottom: 1%;
   border-radius: 1em;
-  background-color:rgba(31, 30, 30, 0.867);
+  background-color:rgba(23, 23, 23, 0.99);
   box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
 }
 .sm-text {
@@ -371,18 +372,18 @@ div.profile form p.label-ul-log input#id_username {
 
 /* СТИЛИ БЛОГА И КОНКРЕТНЫХ ПОСТОВ*/
 div.profile-2 {
-  margin-left: 25%;
-  margin-right: 25%;
-  margin-top: 2%;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 0%;
   margin-bottom: 2%;
   padding-bottom: 0.1%;
   padding-top: 0.1%;
   border-radius: 1em;
-  background-color:rgba(31, 30, 30, 0.867);
-  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+  /* background-color:rgba(31, 30, 30, 0.867);
+  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0); */
 }
 .profile-cust {
-  margin: 3%;
+  margin: 0%;
   margin-top: 3%;
   padding: 2%;
   border-radius: 1em;
@@ -418,11 +419,24 @@ button.dropdown-item.active {
   color: white;
 }
 .text-blog {
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin-top: 3%;
   text-align:justify;
-}
+  margin-bottom: 0%;
 
+}
+.card-body {
+padding-bottom:0px;
+}
+.card-footer {
+padding: 0px;
+}
+.image-post {
+  border-radius: 1em;
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+
+}
 
 /* ТЕСТОВЫЕ СТИЛИ */
 .test-class {
