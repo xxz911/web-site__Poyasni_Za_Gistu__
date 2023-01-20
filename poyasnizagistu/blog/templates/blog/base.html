@@ -24,7 +24,7 @@
             <a class="logo-container" href="{% url 'home' %}">
              {% if request.user.is_authenticated %}
               <img class="logo"  src='{{ user.avatar.url }}' alt="Avatar" width="60em" height="55em" >
-             <a href="{% url 'profile' %}"><button type="button" class="btn btn-outline-warning btn-sm btn-profile">Профиль</button></a>
+             <a href="{{ user.get_absolute_url }}"><button type="button" class="btn btn-outline-warning btn-sm btn-profile">Профиль</button></a>
              <a href="{% url 'logout' %}"><button type="button" class="btn btn-outline-secondary btn-sm">Выход</button></a>
              {% else %}
             <img class="logo"  src='{% static "blog/images/logo.jpg" %}' alt="PoyasniZaGistu" width="60em" height="55em" >

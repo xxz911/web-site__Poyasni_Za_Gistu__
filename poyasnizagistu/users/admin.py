@@ -8,16 +8,17 @@ from .models import CustomUser
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ('username', 'first_name', 'last_name', 'email', 'get_avatar', 'age', 'gender', 'date_joined')
+    list_display = ('username', 'slug', 'first_name', 'last_name', 'email', 'get_avatar', 'age', 'gender', 'date_joined')
     search_fields = ('username', 'first_name', 'last_name', 'email', 'age', 'gender', 'date_joined')
     list_filter = ('age', 'gender', 'is_active', 'date_joined', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
+    prepopulated_fields = {"slug": ('username',)}
 
     add_fieldsets = (
         *UserAdmin.add_fieldsets,
         (
             'Info',
            {
-              'fields': ('first_name', 'last_name', 'email','get_avatar', 'avatar', 'age', 'gender')
+              'fields': ('slug', 'first_name', 'last_name', 'email', 'get_avatar', 'avatar', 'age', 'gender')
            }
         )
      )
@@ -27,7 +28,7 @@ class CustomUserAdmin(UserAdmin):
         (
             'Info',
             {
-                'fields': ('get_avatar', 'avatar')
+                'fields': ('slug', 'get_avatar', 'avatar')
             }
         )
      )
@@ -37,3 +38,4 @@ class CustomUserAdmin(UserAdmin):
         return mark_safe(f"<img src='{object.avatar.url}' width=6"
                              f"0>")
     get_avatar.short_description = 'Миниатюра'
+

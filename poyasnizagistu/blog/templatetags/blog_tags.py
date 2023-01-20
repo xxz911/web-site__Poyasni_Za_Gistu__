@@ -8,3 +8,4 @@ register = template.Library()
 def show_categories_and_post(cat_selected=0):
     cats = CategoryPost.objects.all()
     return {'cats': cats, 'cat_selected': cat_selected}
+

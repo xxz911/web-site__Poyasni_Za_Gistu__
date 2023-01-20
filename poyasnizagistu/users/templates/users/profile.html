@@ -7,26 +7,26 @@
 {% block content %}
 <div class="profile">
   <div class="avatar-container">
-    <img class="avatar"  src='{{user.avatar.url}}' alt="PoyasniZaGistu" width="200em" height="195em">
+    <img class="avatar"  src='{{user.avatar.url}}' alt="{user.username}}" width="200em" height="195em">
   </div>
   <dl class="row row-cols-1 row-cols-md-1 row-cols-lg-1">
     <dt class="col text-center text-danger">Имя пользователя:</dt>
     <dd class="col text-center fw-light fst-italic text-white">{{user.username}}</dd>
 
     <dt class="col text-center text-danger">Имя :</dt>
-    <dd class="col text-center fw-light fst-italic text-white">{% if not user.first_name %} Не указано {% else %}{{user.first_name}}{%endif%}</dd>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.first_name|default:"Не указано"}}</dd>
 
     <dt class="col text-center text-danger">Фамилия:</dt>
-    <dd class="col text-center fw-light fst-italic text-white">{% if not user.last_name %} Не указано {% else %}{{user.last_name}}{%endif%}</dd>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.last_name|default:"Не указано"}}</dd>
 
     <dt class="col text-center text-danger">Электронная почта:</dt>
     <dd class="col text-center fw-light fst-italic text-white">{{user.email}}</dd>
 
     <dt class="col text-center text-danger">Пол:</dt>
-    <dd class="col text-center fw-light fst-italic text-white">{% if not user.gender %} Не указано {% else %}{{user.get_gender_display}}{%endif%}</dd>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.get_gender_display}}</dd>
 
     <dt class="col text-center text-danger">Возраст:</dt>
-    <dd class="col text-center fw-light fst-italic text-white">{% if user.age == 0 %} Не указано {% else %}{{user.age}} лет{%endif%}</dd>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.age|default:"Не указано"}}</dd>
 
     <dt class="col text-center text-danger">Дата регистрации:</dt>
     <dd class="col text-center fw-light fst-italic text-white">{{user.date_joined}}</dd>
