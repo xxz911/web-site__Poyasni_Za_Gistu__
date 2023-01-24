@@ -7,36 +7,39 @@
 
         {% for p in posts %}
         <div class="col">
-        {% if p.is_published %}
 
             <div class="profile-cust card h-100">
                 <div class="card-body">
-                    <div class="container">
-                        <span class="right" style="float:right;"> <p class="text-danger time">Категория: {{p.cat}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{p.time_create|date}}</p></span>
-                    </div>
+                    <span class="right" style="float:right;"> <p class="text-danger time">Категория: {{p.cat}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{p.time_create|date}}</p></span>
                     <br>
-                    <hr class="text-white" style="margin-top:0%">
+                    <hr class="text-white" style="margin-top:0%; margin-bottom:1%">
                     <h2 class="text-info fs-5 text-center">{{ p.title|truncatechars:51 }}</h2>
-                    <hr class="text-white">
+                    <hr class="text-white" style="margin-top:1%; margin-bottom:2%">
                     {% if p.photo %}
                     <div class="text-center">
-                        <img class="image-post" src="{{p.photo.url}}">
+                        <img class="image-posts" src="{{p.photo.url}}">
                     </div>
                     <p class="text-light fs-9 text-blog ">{{p.text|linebreaksbr|truncatechars:300}}</p>
                     {% else %}
                     <p class="text-light fs-9 text-blog ">{{p.text|linebreaksbr|truncatechars:1190}}</p>
                     {% endif %}
-
                 </div>
                 <div class="card-footer ">
-                    <hr class="text-white" style="margin-top:0%">
+
+
+                    <hr class="text-white" style="margin-top:2%; margin-bottom:0%">
+
+                    <span class="right" style="float:right;"> <p class="text-success time">Комментариев: {{p.number_of_comments|default:"нет"}}</p></span><span class="left" style="float:left;"><p class="text-primary time">Нравится :</p></span>
+                    <br>
                     <div class="text-center">
-                        <a href="{{p.get_absolute_url}}"><button type="button" class="btn btn-outline-warning btn-sm btn-profile">Читать</button></a>
+                        <a href="{{p.get_absolute_url}}"><button type="button" class="btn btn-outline-warning btn-sm btn-profile">Читать пост</button></a>
                     </div>
+                    
                 </div>
+
             </div>
         </div>
-        {% endif%}
+
         {% endfor %}
 
     </div>

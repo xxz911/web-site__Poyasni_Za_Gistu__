@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -21,20 +22,22 @@ class RegisterUser(CreateView):
         return redirect('home')
 
 
-class AccauntUser(LoginRequiredMixin, UpdateView):
+class AccauntUser(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         model = CustomUser
         form_class = ProfileChangeForm
         template_name = 'registration/profile_change.html'
-        success_url = reverse_lazy('home')
+
+
+        slug_url_kwarg = 'user_slug'
+
 
         def get_object(self, queryset=None):
             return self.request.user
 
-
+        def get_success_url(self, **kwargs):
+            return reverse_lazy('profile', kwargs={'user_slug': self.get_object().slug})
 def profile(request, user_slug):
     profil = get_object_or_404(CustomUser, slug=user_slug)
-
-
 
     if request.user.is_authenticated != True:
         raise Http404()

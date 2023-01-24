@@ -5,7 +5,7 @@ from blog.models import *
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('is_published', 'cat', 'id', 'title', 'get_photo', 'text', 'time_create')
+    list_display = ('is_published', 'cat', 'id', 'title', 'get_photo', 'text', 'time_create', )
     list_display_links = ('id', 'title', 'get_photo', 'text')
     list_editable = ('is_published', 'cat')
     list_filter = ('time_create', 'is_published', 'cat')
@@ -34,4 +34,11 @@ class PostCategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(CategoryPost, PostCategoryAdmin)
 
+class CommentsPostAdmin(admin.ModelAdmin):
+    list_display = ('post', 'author', 'create_date', 'text', 'status')
+    list_display_links = ('text',)
+    fields = ('post', 'author', 'text', 'status')
+    list_editable = ('status',)
+    list_filter = ('status',)
 
+admin.site.register(CommentsPost, CommentsPostAdmin)

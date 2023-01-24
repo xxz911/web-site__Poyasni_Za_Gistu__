@@ -1,28 +1,116 @@
 {% extends 'blog/base.html' %}
 
 {% block title %}
-    <title>{{one_post.title}}</title>
+    <title>{{title}}</title>
 {% endblock %}
 
 
 {% block content %}
+         {%if messages %}
+         <div class="fs-2 text-warning text-center">
+            {% for m in messages%}
+                {{m}}
+            {%endfor%}
+         {%endif%}
+         </div>
 <div class="content text-center">
-
-    <div class="container">
-        <span class="right" style="float:right;"> <p class="text-danger time">Категория: {{one_post.cat}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{one_post.time_create|date}}</p></span>
-    </div>
+    <span class="right" style="float:right;"> <p class="text-danger time">Категория: {{one_post.cat}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{one_post.time_create|date}}</p></span>
     <br>
-    <hr class="text-white" style="margin-top:0%">
+    <hr class="text-white" style="margin-top:0%; margin-bottom:1%">
     <h2 class="text-info fs-4 text-center">{{one_post.title}}</h2>
-    <hr class="text-white">
+    <hr class="text-white" style="margin-top:1%; margin-bottom:2%">
     {% if one_post.photo %}
-    <img src="{{one_post.photo.url}}" style="width:100%; height:450px; object-fit: cover;">
+    <img class="image-post" src="{{one_post.photo.url}}">
     {% endif %}
     <p class="text-light fs-9 text-blog ">{{one_post.text|linebreaksbr}}</p>
-    <hr class="text-white" style="margin-top:0%">
-    <a><button type="button" onclick="history.back();" class="btn btn-outline-warning btn-sm btn-profile">Назад</button></a>
-
-
-
+    <hr class="text-white" style="margin-bottom:1%; margin-top: 1%;">
+    <span class="right" style="float:right;"> <p class="text-success time">Комментариев: {{p.number_of_comments|default:"нет"}}</p></span><span class="left" style="float:left;"><p class="text-primary time">Нравится: </p></span>
+    <br>
+    <div class="text-center">
+        <a><button type="button" onclick="history.back();" class="btn btn-outline-warning btn-sm btn-profile">Назад</button></a>
+    </div>
 </div>
+
+
+
+
+    {%if not comments %}
+<div class="content comment-content text-center">
+    <h3 class="text-comment">Нет комментариев</h3>
+</div>
+    {%else%}
+<div class="content comment-content text-center">
+        
+        <h3 class="text-comment" >Комментарии: {{comments.count}}</h3>
+        <hr class="text-white" style="margin-top:0%">
+        {%for c in comments%}
+        <div class="one-comment">
+          
+                <div class="row">
+
+
+                    <div class="col-lg-2 ">
+                        
+                            <img class="logo"  src='{{c.author.avatar.url}}' alt="Avatar" width="60em" height="55em" style="margin-right: 0px;">
+                            <p class="text-primary time" >{{c.author}}</p></span>
+                      
+                            <p class="text-muted time">{{c.create_date}}</p>
+                       
+                            
+                        <!-- <img class="logo"  src='{{c.author.avatar.url}}' alt="Avatar" width="60em" height="55em" >
+                        <p class="text-danger time">{{c.author}} -->
+                    </div>
+
+                    <!-- <p class="text-muted time">{{c.create_date}}</p> -->
+                    <div class="col-lg-10">
+                        <p class="text-white text-one-comment">{{c.text}}</p>
+                    
+                    </div>
+                </div>
+                <hr class="text-white" style="margin-top:0%">
+
+           
+
+            <!-- <span class="right" style="float:right;"> <p class="text-danger time">{{c.author}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{c.create_date}}</p></span>
+            <br>
+            <img class="logo"  src='{{c.author.avatar.url}}' alt="Avatar" width="60em" height="55em" >
+            <p class="text-white margin-text">{{c.text}}</p>
+
+
+            
+            <br>
+            <hr class="text-white" style="margin-top:0%"> -->
+        </div>
+    {% endfor %}
+</div>
+
+    {% endif %}
+    {% if user.is_authenticated %}
+<div class="content comment-content text-center">
+         <form action="" method="post">
+            
+         {% csrf_token %}
+        
+         <h3 class="text-center text-warning">Добавить комментарий</h3>
+        
+         {% for f in form %}
+         
+             <p class="form-comment text-center">{{f}}</p>
+             <div class="form-error">{{f.errors}}</div>
+             <div class="form-error">{{ form.non_field_errors }}</div>
+         {% endfor %}
+             <p class="warning-comment">Уважаемые пользователи! В нашем сообществе запрещено: призывать к насилию, оскорблять.
+             </p>
+             <p class="form-reg comment-btn"><button type="submit" class="btn btn-outline-success btn-reg">Добавить комментарий</button></p>
+         </form>
+         
+</div>
+    {%else%}
+<div class="content text-center">
+             <h1 class="fs-9 text-warning">Авторизируйтесь, чтобы добавлять комментарии!</h1>
+</div>
+    {%endif%}
+
+
+
 {% endblock %}

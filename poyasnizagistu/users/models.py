@@ -19,7 +19,7 @@ class CustomUser(AbstractUser):
     )
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
     avatar = models.ImageField(verbose_name='Аватар', default='users/avatar/default/default_avatar.jpeg',
-                                upload_to='users/avatar/', blank=True)
+                                upload_to='users/avatar/', blank=True, )
     gender = models.CharField(verbose_name='Пол', max_length=1, choices=GENDERS, default='-', blank=True)
     age = models.PositiveSmallIntegerField(verbose_name='Возраст', blank=True,
                                 default=0,
