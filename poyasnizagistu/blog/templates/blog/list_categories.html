@@ -7,19 +7,21 @@
         <span class="visually-hidden"></span>
       </button>
       <ul class="dropdown-menu">
-        {% if not cat_selected %}
+{% if not cat_selected %}
             <button class="dropdown-item active" type="button">Все категории</button>
-            {% else %}
+{% else %}
             <a href="{% url 'blog' %}"><button class="dropdown-item " type="button">Все категории</button></a>
-            {% endif %}
+{% endif %}
 
-            {% for c in cats %}
+{% for c in cats %}
+{% if c.post__count > 0 %}
             {% if c.slug == cat_selected %}
             <button class="dropdown-item active" type="button">{{c.name}}</button>
              {% else %}
             <a class="cat" href="{{ c.get_absolute_url }}"><button class="dropdown-item " type="button">{{c.name}}</button></a>
-            {% endif %}
-            {% endfor %}
+          {% endif %}
+{% endif %}
+{% endfor %}
       </ul>
     </div>
 </div>

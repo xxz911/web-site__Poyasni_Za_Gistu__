@@ -1,15 +1,16 @@
 from django.contrib import admin
+from django.db.models import Count
 from django.utils.safestring import mark_safe
 
 from blog.models import *
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('is_published', 'cat', 'id', 'title', 'get_photo', 'text', 'time_create', )
+    list_display = ('is_published', 'cat', 'id', 'title', 'get_photo', 'text', 'time_create')
     list_display_links = ('id', 'title', 'get_photo', 'text')
     list_editable = ('is_published', 'cat')
     list_filter = ('time_create', 'is_published', 'cat')
-    fields = ('cat', 'title', 'slug', 'photo', 'get_photo', 'text', 'is_published', 'time_create')
+    fields = ('cat', 'title', 'slug', 'photo', 'get_photo', 'text', 'likes', 'is_published', 'time_create')
     readonly_fields = ('time_create', 'get_photo')
     search_fields = ('id', 'title', 'text', 'time_create')
     prepopulated_fields = {"slug": ('title',)}
@@ -22,6 +23,7 @@ class PostAdmin(admin.ModelAdmin):
     get_photo.short_description = 'Фото'
 
 
+
 admin.site.register(Post, PostAdmin)
 
 
@@ -32,6 +34,7 @@ class PostCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ('name',)}
 
 
+
 admin.site.register(CategoryPost, PostCategoryAdmin)
 
 class CommentsPostAdmin(admin.ModelAdmin):
@@ -39,6 +42,10 @@ class CommentsPostAdmin(admin.ModelAdmin):
     list_display_links = ('text',)
     fields = ('post', 'author', 'text', 'status')
     list_editable = ('status',)
-    list_filter = ('status',)
+    list_filter = ('status', 'post', 'author', 'create_date',)
+
+
+
+
 
 admin.site.register(CommentsPost, CommentsPostAdmin)

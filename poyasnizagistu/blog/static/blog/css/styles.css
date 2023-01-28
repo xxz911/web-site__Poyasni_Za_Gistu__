@@ -284,7 +284,6 @@ input, select {
   border-radius: 1em;
 }
 #id_new_password1, #id_new_password2 {
-
   width: 160px;
   padding-left: 0.5%;
 }
@@ -378,8 +377,6 @@ div.profile-2 {
   padding-bottom: 0.1%;
   padding-top: 0.1%;
   border-radius: 1em;
-  /* background-color:rgba(31, 30, 30, 0.867);
-  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0); */
 }
 .profile-cust {
   margin-left: 1%;
@@ -446,18 +443,17 @@ background: none;
 
 .btn-profile {
   margin: 0px;
-
- 
 }
+
+
+/* СТИЛИ КОММЕНТАРИЕВ НА СТРАНИЦЕ ПОСТА */
 .comment-btn{
   margin-bottom: 1%;
-
 }
 .form-comment{
   margin-left: 15%;
   margin-right: 15%;
   padding: 1%;
-
 }
 .text-comment{
   color: white;
@@ -473,8 +469,6 @@ background: none;
 .text-one-comment{
   font-size: smaller;
   text-align:justify;
-
-  
 }
 #id_text {
   background-color: #63636349;
@@ -486,8 +480,81 @@ background: none;
   color: rgba(119, 119, 119, 0.509);
   font-size: smaller;
 }
+
+
+/* СТИЛИ ЛАЙКОВ И КОММЕНТАРИЕВ В ТЕЛЕ ПОСТОВ */
+button.btn.btn-sm.btn-like {
+  border:none;
+  margin:0px;
+  padding:0px;
+}
+button.btn.btn-sm.btn-unlike {
+  background-color:rgba(0, 0, 0, 0.119);
+  border:none;
+  margin:0px;
+  padding:0px;
+}
+ul.lines {
+  margin:0px;
+  padding:0px;
+}
+.lines {
+  display: flex;
+}
+
+
+/* СТИЛИ ПАГИНАЦИИ */
+.list-pages {
+  text-align: center;
+  margin-top: 5%;
+  border-radius: 1rem;
+  margin-left: 8%;
+  margin-right: 8%;
+}
+.list-pages ul {
+  padding-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.list-pages ul li {
+  display: inline-block;
+  margin: 0 10px 0 0;
+}
+.list-pages a {
+  color: rgb(0, 255, 34);
+  font-size: 1.5em;
+  text-decoration: none;
+}
+.list-pages .page-num, .page-num-selected {
+  display: inline-block;
+  width: 3.5em;
+  height: 2.5em;
+  background-color:rgba(23, 23, 23, 0.99);
+  border: 1px solid #d0d0d0;
+  border-radius: 1rem;
+}
+.list-pages .page-num-selected {
+  box-shadow: none;
+  border: none;
+  color: rgb(255, 0, 0);
+}
+.pag{
+  font-size: 25px;
+}
+.list-pages .page-num:hover {
+  border: 1px solid rgb(255, 0, 0);
+}
+.list-pages .page-num-selected:hover {
+  box-shadow: none;
+  border: none;
+}
+
+
 /* ТЕСТОВЫЕ СТИЛИ */
 .test-class {
   color: rgba(255, 255, 255, 0.986);
   margin-bottom: 0;
 }
+
+
+

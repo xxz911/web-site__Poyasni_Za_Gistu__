@@ -1,4 +1,5 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/include/base.html' %}
+{% load static %}
 
 {% block title %}
     <title>{{title}}</title>
@@ -24,7 +25,35 @@
     {% endif %}
     <p class="text-light fs-9 text-blog ">{{one_post.text|linebreaksbr}}</p>
     <hr class="text-white" style="margin-bottom:1%; margin-top: 1%;">
-    <span class="right" style="float:right;"> <p class="text-success time">Комментариев: {{p.number_of_comments|default:"нет"}}</p></span><span class="left" style="float:left;"><p class="text-primary time">Нравится: </p></span>
+    <span class="right" style="float:right;">
+        <ul class="lines">
+             <li class="lines"><image class="btn-like" src="{% static 'blog/images/comment.png' %}" style="margin-top:0.2em; margin-right:7px;" width="27em"></image>
+             <li class="lines"> <h4 class="text-success" style=" margin-bottom:0px;">{{comments.paginator.count|default:"нет"}}</h4>
+
+        </ul>
+    </span>
+    <span class="left" style="float:left;">
+        {% if user.is_authenticated %}
+             <form action="{% url 'like_post' one_post.slug %}" method="post">
+                  {% csrf_token %}
+                 <ul class="lines">
+                  {%if liked %}
+                     <li class="lines"><button type="submit" name="post_slug" value="post_slug" class="btn btn-sm btn-unlike "><image class="btn-like" src="{% static 'blog/images/unlike.svg' %}" width="30em"></image></button>
+                     <li class="lines"><h4 class="text-primary" style=" margin-bottom:0px; margin-left:50%">{{total_likes}}</h4>
+                      {% else %}
+                     <li class="lines"><button type="submit" name="post_slug" value="post_slug" class="btn btn-sm btn-like"><image class="btn-like" src="{% static 'blog/images/like.svg' %}" width="30em"></image></button>
+                     <li class="lines"><h4 class="text-primary" style=" margin-bottom:0px; margin-left:50%">{{total_likes}}</h4>
+                     {% endif %}
+                 </ul>
+             </form>
+            {% else %}
+            <ul class="lines">
+                <li class="lines"><a class="text-primary " style="margin-top:0.7em; margin-right:4px; font-size: 12px;" href="{% url 'login' %}">Авторизируйтесь</a>
+                <li class="lines"><li class="lines"><image class="btn-like" src="{% static 'blog/images/like_post_list.svg' %}" width="30em"></image><h4 class="text-primary" style="margin-top:0.1em; margin-bottom:0px; margin-left:15%">{{total_likes|default:"нет"}}</h4>
+            </ul>
+        {% endif %}
+    </span>
+    <br>
     <br>
     <div class="text-center">
         <a><button type="button" onclick="history.back();" class="btn btn-outline-warning btn-sm btn-profile">Назад</button></a>
@@ -32,69 +61,41 @@
 </div>
 
 
-
-
-    {%if not comments %}
+    {% if not comments.paginator.count %}
 <div class="content comment-content text-center">
     <h3 class="text-comment">Нет комментариев</h3>
 </div>
     {%else%}
 <div class="content comment-content text-center">
-        
-        <h3 class="text-comment" >Комментарии: {{comments.count}}</h3>
+        <h3 class="text-comment" >Комментарии: {{comments.paginator.count}}</h3>
         <hr class="text-white" style="margin-top:0%">
-        {%for c in comments%}
+        {%for c in comments %}
         <div class="one-comment">
-          
                 <div class="row">
-
-
                     <div class="col-lg-2 ">
-                        
                             <img class="logo"  src='{{c.author.avatar.url}}' alt="Avatar" width="60em" height="55em" style="margin-right: 0px;">
                             <p class="text-primary time" >{{c.author}}</p></span>
-                      
                             <p class="text-muted time">{{c.create_date}}</p>
-                       
-                            
-                        <!-- <img class="logo"  src='{{c.author.avatar.url}}' alt="Avatar" width="60em" height="55em" >
-                        <p class="text-danger time">{{c.author}} -->
                     </div>
-
-                    <!-- <p class="text-muted time">{{c.create_date}}</p> -->
                     <div class="col-lg-10">
                         <p class="text-white text-one-comment">{{c.text}}</p>
-                    
                     </div>
                 </div>
                 <hr class="text-white" style="margin-top:0%">
-
-           
-
-            <!-- <span class="right" style="float:right;"> <p class="text-danger time">{{c.author}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{c.create_date}}</p></span>
-            <br>
-            <img class="logo"  src='{{c.author.avatar.url}}' alt="Avatar" width="60em" height="55em" >
-            <p class="text-white margin-text">{{c.text}}</p>
-
-
-            
-            <br>
-            <hr class="text-white" style="margin-top:0%"> -->
         </div>
-    {% endfor %}
-</div>
+        {% endfor %}
 
+
+{% include "blog/include/pagination.html" %}
+
+</div>
     {% endif %}
     {% if user.is_authenticated %}
 <div class="content comment-content text-center">
          <form action="" method="post">
-            
          {% csrf_token %}
-        
          <h3 class="text-center text-warning">Добавить комментарий</h3>
-        
          {% for f in form %}
-         
              <p class="form-comment text-center">{{f}}</p>
              <div class="form-error">{{f.errors}}</div>
              <div class="form-error">{{ form.non_field_errors }}</div>
@@ -103,14 +104,11 @@
              </p>
              <p class="form-reg comment-btn"><button type="submit" class="btn btn-outline-success btn-reg">Добавить комментарий</button></p>
          </form>
-         
 </div>
     {%else%}
 <div class="content text-center">
-             <h1 class="fs-9 text-warning">Авторизируйтесь, чтобы добавлять комментарии!</h1>
+    <h1 class="fs-9 text-warning">Чтобы добавлять комментарии, <a href="{% url 'login' %}">Авторизируйтесь</a></h1>
 </div>
     {%endif%}
-
-
 
 {% endblock %}

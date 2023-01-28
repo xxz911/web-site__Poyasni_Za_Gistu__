@@ -9,6 +9,7 @@ urlpatterns = [
     path('profile/<slug:user_slug>/', profile, name='profile'),
     path('profile_change/', AccauntUser.as_view(), name='profile_change'),
 
+
 ]
 
 urlpatterns += [

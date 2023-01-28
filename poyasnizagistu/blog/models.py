@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-
 from users.models import CustomUser
 
 
@@ -12,9 +11,13 @@ class Post(models.Model):
     time_create = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
     is_published = models.BooleanField(verbose_name='Публикация', default=True)
     cat = models.ForeignKey('CategoryPost', verbose_name='Категория', on_delete=models.PROTECT, null=False)
+    likes = models.ManyToManyField(CustomUser,  related_name='likes_post')
 
     def __str__(self):
         return self.title
+
+    def get_total_likes(self):
+        return self.likes.count()
 
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.slug})
@@ -23,13 +26,13 @@ class Post(models.Model):
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
-        ordering = ['-time_create', 'title']
+        ordering = ['-time_create']
 
 
 class CommentsPost(models.Model):
     post = models.ForeignKey(Post, on_delete= models.CASCADE, verbose_name='Пост', related_name='comments_post' )
     author = models.ForeignKey(CustomUser, on_delete= models.CASCADE, verbose_name='Автор комментария', related_name='comments_author')
-    create_date = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     text = models.TextField(max_length=700, verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость комментария', default=False)
 

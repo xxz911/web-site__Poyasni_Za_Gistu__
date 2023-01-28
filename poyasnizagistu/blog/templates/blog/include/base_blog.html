@@ -1,0 +1,65 @@
+{% load blog_tags %}
+{% load static %}
+
+{% showcats cat_selected=cat_selected%}
+
+<div class="profile-2">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2  g-1">
+        {% for p in posts %}
+        <div class="col">
+            <div class="profile-cust card h-100">
+                <div class="card-body">
+                    <span class="right" style="float:right;"><p class="text-danger time">Категория: {{p.cat}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{p.time_create|date}}</p></span>
+                    <br>
+                    <hr class="text-white" style="margin-top:0%; margin-bottom:1%">
+                    <h2 class="text-info fs-5 text-center">{{ p.title|truncatechars:51 }}</h2>
+                    <hr class="text-white" style="margin-top:1%; margin-bottom:2%">
+                    {% if p.photo %}
+                    <div class="text-center">
+                        <img class="image-posts" src="{{p.photo.url}}">
+                    </div>
+                    <p class="text-light fs-9 text-blog ">{{p.text|linebreaksbr|truncatechars:300}}</p>
+                    {% else %}
+                    <p class="text-light fs-9 text-blog ">{{p.text|linebreaksbr|truncatechars:1190}}</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer ">
+                    <hr class="text-white" style="margin-top:2%; margin-bottom:0%">
+                    <span class="right" style="float:right;">
+                         <ul class="lines">
+                             <li class="lines"><image class="btn-like" src="{% static 'blog/images/comment.png' %}" style="margin-top:0.2em; margin-right:7px;" width="19em" height="19em"></image>
+                             <li class="lines"><h7 class="text-success" style="margin-bottom:0px;">{{p.number_of_comments|default:"нет"}}</h7>
+                        </ul>
+                    </span>
+                    <span class="left" style="float:left;">
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'like_post' p.slug %}" method="post">
+                    {% csrf_token %}
+                            <ul class="lines">
+                                 {%if p.likeds %}
+                                 <li class="lines"><button type="submit" name="post_slug" value="post_slug" class="btn btn-sm btn-unlike "><image class="btn-like" src="{% static 'blog/images/unlike.svg' %}" style=" margin-right:7px;" width="19em" height="19em"></image></button>
+                                 <li class="lines"><h7 class="text-primary" style="margin-bottom:0px;">{{p.likes.count|default:"нет"}}</h7>
+                                 {% else %}
+                                 <li class="lines"><button type="submit" name="post_slug" value="post_slug" class="btn btn-sm btn-like"><image class="btn-like" src="{% static 'blog/images/like.svg' %}" style=" margin-right:7px;" width="19em" height="19em"></image></button>
+                                 <li class="lines"><h7 class="text-primary" style="margin-bottom:0px;">{{p.likes.count|default:"нет"}}</h7>
+                                 {% endif %}
+                            </ul>
+                        </form>
+                    {% else %}
+                        <ul class="lines">
+                            <li class="lines"><a class="text-primary " style="margin-top:0.3em; margin-bottom:0px; margin-right:4px; font-size: 12px;" href="{% url 'login' %}">Авторизируйтесь</a>
+                            <li class="lines"><li class="lines"><image class="btn-like" src="{% static 'blog/images/like_post_list.svg' %}" style="margin-top:0.1em; margin-right:7px;" width="19em" height="19em"></image><h7 class="text-primary" style="margin-bottom:0px;">{{p.likes.count|default:"нет"}}</h7>
+                        </ul>
+                    {% endif %}
+                    </span>
+                    <br>
+                    <div class="text-center">
+                        <a href="{{p.get_absolute_url}}"><button type="button" class="btn btn-outline-warning btn-sm btn-profile">Читать пост</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% include "blog/include/pagination.html" %}
+</div>
