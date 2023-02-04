@@ -1,11 +1,11 @@
 from django import forms
-from django.forms import Textarea
+
 
 from blog.models import *
 
 class CommentForm(forms.ModelForm):
     class Meta:
-        model = CommentsPost
+        model = Comments_Post
         fields = ('text',)
 
     def __init__(self, *args, **kwargs):

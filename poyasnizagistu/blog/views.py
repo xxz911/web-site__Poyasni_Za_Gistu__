@@ -1,7 +1,7 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
-from django.db.models import Count, Q
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.db.models import Count, Q, F
+from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
@@ -16,19 +16,109 @@ from .utils import DataMixin
 def home(request):
     return render(request, 'blog/home.html')
 
-def PostLikeView(request, post_slug):
-    one_post = get_object_or_404(Post, slug=post_slug)
-    if one_post.likes.filter(id=request.user.id).exists():
-        one_post.likes.remove(request.user)
-    else:
-        one_post.likes.add(request.user)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+def thumbs(request):
+    if request.POST.get('action') == 'thumbs':
+        id = int(request.POST.get('postid'))
+        button = request.POST.get('button')
+        update = Post.objects.get(id=id)
+
+        if update.thumbs.filter(id=request.user.id).exists():
+            q = Votes_Post.objects.get(
+                Q(post_id=id) & Q(user_id=request.user.id))
+            evote = q.vote
+
+            if evote == True:
+
+                if button == 'thumbsup':
+
+                    update.thumbsup = F('thumbsup') - 1
+                    update.thumbs.remove(request.user)
+                    update.save()
+                    update.refresh_from_db()
+                    up = update.thumbsup
+                    down = update.thumbsdown
+                    q.delete()
+
+                    return JsonResponse({'up': up, 'down': down, 'remove': 'none'})
+
+                if button == 'thumbsdown':
+
+                    update.thumbsup = F('thumbsup') - 1
+                    update.thumbsdown = F('thumbsdown') + 1
+                    update.save()
+
+                    q.vote = False
+                    q.save(update_fields=['vote'])
+
+                    update.refresh_from_db()
+                    up = update.thumbsup
+                    down = update.thumbsdown
+
+                    return JsonResponse({'up': up, 'down': down})
+
+            pass
+
+            if evote == False:
+
+                if button == 'thumbsup':
+
+                    update.thumbsup = F('thumbsup') + 1
+                    update.thumbsdown = F('thumbsdown') - 1
+                    update.save()
+
+                    q.vote = True
+                    q.save(update_fields=['vote'])
+
+                    update.refresh_from_db()
+                    up = update.thumbsup
+                    down = update.thumbsdown
+
+                    return JsonResponse({'up': up, 'down': down})
+
+                if button == 'thumbsdown':
+
+                    update.thumbsdown = F('thumbsdown') - 1
+                    update.thumbs.remove(request.user)
+                    update.save()
+                    update.refresh_from_db()
+                    up = update.thumbsup
+                    down = update.thumbsdown
+                    q.delete()
+
+                    return JsonResponse({'up': up, 'down': down, 'remove': 'none'})
+
+        else:
+
+            if button == 'thumbsup':
+                update.thumbsup = F('thumbsup') + 1
+                update.thumbs.add(request.user)
+                update.save()
+
+                new = Votes_Post(post_id=id, user_id=request.user.id, vote=True)
+                new.save()
+            else:
+
+                update.thumbsdown = F('thumbsdown') + 1
+                update.thumbs.add(request.user)
+                update.save()
+
+                new = Votes_Post(post_id=id, user_id=request.user.id, vote=False)
+                new.save()
+
+            update.refresh_from_db()
+            up = update.thumbsup
+            down = update.thumbsdown
+
+            return JsonResponse({'up': up, 'down': down})
+
+    pass
 
 
 class BlogPosts(DataMixin, ListView):
     model = Post
     template_name = 'blog/blog.html'
     context_object_name = 'posts'
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -38,7 +128,6 @@ class BlogPosts(DataMixin, ListView):
 
     def get_queryset(self):
         return Post.objects.annotate(number_of_comments=Count('comments_post', filter=Q(comments_post__status=True)))\
-            .annotate(likeds=Count('likes', filter=Q(likes=self.request.user.id)))\
             .filter(is_published=True)\
             .order_by('-time_create')
 
@@ -59,7 +148,7 @@ class BlogPosts(DataMixin, ListView):
 class ShowBlogPost(SuccessMessageMixin, FormMixin, DetailView):
     model = Post
     template_name = 'blog/post.html'
-    context_object_name = 'one_post'
+    context_object_name = 'post'
     slug_url_kwarg = 'post_slug'
     form_class = CommentForm
     success_message = 'Комментарий успешно отправлен! Ожидайте проверку модератором!'
@@ -82,24 +171,36 @@ class ShowBlogPost(SuccessMessageMixin, FormMixin, DetailView):
         self.object.author = self.request.user
         self.object.save()
         return super().form_valid(form)
-    def get_context_data(self, **kwargs):
-        context = super(ShowBlogPost, self).get_context_data(**kwargs)
-        context['title'] = 'Пост - ' + str(context['one_post'])
-        post = get_object_or_404(Post, slug=self.kwargs['post_slug'])
-        context['total_likes'] = post.get_total_likes()
 
-        liked = False
-        if post.likes.filter(id=self.request.user.id).exists():
-            liked = True
-        context['liked'] = liked
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Пост - ' + str(context['post'])
+        post = get_object_or_404(Post, slug=self.kwargs['post_slug'])
+        def get_vote(self):
+            votes = Votes_Post.objects.filter(user=self.request.user.id, post=post)
+            if len(votes) == 0:
+                return 'not_vote'
+            if len(votes) == 1:
+                if votes[0].vote == 0:
+                    return 'down'
+                if votes[0].vote == 1:
+                    return "up"
+            else:
+                raise TypeError('Ошибка в VotePost')
+        context['vote_post'] = get_vote(self)
+
         comments = self.get_modereted_comments()
         context['comments'] = comments
         context['page_obj'] = comments
+
+
         return context
 
     def get_modereted_comments(self):
         queryset = self.object.comments_post.filter(status=True)
-        paginator = Paginator(queryset, 6)  # paginate_by
+        paginator = Paginator(queryset, 6)
         page = self.request.GET.get('page')
         comments = paginator.get_page(page)
         return comments
@@ -108,7 +209,7 @@ class ShowBlogPost(SuccessMessageMixin, FormMixin, DetailView):
 
 # def show_post(request, post_slug):
 #     one_post = get_object_or_404(Post, slug=post_slug)
-#     comments = CommentsPost.objects.filter(post__slug=post_slug)
+#     comments = Comments_Post.objects.filter(post__slug=post_slug)
 #     form = CommentForm(request.POST)
 #
 #     return render(request, 'blog/post.html', {'one_post': one_post, 'comments':comments, 'form':form})
@@ -127,7 +228,6 @@ class ShowBlogCategory(DataMixin, ListView):
     def get_queryset(self):
         return Post.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)\
             .annotate(number_of_comments=Count('comments_post', filter=Q(comments_post__status=True)))\
-            .annotate(likeds=Count('likes', filter=Q(likes=self.request.user.id)))\
             .order_by('-time_create')
 
 

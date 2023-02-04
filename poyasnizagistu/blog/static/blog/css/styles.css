@@ -555,6 +555,13 @@ ul.lines {
   color: rgba(255, 255, 255, 0.986);
   margin-bottom: 0;
 }
-
-
+svg#thumbsup.up.bi.bi-hand-thumbs-up, svg#thumbsdown.down.bi.bi-hand-thumbs-down{
+color:white;
+}
+svg#thumbsup.up.bi.bi-hand-thumbs-up:hover, svg#thumbsdown.down.bi.bi-hand-thumbs-down:hover{
+background-color:rgba(23, 23, 23, 0.99);
+}
+.thumb-active {
+fill: gold;
+}
 

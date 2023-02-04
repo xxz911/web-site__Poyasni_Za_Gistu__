@@ -10,14 +10,15 @@ class Post(models.Model):
     text = models.TextField(verbose_name='Текст')
     time_create = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
     is_published = models.BooleanField(verbose_name='Публикация', default=True)
-    cat = models.ForeignKey('CategoryPost', verbose_name='Категория', on_delete=models.PROTECT, null=False)
-    likes = models.ManyToManyField(CustomUser,  related_name='likes_post')
+    cat = models.ForeignKey('Categories_Post', verbose_name='Категория', on_delete=models.PROTECT, null=False)
+
+    thumbsup = models.IntegerField(verbose_name='Нравится', default='0')
+    thumbsdown = models.IntegerField(verbose_name='Не нравится', default='0')
+    thumbs = models.ManyToManyField(CustomUser, verbose_name='Голосовали', related_name='thumbs', default=None, blank=True)
+
 
     def __str__(self):
         return self.title
-
-    def get_total_likes(self):
-        return self.likes.count()
 
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.slug})
@@ -29,7 +30,14 @@ class Post(models.Model):
         ordering = ['-time_create']
 
 
-class CommentsPost(models.Model):
+class Votes_Post(models.Model):
+    post = models.ForeignKey(Post, related_name='postid',
+                             on_delete=models.CASCADE, default=None, blank=True)
+    user = models.ForeignKey(CustomUser, related_name='userid',
+                             on_delete=models.CASCADE, default=None, blank=True)
+    vote = models.BooleanField(default=True)
+
+class Comments_Post(models.Model):
     post = models.ForeignKey(Post, on_delete= models.CASCADE, verbose_name='Пост', related_name='comments_post' )
     author = models.ForeignKey(CustomUser, on_delete= models.CASCADE, verbose_name='Автор комментария', related_name='comments_author')
     create_date = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
@@ -47,7 +55,7 @@ class CommentsPost(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.post.slug})
 
-class CategoryPost(models.Model):
+class Categories_Post(models.Model):
     name = models.CharField(verbose_name='Название', max_length=40, db_index=True, unique=True)
     slug = models.SlugField(max_length=80, unique=True, db_index=True, verbose_name='URL')
 

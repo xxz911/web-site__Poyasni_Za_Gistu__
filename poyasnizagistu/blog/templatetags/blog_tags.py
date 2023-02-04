@@ -8,6 +8,5 @@ register = template.Library()
 
 @register.inclusion_tag('blog/list_categories.html', name='showcats')
 def show_categories_and_post(cat_selected=0):
-    cats = CategoryPost.objects.annotate(Count('post')).filter(post__is_published=True)
+    cats = Categories_Post.objects.annotate(Count('post')).filter(post__is_published=True)
     return {'cats': cats, 'cat_selected': cat_selected}
-

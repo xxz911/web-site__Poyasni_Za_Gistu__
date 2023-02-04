@@ -6,11 +6,11 @@ from blog.models import *
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('is_published', 'cat', 'id', 'title', 'get_photo', 'text', 'time_create')
+    list_display = ('is_published', 'cat', 'id', 'title', 'get_photo', 'text', 'time_create', 'thumbsup', 'thumbsdown')
     list_display_links = ('id', 'title', 'get_photo', 'text')
     list_editable = ('is_published', 'cat')
-    list_filter = ('time_create', 'is_published', 'cat')
-    fields = ('cat', 'title', 'slug', 'photo', 'get_photo', 'text', 'likes', 'is_published', 'time_create')
+    list_filter = ('time_create', 'is_published', 'cat', 'thumbsup', 'thumbsdown')
+    fields = ('cat', 'title', 'slug', 'photo', 'get_photo', 'text', 'is_published', 'time_create')
     readonly_fields = ('time_create', 'get_photo')
     search_fields = ('id', 'title', 'text', 'time_create')
     prepopulated_fields = {"slug": ('title',)}
@@ -35,7 +35,7 @@ class PostCategoryAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(CategoryPost, PostCategoryAdmin)
+admin.site.register(Categories_Post, PostCategoryAdmin)
 
 class CommentsPostAdmin(admin.ModelAdmin):
     list_display = ('post', 'author', 'create_date', 'text', 'status')
@@ -48,4 +48,4 @@ class CommentsPostAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(CommentsPost, CommentsPostAdmin)
+admin.site.register(Comments_Post, CommentsPostAdmin)
