@@ -16,16 +16,34 @@
          {%endif%}
          </div>
 <div class="content text-center">
-    <span class="right" style="float:right;"> <p class="text-danger time">Категория: {{post.cat}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{post.time_create|date}}</p></span>
-    <br>
+    <h4 class="texr-center text-danger">Система органов: {{album.organ_system}}</h4>
     <hr class="text-white" style="margin-top:0%; margin-bottom:1%">
-    <h2 class="text-info fs-4 text-center">{{post.title}}</h2>
+    <h2 class="text-info fs-4 text-center">{{album.title}}</h2>
+    <hr class="text-white" style="margin-top:0%; margin-bottom:1%">
+    <div class="container-fluid">
+
+
+        <div class="row gallery" style="padding:0px;">
+            {% for i in images %}
+          <div class="col-sm-12 col-md-6 col-lg-6" style="padding-left:0px;">
+                <a href="{{i.image.url}}">
+                  <img class="img-fluid" src="{{i.image.url}}" style="border-radius: 1em;">
+                </a>
+                <p class="text-white">{{i.comment_image}}</p>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6" style="padding-right:0px;">
+            <a href="{{i.image_description.url}}">
+              <img class="img-fluid"src="{{i.image_description.url}}" style="border-radius: 1em;">
+            </a>
+              <p class="text-white">{{i.comment_image_description}}</p>
+          </div>
+
+    {%endfor%}
+        </div>
+  </div>
+    {% include "albums/include/pagination_image.html" %}
+
     <hr class="text-white" style="margin-top:1%; margin-bottom:2%">
-    {% if post.photo %}
-    <img class="image-post" src="{{post.photo.url}}">
-    {% endif %}
-    <p class="text-light fs-9 text-blog ">{{post.text|linebreaksbr}}</p>
-    <hr class="text-white" style="margin-bottom:1%; margin-top: 1%;">
     <span class="right" style="float:right;">
         <ul class="lines">
              <li class="lines"><image class="btn-like" src="{% static 'blog/images/comment.png' %}" style="margin-top:0.2em; margin-right:7px;" width="27em"></image>
@@ -33,15 +51,15 @@
 
         </ul>
     </span>
-      <span id="thumbs" class="left" style="float:left;" data-value="{{post.id}}">
+      <span id="thumbs" class="left" style="float:left;" data-value="{{album.id}}">
       </span>
          <ul class="lines">
-             <li class="lines"><span id="i_like_this" class="text-danger"><span id="up" style="margin-bottom:0px; font-size:24px;">{{post.thumbsup}}</span></span>
+             <li class="lines"><span id="i_like_this" class="text-danger"><span id="up" style="margin-bottom:0px; font-size:24px;">{{album.thumbsup}}</span></span>
                   <a {% if request.user.is_authenticated %}
-                    class="btn btn-link text-dark p-0 border-0 btn-outline-black thumbaction" {% else %}
+                    class="btn btn-link text-dark p-0 border-0 btn-outline-black thumbactions" {% else %}
                     href="{% url 'login' %}" class="btn btn-link text-dark p-0 border-0 btn-outline-black"
                     {% endif %} value="thumbsup" data-toggle="tooltip" title="I like this" role="button">
-                      {% if vote == 'up' %}
+                      {% if vote_album == 'up' %}
                     <svg id="thumbsup" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="up bi bi-hand-thumbs-up thumb-active"
                       fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd"
@@ -55,12 +73,12 @@
                       </svg>
                       {%endif%}
                   </a>
-             <li class="lines"> <span id="down"  class="text-primary" style="margin-bottom:0px; font-size:24px;">{{post.thumbsdown}}</span>
+             <li class="lines"> <span id="down"  class="text-primary" style="margin-bottom:0px; font-size:24px;">{{album.thumbsdown}}</span>
                   <a {% if request.user.is_authenticated %}
-                    class="btn btn-link text-dark p-0 border-0 btn-outline-black thumbaction" {% else %}
+                    class="btn btn-link text-dark p-0 border-0 btn-outline-black thumbactions" {% else %}
                     href="{% url 'login' %}" class="btn btn-link text-dark p-0 border-0 btn-outline-black"
                     {% endif %} value="thumbsdown" data-toggle="tooltip" title="I dont like this" role="button">
-                      {% if vote_post == 'down'%}
+                      {% if vote_album == 'down'%}
                       <svg id="thumbsdown" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="down bi bi-hand-thumbs-down thumb-active"
                       fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -80,6 +98,8 @@
         <a><button type="button" onclick="history.back();" class="btn btn-outline-warning btn-sm btn-profile">Назад</button></a>
     </div>
 </div>
+
+
 
 
     {% if not comments.paginator.count %}
@@ -131,17 +151,17 @@
     <h1 class="fs-9 text-warning">Чтобы добавлять комментарии, <a href="{% url 'login' %}">Авторизируйтесь</a></h1>
 </div>
     {%endif%}
-<script>
+  <script>
     $(document).ready(function () {
-        $('.thumbaction').click(function (e) {
+        $('.thumbactions').click(function (e) {
           e.preventDefault();
-          var postid = document.getElementById('thumbs').getAttribute('data-value');
+          var albumid = document.getElementById('thumbs').getAttribute('data-value');
           var button = $(this).attr("value");
           $.ajax({
             type: 'POST',
-            url: '{% url "thumbs_post" %}',
+            url: '{% url "thumbs_album" %}',
             data: {
-              postid: postid,
+              albumid: albumid,
               csrfmiddlewaretoken: "{{ csrf_token }}",
               action: 'thumbs',
               button: button,
@@ -166,7 +186,12 @@
         });
       });
 
-</script>
-
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+  <script>
+    baguetteBox.run(".gallery", {
+      animation: "slideIn"
+    });
+  </script>
 
 {% endblock %}

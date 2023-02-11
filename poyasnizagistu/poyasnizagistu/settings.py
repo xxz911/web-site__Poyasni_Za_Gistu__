@@ -34,6 +34,7 @@ CSRF_COOKIE_SECURE = False
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+    'albums.apps.AlbumsConfig',
 
     'captcha',
 

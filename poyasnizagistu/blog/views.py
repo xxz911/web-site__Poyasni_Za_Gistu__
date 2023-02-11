@@ -10,7 +10,7 @@ from django.views.generic.edit import FormMixin
 
 from .forms import CommentForm
 from .models import *
-from .utils import DataMixin
+from .utils import PostMixin
 
 
 def home(request):
@@ -114,7 +114,7 @@ def thumbs(request):
     pass
 
 
-class BlogPosts(DataMixin, ListView):
+class PostList(PostMixin, ListView):
     model = Post
     template_name = 'blog/blog.html'
     context_object_name = 'posts'
@@ -145,7 +145,7 @@ class BlogPosts(DataMixin, ListView):
 
 
 
-class ShowBlogPost(SuccessMessageMixin, FormMixin, DetailView):
+class PostDetail(SuccessMessageMixin, FormMixin, DetailView):
     model = Post
     template_name = 'blog/post.html'
     context_object_name = 'post'
@@ -215,7 +215,7 @@ class ShowBlogPost(SuccessMessageMixin, FormMixin, DetailView):
 #     return render(request, 'blog/post.html', {'one_post': one_post, 'comments':comments, 'form':form})
 
 
-class ShowBlogCategory(DataMixin, ListView):
+class ShowCategory(PostMixin, ListView):
     model = Post
     template_name = 'blog/category.html'
     context_object_name = 'posts'

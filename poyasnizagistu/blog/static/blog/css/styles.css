@@ -565,3 +565,17 @@ background-color:rgba(23, 23, 23, 0.99);
 fill: gold;
 }
 
+.jumbotron {
+        text-align: center;
+        padding: 20px;
+        margin: 10px 0;
+      }
+
+.gallery {
+        padding: 40px;
+      }
+.gallery img {
+        width: 100%;
+        border-radius: 0;
+        position: relative;
+      }

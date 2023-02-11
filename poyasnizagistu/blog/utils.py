@@ -1,3 +1,3 @@
 
-class DataMixin:
+class PostMixin:
     paginate_by = 6

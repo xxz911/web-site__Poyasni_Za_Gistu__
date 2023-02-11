@@ -4,7 +4,7 @@ from users.models import CustomUser
 
 
 class Post(models.Model):
-    title = models.CharField(verbose_name='Название', max_length=40, unique=True)
+    title = models.CharField(verbose_name='Пост', max_length=40, unique=True)
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
     photo = models.ImageField(verbose_name='Фото', upload_to="blog/photo/", blank=True)
     text = models.TextField(verbose_name='Текст')
@@ -56,7 +56,7 @@ class Comments_Post(models.Model):
         return reverse('post', kwargs={'post_slug': self.post.slug})
 
 class Categories_Post(models.Model):
-    name = models.CharField(verbose_name='Название', max_length=40, db_index=True, unique=True)
+    name = models.CharField(verbose_name='Категория', max_length=40, db_index=True, unique=True)
     slug = models.SlugField(max_length=80, unique=True, db_index=True, verbose_name='URL')
 
     def __str__(self):
