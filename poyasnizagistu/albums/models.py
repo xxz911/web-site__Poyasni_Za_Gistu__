@@ -3,10 +3,11 @@ from django.urls import reverse
 
 from users.models import CustomUser
 
-
+def album_directory_path(instance, filename):
+    return 'album/organ_system/{0}/{1}/cover/{2}'.format(instance.organ_system.slug, instance.slug, filename)
 class Album(models.Model):
     title = models.CharField(verbose_name='Альбом', max_length=40, unique=True)
-    cover = models.ImageField(verbose_name='Обложка', upload_to="album/",)
+    cover = models.ImageField(verbose_name='Обложка', upload_to=album_directory_path,)
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
     is_published = models.BooleanField(verbose_name='Публикация', default=True)
 
@@ -37,13 +38,16 @@ class Votes_Album(models.Model):
                              on_delete=models.CASCADE, default=None, blank=True)
     vote = models.BooleanField(default=True)
 
+
+def album_image_directory_path(instance, filename):
+    return 'album/organ_system/{0}/{1}/image/{2}'.format(instance.album.organ_system.slug, instance.album.slug, filename)
 class Images(models.Model):
     album = models.ForeignKey('Album', related_name='albumimages', verbose_name='Альбом', on_delete=models.CASCADE)
     title_image = models.CharField(verbose_name='Название изображения', max_length=60, unique=True)
-    image = models.ImageField(verbose_name='Изображение', upload_to="album/",)
+    image = models.ImageField(verbose_name='Изображение', upload_to=album_image_directory_path,)
     comment_image = models.CharField(verbose_name='Комментарий изображения', max_length=40)
     title_image_description = models.CharField(verbose_name='Название изображения с пояснениями', max_length=60, unique=True)
-    image_description = models.ImageField(verbose_name='Изображение с пояснениями', upload_to="album/",)
+    image_description = models.ImageField(verbose_name='Изображение с пояснениями', upload_to=album_image_directory_path,)
     comment_image_description = models.CharField(verbose_name='Комментарий изображения с пояснениями', max_length=40)
 
     def __str__(self):

@@ -13,7 +13,7 @@ body {
   -o-background-size: cover;
   background-size: cover;
   margin-bottom: 6%;
-  background-color: rgba(72, 1, 58, 0.789);
+  background-color:rgba(23, 23, 23, 0.961);
 }
 
 
@@ -26,11 +26,10 @@ body {
 }
 .logo {
   border-radius: 50%;
-  /* margin-right:7px; */
   margin-left: 1%;
   margin-right: 6px;
   border: 1px solid rgb(255, 255, 255); padding: 0.1px;
-  /* box-shadow: 0 1px 5px rgb(255, 0, 200), 0 3px 3px rgb(255, 255, 255) */ 
+  box-shadow: 0 1px 3px rgb(255, 255, 255), 0 3px 3px rgb(237, 237, 237)
 }
 .logo:hover{
   border: 0.9px solid rgb(0, 0, 0); padding: 0.1px;
@@ -62,10 +61,10 @@ body {
 
 /* ЭЛЕМЕНТЫ МЕНЮ С БУРГЕРОМ*/
 .navbar-dark .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(255, 255, 255)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 30 30'%3e%3cpath stroke='black' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 .navbar-dark .navbar-nav .nav-link, .navbar-dark .nav-link {
-  color: rgb(255, 255, 255);
+  color: rgb(88, 87, 87);
   font-size: 21px;
   text-align: center;
   padding-top: 0px;
@@ -88,7 +87,7 @@ body {
   padding: 3%;
   padding-bottom: 1%;
   border-radius: 1em;
-  background-color:rgba(23, 23, 23, 0.99);
+  background-color:rgba(23, 23, 23, 0.961);
   box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
 }
 
@@ -147,7 +146,7 @@ footer {
 }
 input, select {
   padding-left: 1.5%;
-  border:0.9px solid rgba(234, 0, 255, 0.92);
+  border:0.9px solid white;
   border-radius: 27em;
   background-color: #ffffffbf;
   width: 65px;
@@ -208,11 +207,7 @@ input, select {
   padding-bottom: 4%;
   font-size: xx-large;
   color: white;
-  text-shadow: 0 1px 0 rgb(0, 0, 0), 
-               0 2px 0 rgb(255, 0, 255), 
-               0 6px 1px rgba(255, 255, 255, 0),
-               0 8px 10px rgba(255, 245, 245, 0),
-               0 10px 20px rgba(255, 255, 255, 0);
+
 }
 .btn-reg {
   margin-top: 0px;
@@ -247,8 +242,8 @@ input, select {
 }
 .res-password {
   text-align: center;
-  color: rgb(4, 213, 227);
-  font-size: medium;
+  color: #b3b3b3;
+  font-size: large;
   margin-bottom: 1%;
   margin-top: 2%;
 }
@@ -315,7 +310,7 @@ div.profile {
   padding: 3%;
   padding-bottom: 1%;
   border-radius: 1em;
-  background-color:rgba(23, 23, 23, 0.99);
+  background-color:rgba(23, 23, 23, 0.961);
   box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
 }
 .avatar {
@@ -323,7 +318,7 @@ div.profile {
   margin-left: auto;
   margin-right: auto;
   border-radius: 50%;
-  box-shadow: 0 0 15px rgba(234, 145, 242, 0.92);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.92);
 }
 .avatar-container {
   text-align: center;
@@ -333,7 +328,7 @@ div.profile {
 /* СТРАНИЦА ИЗМЕНЕНИЯ ПРОФИЛЯ */
 div.profile form p.label-ul-log input#id_username {
   padding-left: 1.5%;
-  border:0.9px solid rgba(234, 0, 255, 0.92);
+  border:0.9px solid rgba(255, 255, 255, 0.92);
   border-radius: 27em;
   background-color: #ffffffbf;
   height: 25px;
@@ -384,8 +379,8 @@ div.profile-2 {
   margin-top: 3%;
   padding: 2%;
   border-radius: 1em;
-  background-color:rgba(23, 23, 23, 0.99);
-  box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+  background-color:rgba(23, 23, 23, 0.961);
+  box-shadow: 0 0px 3px black, 0 0px 3px white;
 }
 .time {
   margin-top: 1%;
@@ -419,7 +414,6 @@ button.dropdown-item.active {
   margin-top: 2%;
   text-align:justify;
   margin-bottom: 0%;
-
 }
 div.card-body {
 padding:0px;
@@ -440,7 +434,6 @@ background: none;
   width: 100%;
   object-fit: cover;
 }
-
 .btn-profile {
   margin: 0px;
 }
@@ -479,6 +472,12 @@ background: none;
 .warning-comment{
   color: rgba(119, 119, 119, 0.509);
   font-size: smaller;
+}
+.logo_comment {
+  border-radius: 50%;
+  margin-left: 1%;
+  margin-right: 6px;
+  border: 1px solid rgb(255, 255, 255); padding: 0.1px;
 }
 
 
@@ -521,28 +520,28 @@ ul.lines {
   margin: 0 10px 0 0;
 }
 .list-pages a {
-  color: rgb(0, 255, 34);
+  color: gold;
   font-size: 1.5em;
   text-decoration: none;
 }
 .list-pages .page-num, .page-num-selected {
   display: inline-block;
-  width: 3.5em;
+  width: 2.5em;
   height: 2.5em;
-  background-color:rgba(23, 23, 23, 0.99);
-  border: 1px solid #d0d0d0;
-  border-radius: 1rem;
+  background-color:rgba(0, 0, 0, 0);
+
 }
 .list-pages .page-num-selected {
   box-shadow: none;
   border: none;
   color: rgb(255, 0, 0);
+  background-color:rgba(0, 0, 0, 0);
 }
 .pag{
   font-size: 25px;
 }
 .list-pages .page-num:hover {
-  border: 1px solid rgb(255, 0, 0);
+
 }
 .list-pages .page-num-selected:hover {
   box-shadow: none;

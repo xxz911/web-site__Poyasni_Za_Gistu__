@@ -2,11 +2,12 @@ from django.db import models
 from django.urls import reverse
 from users.models import CustomUser
 
-
+def post_directory_path(instance, filename):
+    return 'blog/category/{0}/{1}/{2}'.format(instance.cat.slug, instance.slug, filename)
 class Post(models.Model):
     title = models.CharField(verbose_name='Пост', max_length=40, unique=True)
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
-    photo = models.ImageField(verbose_name='Фото', upload_to="blog/photo/", blank=True)
+    photo = models.ImageField(verbose_name='Фото', upload_to=post_directory_path, blank=True)
     text = models.TextField(verbose_name='Текст')
     time_create = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
     is_published = models.BooleanField(verbose_name='Публикация', default=True)

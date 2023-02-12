@@ -4,7 +4,8 @@ from django.db import models
 from slugify import slugify
 from django.urls import reverse
 
-
+def user_directory_path(instance, filename):
+    return 'users/avatar/{0}/{1}'.format(instance.slug,filename)
 
 class CustomUser(AbstractUser):
     class Meta:
@@ -19,7 +20,7 @@ class CustomUser(AbstractUser):
     )
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
     avatar = models.ImageField(verbose_name='Аватар', default='users/avatar/default/default_avatar.jpeg',
-                                upload_to='users/avatar/', blank=True, )
+                                upload_to=user_directory_path, blank=True, )
     gender = models.CharField(verbose_name='Пол', max_length=1, choices=GENDERS, default='-', blank=True)
     age = models.PositiveSmallIntegerField(verbose_name='Возраст', blank=True,
                                 default=0,
