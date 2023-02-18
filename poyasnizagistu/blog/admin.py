@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.db.models import Count
 from django.utils.safestring import mark_safe
 
 from blog.models import *
@@ -51,3 +50,6 @@ class CommentsPostAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Comments_Post, CommentsPostAdmin)
+
+admin.site.site_title = 'Администрирование сайта "Поясни за Гисту"'
+admin.site.site_header = 'Администрирование сайта "Поясни за Гисту"'

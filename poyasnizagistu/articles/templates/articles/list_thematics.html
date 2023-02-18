@@ -1,0 +1,27 @@
+
+<div class="text-center">
+    <div class="btn-group">
+      <button disabled type="button" class="btn btn-dark">Тематики</button>
+      <hr class="text-white">
+      <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden"></span>
+      </button>
+      <ul class="dropdown-menu">
+{% if not thematic_selected %}
+            <button class="dropdown-item active" type="button">Все тематики</button>
+{% else %}
+            <a href="{% url 'articles' %}"><button class="dropdown-item " type="button">Все тематики</button></a>
+{% endif %}
+
+{% for t in thematic %}
+{% if t.article__count > 0 %}
+            {% if t.slug == thematic_selected %}
+            <button class="dropdown-item active" type="button">{{t.name}}</button>
+             {% else %}
+            <a class="cat" href="{{ t.get_absolute_url }}"><button class="dropdown-item " type="button">{{t.name}}</button></a>
+          {% endif %}
+{% endif %}
+{% endfor %}
+      </ul>
+    </div>
+</div>

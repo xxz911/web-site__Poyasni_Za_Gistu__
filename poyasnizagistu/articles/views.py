@@ -7,54 +7,58 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 
-from albums.forms import CommentAlbumForm
-from albums.models import Album, Votes_Album, Images
-from albums.utils import AlbumsMixin
+from articles.forms import CommentArticleForm
+from articles.models import Article, Votes_Article
+from articles.utils import ArticleMixin
 
 
+class ArticlesList(ArticleMixin, ListView):
+    model = Article
+    template_name = 'articles/articles.html'
+    context_object_name = 'articles'
 
-class AlbumList(AlbumsMixin, ListView):
-    model = Album
-    template_name = 'albums/albums.html'
-    context_object_name = 'albums'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Альбомы'
+        context['title'] = 'Статьи'
         return context
 
-    def get_queryset(self):
-        return Album.objects.annotate(number_of_comments=Count('comments_album', filter=Q(comments_album__status=True))) \
-            .filter(is_published=True) \
-            .order_by('-title')
 
-class ShowOrganSystem(AlbumsMixin, ListView):
-    model = Album
-    template_name = 'albums/organ_system.html'
-    context_object_name = 'albums'
+    def get_queryset(self):
+        return Article.objects.annotate(number_of_comments=Count('comments_article', filter=Q(comments_article__status=True)))\
+            .filter(is_published=True)\
+            .order_by('-time_create')
+
+class ShowThematic(ArticleMixin, ListView):
+    model = Article
+    template_name = 'articles/thematic.html'
+    context_object_name = 'articles'
     allow_empty = False
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Система органов - ' + str(context['albums'][0].organ_system)
-        context['organ_selected'] = context['albums'][0].organ_system.slug
+        context['title'] = 'Тематика - ' + str(context['articles'][0].thematic)
+        context['thematic_selected'] = context['articles'][0].thematic.slug
         return context
+
     def get_queryset(self):
-        return Album.objects.filter(organ_system__slug=self.kwargs['organ_slug'], is_published=True)\
-            .annotate(number_of_comments=Count('comments_album', filter=Q(comments_album__status=True))) \
+        return Article.objects.filter(thematic__slug=self.kwargs['thematic_slug'], is_published=True)\
+            .annotate(number_of_comments=Count('comments_article', filter=Q(comments_article__status=True))) \
             .filter(is_published=True) \
             .order_by('-title')
 
-class AlbumDetail(SuccessMessageMixin, FormMixin, DetailView):
-    model = Album
-    template_name = 'albums/album.html'
-    context_object_name = 'album'
-    slug_url_kwarg = 'album_slug'
-    form_class = CommentAlbumForm
+
+class ArticleDetail(SuccessMessageMixin, FormMixin, DetailView):
+    model = Article
+    template_name = 'articles/article.html'
+    context_object_name = 'article'
+    slug_url_kwarg = 'article_slug'
+    form_class = CommentArticleForm
     success_message = 'Комментарий успешно отправлен! Ожидайте проверку модератором!'
 
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('album', kwargs={'album_slug': self.get_object().slug})
+        return reverse_lazy('article', kwargs={'article_slug': self.get_object().slug})
 
 
     def post(self, request, *args, **kwargs):
@@ -66,7 +70,7 @@ class AlbumDetail(SuccessMessageMixin, FormMixin, DetailView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.album = self.get_object()
+        self.object.article = self.get_object()
         self.object.author = self.request.user
         self.object.save()
         return super().form_valid(form)
@@ -75,10 +79,10 @@ class AlbumDetail(SuccessMessageMixin, FormMixin, DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Пост - ' + str(context['album'])
-        album = get_object_or_404(Album, slug=self.kwargs['album_slug'])
+        context['title'] = 'Статья - ' + str(context['article'])
+        article = get_object_or_404(Article, slug=self.kwargs['article_slug'])
         def get_vote(self):
-            votes = Votes_Album.objects.filter(user=self.request.user.id, album=album)
+            votes = Votes_Article.objects.filter(user=self.request.user.id, article=article)
             if len(votes) == 0:
                 return 'not_vote'
             if len(votes) == 1:
@@ -87,43 +91,33 @@ class AlbumDetail(SuccessMessageMixin, FormMixin, DetailView):
                 if votes[0].vote == 1:
                     return "up"
             else:
-                raise TypeError('Ошибка в VoteAlbums')
-        context['vote_album'] = get_vote(self)
+                raise TypeError('Ошибка в VoteArticle')
+        context['vote_article'] = get_vote(self)
 
         comments = self.get_modereted_comments()
-        images = self.get_images()
-
-        context['images'] = images
-        context['page_obj_img'] = images
-
         context['comments'] = comments
         context['page_obj'] = comments
+
 
         return context
 
     def get_modereted_comments(self):
-        queryset = self.object.comments_album.filter(status=True)
+        queryset = self.object.comments_article.filter(status=True)
         paginator = Paginator(queryset, 6)
         page = self.request.GET.get('page')
         comments = paginator.get_page(page)
         return comments
 
-    def get_images(self):
-        queryset = self.object.albumimages.all()
-        paginator = Paginator(queryset, 2)
-        page = self.request.GET.get('page')
-        images = paginator.get_page(page)
-        return images
 
-def thumbsalbum(request):
+def thumbsarticle(request):
     if request.POST.get('action') == 'thumbs':
-        id = int(request.POST.get('albumid'))
+        id = int(request.POST.get('articleid'))
         button = request.POST.get('button')
-        update = Album.objects.get(id=id)
+        update = Article.objects.get(id=id)
 
         if update.thumbs.filter(id=request.user.id).exists():
-            q = Votes_Album.objects.get(
-                Q(album_id=id) & Q(user_id=request.user.id))
+            q = Votes_Article.objects.get(
+                Q(article_id=id) & Q(user_id=request.user.id))
             evote = q.vote
 
             if evote == True:
@@ -193,7 +187,7 @@ def thumbsalbum(request):
                 update.thumbs.add(request.user)
                 update.save()
 
-                new = Votes_Album(album_id=id, user_id=request.user.id, vote=True)
+                new = Votes_Article(article_id=id, user_id=request.user.id, vote=True)
                 new.save()
             else:
 
@@ -201,7 +195,7 @@ def thumbsalbum(request):
                 update.thumbs.add(request.user)
                 update.save()
 
-                new = Votes_Album(album_id=id, user_id=request.user.id, vote=False)
+                new = Votes_Article(article_id=id, user_id=request.user.id, vote=False)
                 new.save()
 
             update.refresh_from_db()
@@ -211,4 +205,5 @@ def thumbsalbum(request):
             return JsonResponse({'up': up, 'down': down})
 
     pass
+
 

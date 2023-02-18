@@ -1,11 +1,11 @@
 from django import forms
 
-from albums.models import Comments_Album
+from articles.models import Comments_Article
 
 
-class CommentAlbumForm(forms.ModelForm):
+class CommentArticleForm(forms.ModelForm):
     class Meta:
-        model = Comments_Album
+        model = Comments_Article
         fields = ('text',)
 
     def __init__(self, *args, **kwargs):

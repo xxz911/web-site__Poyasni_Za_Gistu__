@@ -1,0 +1,127 @@
+html, body {
+    height: auto; 
+}
+div#header, div .breadcrumbs, div #content-related, div .app-albums, div .app-blog, div .app-users, div .app-articles, div .app-auth {
+    background-color:rgba(23, 23, 23, 0.627);
+}
+div #content {
+    color:white
+}
+a:link, a:visited {
+    color:rgb(0, 119, 255);
+}
+.quiet, a.quiet:link, a.quiet:visited {
+    color: chartreuse;
+}
+
+:root, tr:nth-child(even),
+tr:nth-child(even) .errorlist,
+tr:nth-child(odd) + .row-form-errors,
+tr:nth-child(odd) + .row-form-errors .errorlist {
+background: rgba(23, 23, 23, 0.627);
+
+ --body-bg: rgba(23, 23, 23, 0.627); 
+ --hairline-color: none;
+}
+#content-related .module{
+    border-radius: 1em;
+}
+#content-related .module h2, #content-related .module h3, div .help, p.help, form p.help, div.help, form div.help, div.help li {
+    color: white;
+}
+div.module {
+    border-radius: 1em;
+}
+.module {
+    border-radius: 1em;
+}
+h1, div a.selector-chooseall, a.selector-clearall,div a.selector-clearall {
+    color: white;
+}
+.module caption {
+    background-color:rgb(0, 0, 0);
+    border-radius: 1em 1em 0px 0px;
+}
+
+
+#nav-sidebar .current-model, .button.default, input[type=submit].default, .submit-row input.default, div .submit-row a.deletelink{
+    background-color: rgba(255, 0, 0, 0.569);
+}
+div.breadcrumbs a, div #changelist-filter a:focus, #changelist-filter a:hover, #changelist-filter li.selected a:focus, div #changelist-filter a, div p.file-upload {
+    color:rgb(0, 119, 255);
+}
+
+
+
+
+div #toolbar {
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border-top: 1px solid var(--hairline-color);
+    border-bottom: 1px solid var(--hairline-color);
+    background: none;
+    color: var(--body-quiet-color);
+}
+div #toolbar form input[type="submit"], div input, textarea, select, .form-row p, form .button, div #changelist .actions .button, div label {
+    color:white
+}
+div #changelist-filter li.selected a, div a.section:link, a.section:visited {
+    color: red;
+}
+form #changelist-form{
+    background: none;
+}
+
+div #changelist .actions, div .submit-row {
+    background: none;
+}
+div #changelist-filter{
+    background:rgba(23, 23, 23, 0.627);
+    border-radius: 0px 1em 0px 0px;
+}
+div #changelist-filter h2{
+    background:black;
+    border-radius: 0px 1em 0px 0px;
+}
+div .module h2, .module caption, .inline-group h2 {
+    background:black;
+    border-radius: 1em  1em 0px 0px;
+}
+#changelist .actions span.all, #changelist .actions span.action-counter, #changelist .actions span.clear, #changelist .actions span.question, div #toolbar form input, div #changelist .actions select, div #changelist .paginator, div #changelist .actions span.all, #changelist .actions span.action-counter, #changelist .actions span.clear, #changelist .actions span.question, div #toolbar form input, div #changelist .actions select, div #changelist .paginator{
+    color: white;
+}
+
+div #changelist-filter details > summary::before {
+    color:rgb(0, 255, 60);
+}
+.object-tools a:link, .object-tools a:visited {
+    display: block;
+    float: left;
+    padding: 3px 12px;
+    background: rgba(23, 23, 23, 0.627);
+    color: red;
+    font-weight: 400;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* thead th {
+    
+    line-height: normal;
+    text-transform: uppercase;
+    background: black;
+} */
+label .required label, label.required,div  .aligned label, div input[type=text], input[type=password], input[type=email], input[type=url], input[type=number], input[type=tel], textarea, select, .vTextField, div span.clearable-file-input label {
+    font-weight: bold;
+    color:white;
+}
+div .button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: rgba(0, 0, 255, 0.654);
+}
+div #changelist table tbody tr.selected {
+    background-color: rgba(255, 0, 0, 0.689);
+}
+div #changelist .paginator {
+    background: none;
+}

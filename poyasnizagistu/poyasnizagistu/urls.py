@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from blog.views import home, pageNotFound
 
 urlpatterns = [
@@ -25,6 +25,9 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('users/', include('users.urls')),
     path('albums/', include('albums.urls')),
+    path('articles/', include('articles.urls')),
+
+    re_path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:

@@ -62,7 +62,7 @@ class Images(models.Model):
 
 class Comments_Album(models.Model):
     album = models.ForeignKey(Album, on_delete= models.CASCADE, verbose_name='Название Альбома', related_name='comments_album' )
-    author = models.ForeignKey(CustomUser, on_delete= models.CASCADE, verbose_name='Автор комментария', related_name='comments_album')
+    author = models.ForeignKey(CustomUser, on_delete= models.CASCADE, verbose_name='Автор комментария', related_name='comments_album_author')
     create_date = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     text = models.TextField(max_length=700, verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость комментария', default=False)
