@@ -1,7 +1,10 @@
 html, body {
     height: auto; 
+
+    
 }
-div#header, div .breadcrumbs, div #content-related, div .app-albums, div .app-blog, div .app-users, div .app-articles, div .app-auth {
+div#header, div .breadcrumbs, div #content-related, div .app-albums,
+div .app-blog, div .app-users, div .app-articles, div .app-auth {
     background-color:rgba(23, 23, 23, 0.627);
 }
 div #content {
@@ -14,19 +17,31 @@ a:link, a:visited {
     color: chartreuse;
 }
 
-:root, tr:nth-child(even),
+tr:nth-child(even),
 tr:nth-child(even) .errorlist,
 tr:nth-child(odd) + .row-form-errors,
 tr:nth-child(odd) + .row-form-errors .errorlist {
-background: rgba(23, 23, 23, 0.627);
+background: rgba(23, 23, 23, 0);
 
- --body-bg: rgba(23, 23, 23, 0.627); 
+ --body-bg: rgba(23, 23, 23, 0);
  --hairline-color: none;
 }
-#content-related .module{
+:root {
+--selected-bg: #00ff48ae;
+--body-bg: rgba(23, 23, 23, 0);
+--hairline-color:rgba(255, 255, 255, 0);
+}
+thead th {
+    
+    line-height: normal;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.81);
+}
+#content-related .module, div #nav-filter {
     border-radius: 1em;
 }
-#content-related .module h2, #content-related .module h3, div .help, p.help, form p.help, div.help, form div.help, div.help li {
+#content-related .module h2, #content-related .module h3, div .help,
+p.help, form p.help, div.help, form div.help, div.help li {
     color: white;
 }
 div.module {
@@ -44,10 +59,12 @@ h1, div a.selector-chooseall, a.selector-clearall,div a.selector-clearall {
 }
 
 
-#nav-sidebar .current-model, .button.default, input[type=submit].default, .submit-row input.default, div .submit-row a.deletelink{
+#nav-sidebar .current-model, .button.default, input[type=submit].default,
+.submit-row input.default, div .submit-row a.deletelink{
     background-color: rgba(255, 0, 0, 0.569);
 }
-div.breadcrumbs a, div #changelist-filter a:focus, #changelist-filter a:hover, #changelist-filter li.selected a:focus, div #changelist-filter a, div p.file-upload {
+div.breadcrumbs a, div #changelist-filter a:focus, #changelist-filter a:hover,
+#changelist-filter li.selected a:focus, div #changelist-filter a, div p.file-upload {
     color:rgb(0, 119, 255);
 }
 
@@ -62,8 +79,9 @@ div #toolbar {
     background: none;
     color: var(--body-quiet-color);
 }
-div #toolbar form input[type="submit"], div input, textarea, select, .form-row p, form .button, div #changelist .actions .button, div label {
-    color:white
+div #toolbar form input[type="submit"], div input, textarea, select, .form-row p,
+form .button, div #changelist .actions .button, div label {
+    color:rgb(255, 255, 255)
 }
 div #changelist-filter li.selected a, div a.section:link, a.section:visited {
     color: red;
@@ -87,7 +105,12 @@ div .module h2, .module caption, .inline-group h2 {
     background:black;
     border-radius: 1em  1em 0px 0px;
 }
-#changelist .actions span.all, #changelist .actions span.action-counter, #changelist .actions span.clear, #changelist .actions span.question, div #toolbar form input, div #changelist .actions select, div #changelist .paginator, div #changelist .actions span.all, #changelist .actions span.action-counter, #changelist .actions span.clear, #changelist .actions span.question, div #toolbar form input, div #changelist .actions select, div #changelist .paginator{
+#changelist .actions span.all, #changelist .actions span.action-counter,
+#changelist .actions span.clear, #changelist .actions span.question,
+div #toolbar form input, div #changelist .actions select, div #changelist .paginator,
+div #changelist .actions span.all, #changelist .actions span.action-counter, 
+#changelist .actions span.clear, #changelist .actions span.question, 
+div #toolbar form input, div #changelist .actions select, div #changelist .paginator{
     color: white;
 }
 
@@ -106,16 +129,17 @@ div #changelist-filter details > summary::before {
     letter-spacing: 0.5px;
 }
 
-/* thead th {
-    
-    line-height: normal;
-    text-transform: uppercase;
-    background: black;
-} */
-label .required label, label.required,div  .aligned label, div input[type=text], input[type=password], input[type=email], input[type=url], input[type=number], input[type=tel], textarea, select, .vTextField, div span.clearable-file-input label {
+
+label .required label, label.required,div  .aligned label, textarea, .vTextField, 
+div span.clearable-file-input label {
     font-weight: bold;
     color:white;
 }
+div input[type=text], input[type=password], input[type=email], input[type=url], 
+input[type=number], input[type=tel], select {
+    color:rgb(255, 0, 0);
+}
+
 div .button, input[type=submit], input[type=button], .submit-row input, a.button {
     background: rgba(0, 0, 255, 0.654);
 }
@@ -125,3 +149,24 @@ div #changelist table tbody tr.selected {
 div #changelist .paginator {
     background: none;
 }
+div .cke_reset_all, .cke_reset_all *, .cke_reset_all a, .cke_reset_all textarea {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: white;
+    text-decoration: none;
+    width: auto;
+    height: auto;
+    vertical-align: baseline;
+    box-sizing: content-box;
+    position: static;
+    transition: none;
+    border-collapse: collapse;
+    font: normal normal normal 12px Arial, Helvetica, Tahoma, Verdana, Sans-Serif;
+    color:white;
+    text-align: left;
+    white-space: nowrap;
+    cursor: auto;
+    float:none
+}
+
