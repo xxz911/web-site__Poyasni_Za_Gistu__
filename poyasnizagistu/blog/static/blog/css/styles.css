@@ -549,33 +549,38 @@ ul.lines {
 }
 
 
+/* СТИЛИ ИКОНОК ГОЛОСОВАНИЯ */
+svg#thumbsup.up.bi.bi-hand-thumbs-up, svg#thumbsdown.down.bi.bi-hand-thumbs-down{
+  color:white;
+}
+svg#thumbsup.up.bi.bi-hand-thumbs-up:hover, svg#thumbsdown.down.bi.bi-hand-thumbs-down:hover{
+  background-color:rgba(23, 23, 23, 0.99);
+}
+.thumb-active {
+  fill: gold;
+}
+
+
+/* СТИЛИ КАРУСЕЛИ ДЛЯ АЛЬБОМОВ */
+.jumbotron {
+  text-align: center;
+  padding: 20px;
+  margin: 10px 0;
+}
+.gallery {
+  padding: 40px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 0;
+  position: relative;
+}
+
+
 /* ТЕСТОВЫЕ СТИЛИ */
 .test-class {
   color: rgba(255, 255, 255, 0.986);
   margin-bottom: 0;
 }
-svg#thumbsup.up.bi.bi-hand-thumbs-up, svg#thumbsdown.down.bi.bi-hand-thumbs-down{
-color:white;
-}
-svg#thumbsup.up.bi.bi-hand-thumbs-up:hover, svg#thumbsdown.down.bi.bi-hand-thumbs-down:hover{
-background-color:rgba(23, 23, 23, 0.99);
-}
-.thumb-active {
-fill: gold;
-}
 
-.jumbotron {
-        text-align: center;
-        padding: 20px;
-        margin: 10px 0;
-      }
-
-.gallery {
-        padding: 40px;
-      }
-.gallery img {
-        width: 100%;
-        border-radius: 0;
-        position: relative;
-      }
 

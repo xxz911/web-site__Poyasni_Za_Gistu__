@@ -1,7 +1,5 @@
 html, body {
     height: auto; 
-
-    
 }
 div#header, div .breadcrumbs, div #content-related, div .app-albums,
 div .app-blog, div .app-users, div .app-articles, div .app-auth {
@@ -16,23 +14,21 @@ a:link, a:visited {
 .quiet, a.quiet:link, a.quiet:visited {
     color: chartreuse;
 }
-
 tr:nth-child(even),
 tr:nth-child(even) .errorlist,
 tr:nth-child(odd) + .row-form-errors,
 tr:nth-child(odd) + .row-form-errors .errorlist {
-background: rgba(23, 23, 23, 0);
+    background: rgba(23, 23, 23, 0);
 
- --body-bg: rgba(23, 23, 23, 0);
- --hairline-color: none;
+    --body-bg: rgba(23, 23, 23, 0);
+     --hairline-color: none;
 }
 :root {
---selected-bg: #00ff48ae;
---body-bg: rgba(23, 23, 23, 0);
---hairline-color:rgba(255, 255, 255, 0);
+    --selected-bg: #00ff48ae;
+    --body-bg: rgba(23, 23, 23, 0);
+    --hairline-color:rgba(255, 255, 255, 0);
 }
 thead th {
-    
     line-height: normal;
     text-transform: uppercase;
     background: rgba(255, 255, 255, 0.81);
@@ -57,8 +53,6 @@ h1, div a.selector-chooseall, a.selector-clearall,div a.selector-clearall {
     background-color:rgb(0, 0, 0);
     border-radius: 1em 1em 0px 0px;
 }
-
-
 #nav-sidebar .current-model, .button.default, input[type=submit].default,
 .submit-row input.default, div .submit-row a.deletelink{
     background-color: rgba(255, 0, 0, 0.569);
@@ -67,10 +61,6 @@ div.breadcrumbs a, div #changelist-filter a:focus, #changelist-filter a:hover,
 #changelist-filter li.selected a:focus, div #changelist-filter a, div p.file-upload {
     color:rgb(0, 119, 255);
 }
-
-
-
-
 div #toolbar {
     padding: 8px 10px;
     margin-bottom: 15px;
@@ -89,7 +79,6 @@ div #changelist-filter li.selected a, div a.section:link, a.section:visited {
 form #changelist-form{
     background: none;
 }
-
 div #changelist .actions, div .submit-row {
     background: none;
 }
@@ -113,7 +102,6 @@ div #changelist .actions span.all, #changelist .actions span.action-counter,
 div #toolbar form input, div #changelist .actions select, div #changelist .paginator{
     color: white;
 }
-
 div #changelist-filter details > summary::before {
     color:rgb(0, 255, 60);
 }
@@ -128,8 +116,6 @@ div #changelist-filter details > summary::before {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
-
 label .required label, label.required,div  .aligned label, textarea, .vTextField, 
 div span.clearable-file-input label {
     font-weight: bold;
@@ -139,7 +125,6 @@ div input[type=text], input[type=password], input[type=email], input[type=url],
 input[type=number], input[type=tel], select {
     color:rgb(255, 0, 0);
 }
-
 div .button, input[type=submit], input[type=button], .submit-row input, a.button {
     background: rgba(0, 0, 255, 0.654);
 }
