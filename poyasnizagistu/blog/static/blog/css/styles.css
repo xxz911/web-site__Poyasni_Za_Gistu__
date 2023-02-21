@@ -156,7 +156,7 @@ input, select {
   text-align: center;
   margin-top: 0%;
 }
-#id_username, #id_first_name, #id_last_name, #id_password1, #id_password2,  #id_email {
+#id_username, #id_first_name, #id_last_name, #id_password1, #id_password2,  #id_email, #id_birthday {
   width: 160px;
 }
 #id_age {
@@ -540,9 +540,7 @@ ul.lines {
 .pag{
   font-size: 25px;
 }
-.list-pages .page-num:hover {
 
-}
 .list-pages .page-num-selected:hover {
   box-shadow: none;
   border: none;
@@ -582,5 +580,4 @@ svg#thumbsup.up.bi.bi-hand-thumbs-up:hover, svg#thumbsdown.down.bi.bi-hand-thumb
   color: rgba(255, 255, 255, 0.986);
   margin-bottom: 0;
 }
-
 

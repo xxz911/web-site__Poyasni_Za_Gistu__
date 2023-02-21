@@ -1,5 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count, Q, F
 from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, get_object_or_404
@@ -246,3 +246,43 @@ class ShowCategory(PostMixin, ListView):
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+
+
+class SearchPosts(PostMixin,ListView):
+    template_name = 'blog/search.html'
+
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        words = "".join(q[0].upper()) + q[1:]
+        return Post.objects.filter(title__icontains = words, is_published=True)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["q"] = f'q={self.request.GET.get("q")}&'
+        context['title'] = 'Поиск Постов'
+        return context
+
+    # def get(self, request, *args, **kwargs):
+    #     context = {}
+    #
+    #     question = request.GET.get('q')
+    #     if question is not None:
+    #         search_articles = Post.objects.filter(title__icontains = question)
+    #
+    #         # формируем строку URL, которая будет содержать последний запрос
+    #         # Это важно для корректной работы пагинации
+    #         context['last_question'] = '?q=%s' % question
+    #
+    #         current_page = Paginator(search_articles, 10)
+    #
+    #         page = request.GET.get('page')
+    #         try:
+    #             context['article_lists'] = current_page.page(page)
+    #         except PageNotAnInteger:
+    #             context['article_lists'] = current_page.page(1)
+    #         except EmptyPage:
+    #             context['article_lists'] = current_page.page(current_page.num_pages)
+    #
+    #             return render(template_name = self.template_name, context = context)

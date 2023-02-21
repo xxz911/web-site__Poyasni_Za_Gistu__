@@ -2,9 +2,30 @@
 {% load static %}
 
 
-{% showcats cat_selected=cat_selected%}
+
+{% if request.resolver_match.view_name == 'search_posts' %}
+{%showcats cat_selected=-1%}
+{%else%}
+{% showcats cat_selected=cat_selected %}
+{% endif %}
+
+
+<form action="{% url 'search_posts' %}" class="form" method="get" style="wight:auto; margin-left:15%; margin-right:15%;">{% csrf_token %}
+    <div class="input-group" >
+        <input id="search" name="q" type="search" class="form-control"  required="" placeholder="Название поста" style="border-radius:0.4em;">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-danger">Найти Пост</button>
+        </span>
+    </div>
+</form>
 
 <div class="profile-2">
+    {%if not posts %}
+        <h2 class="reg-h" style="margin-top:10%;">По Вашему запросу ничего не найдено</h2>
+    {%endif%}
+    {% if request.resolver_match.view_name == 'search_posts' and posts %}
+    <h2 class="reg-h text-danger" style="margin-top:2%; margin-bottom:0px;">Результаты поиска:</h2>
+    {% endif %}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2  g-1">
         {% for post in posts %}
         <div class="col">

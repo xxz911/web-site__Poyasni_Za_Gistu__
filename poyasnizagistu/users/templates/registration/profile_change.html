@@ -18,4 +18,15 @@
         <p class="form-log"><button type="submit" value="Update" class="btn btn-outline-danger btn-log">Сохранить информацию</button></p>
     </form>
 </div>
+
+<script>
+  jQuery.datetimepicker.setLocale('ru');
+  $(function () {
+    $("#id_birthday").datetimepicker({
+      format: 'Y-m-d',
+      theme:'dark',
+      timepicker:false,
+    });
+  });
+</script>
 {% endblock %}

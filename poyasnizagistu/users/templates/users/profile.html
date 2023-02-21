@@ -25,11 +25,11 @@
     <dt class="col text-center text-danger">Пол:</dt>
     <dd class="col text-center fw-light fst-italic text-white">{{user.get_gender_display}}</dd>
 
-    <dt class="col text-center text-danger">Возраст:</dt>
-    <dd class="col text-center fw-light fst-italic text-white">{{user.age|default:"Не указано"}}</dd>
+    <dt class="col text-center text-danger">Дата рождения:</dt>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.birthday|date:"d M Y" |default:"Не указано"}}</dd>
 
     <dt class="col text-center text-danger">Дата регистрации:</dt>
-    <dd class="col text-center fw-light fst-italic text-white">{{user.date_joined}}</dd>
+    <dd class="col text-center fw-light fst-italic text-white">{{user.date_joined|date:"d M Y"}}</dd>
     
     <hr class="text-white" style="margin-top:0%">
 

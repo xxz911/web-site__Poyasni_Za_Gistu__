@@ -1,15 +1,16 @@
 html, body {
     height: auto; 
+    background:rgba(23, 23, 23, 0.961);
 }
 div#header, div .breadcrumbs, div #content-related, div .app-albums,
 div .app-blog, div .app-users, div .app-articles, div .app-auth {
     background-color:rgba(23, 23, 23, 0.627);
 }
 div #content {
-    color:white
+    color:rgb(255, 77, 0)
 }
 a:link, a:visited {
-    color:rgb(0, 119, 255);
+    color:rgb(238, 255, 0);
 }
 .quiet, a.quiet:link, a.quiet:visited {
     color: chartreuse;
@@ -24,14 +25,16 @@ tr:nth-child(odd) + .row-form-errors .errorlist {
      --hairline-color: none;
 }
 :root {
-    --selected-bg: #00ff48ae;
+    --selected-bg: #bf000094;
     --body-bg: rgba(23, 23, 23, 0);
     --hairline-color:rgba(255, 255, 255, 0);
+    --body-quiet-color: #c1bfbf;
 }
 thead th {
     line-height: normal;
     text-transform: uppercase;
-    background: rgba(255, 255, 255, 0.81);
+    /* background: rgb(54, 155, 255); */
+    background: rgb(0, 0, 0);
 }
 #content-related .module, div #nav-filter {
     border-radius: 1em;
@@ -116,7 +119,7 @@ div #changelist-filter details > summary::before {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-label .required label, label.required,div  .aligned label, textarea, .vTextField, 
+label .required label, label.required,div  .aligned label, textarea, .vTextField,
 div span.clearable-file-input label {
     font-weight: bold;
     color:white;
@@ -155,3 +158,12 @@ div .cke_reset_all, .cke_reset_all *, .cke_reset_all a, .cke_reset_all textarea 
     float:none
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+      --border-color: #ffffff;
+    }
+}
+div .required label,div  label.required {
+    font-weight: bold;
+    color: rgb(255, 137, 3);
+}

@@ -33,4 +33,14 @@
     </div>
   </div>
 
+<script>
+  jQuery.datetimepicker.setLocale('ru');
+  $(function () {
+    $("#id_birthday").datetimepicker({
+      format: 'Y-m-d',
+      theme:'dark',
+      timepicker:false,
+    });
+  });
+</script>
 {% endblock %}

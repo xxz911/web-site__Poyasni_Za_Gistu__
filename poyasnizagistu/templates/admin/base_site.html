@@ -9,7 +9,10 @@
 {% block branding %}
 <body style="background-image: url('{% static 'blog/images/back.jpeg' %}'); ">
 <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
-
+<script>
+CKEDITOR.addCss('.cke_editable { background: rgba(23, 23, 23, 0.961); color: black }');
+CKEDITOR.replace( 'description' );
+</script>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

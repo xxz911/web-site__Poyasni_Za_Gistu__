@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig',
 
 
 ]
@@ -122,6 +123,8 @@ LANGUAGE_CODE = 'ru'
 TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
+
+USE_L10N = False
 
 USE_TZ = True
 
@@ -239,3 +242,6 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEFAULT_FROM_EMAIL = 'Команда Поясни за гисту <hystologyvk@gmail.com >'
+
+
+DATE_INPUT_FORMATS = ["%Y-%m-%d"]
