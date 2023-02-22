@@ -44,10 +44,10 @@ def album_image_directory_path(instance, filename):
     return 'album/organ_system/{0}/{1}/image/{2}'.format(instance.album.organ_system.slug, instance.album.slug, filename)
 class Images(models.Model):
     album = models.ForeignKey('Album', related_name='albumimages', verbose_name='Альбом', on_delete=models.CASCADE)
-    title_image = models.CharField(verbose_name='Название изображения', max_length=60, unique=True)
+    title_image = models.CharField(verbose_name='Название изображения', max_length=30, unique=True)
     image = models.ImageField(verbose_name='Изображение', upload_to=album_image_directory_path,)
     comment_image = models.CharField(verbose_name='Комментарий изображения', max_length=40)
-    title_image_description = models.CharField(verbose_name='Название изображения с пояснениями', max_length=60, unique=True)
+    title_image_description = models.CharField(verbose_name='Название изображения с пояснениями', max_length=30, unique=True)
     image_description = models.ImageField(verbose_name='Изображение с пояснениями', upload_to=album_image_directory_path,)
     comment_image_description = models.CharField(verbose_name='Комментарий изображения с пояснениями', max_length=40)
 
@@ -68,6 +68,13 @@ class Comments_Album(models.Model):
     text = models.TextField(max_length=700, verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость комментария', default=False)
 
+    def text_100(self):
+        if len(self.text) > 99:
+            return u"%s..." % (self.text[:100],)
+        else:
+            return self.text
+
+    text_100.short_description = 'Текст комментария'
     def __str__(self):
         return f'Альбом: {self.album} |  Автор:{self.author}'
 

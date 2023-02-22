@@ -47,6 +47,13 @@ class Comments_Article(models.Model):
     text = models.TextField(max_length=700, verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость комментария', default=False)
 
+    def text_100(self):
+        if len(self.text) > 99:
+            return u"%s..." % (self.text[:100],)
+        else:
+            return self.text
+
+    text_100.short_description = 'Текст комментария'
     def __str__(self):
         return f'Статья: {self.article} |  Автор:{self.author}'
 

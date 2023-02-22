@@ -581,22 +581,20 @@ svg#thumbsup.up.bi.bi-hand-thumbs-up:hover, svg#thumbsdown.down.bi.bi-hand-thumb
 
 /* ДОМАШНЯЯ СТРАНИЦА */
 .home-h {
- color:rgb(255, 255, 255);
+ color:rgb(255, 170, 0);
  margin-left:25%;
  margin-right:25%;
  margin-top: 8%;
- background:rgba(255, 0, 0, 0.612);
- border-radius:1em;
- box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+ text-shadow: 1px 0 rgb(0, 0, 0), -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 0 -1px rgb(0, 0, 0),
+  1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
 }
 .home-t {
- color:rgb(255, 255, 255);
+ color:rgb(255, 170, 0);
  margin-left:25%;
  margin-right:25%;
  margin-top: 4%;
- background:rgba(255, 0, 0, 0.612);
- border-radius:1em;
- box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+ text-shadow: 1px 0 rgb(0, 0, 0), -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 0 -1px rgb(0, 0, 0),
+  1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
 }
 
 

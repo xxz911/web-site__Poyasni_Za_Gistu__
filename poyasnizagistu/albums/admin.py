@@ -1,19 +1,27 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-
+from django.db.models import Count
 from albums.models import *
 
 
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ('id', 'is_published', 'organ_system', 'title', 'get_cover', 'thumbsup', 'thumbsdown')
+    list_display = ('id', 'is_published', 'organ_system', 'title', 'get_cover', 'thumbsup', 'thumbsdown', 'comments')
     list_display_links = ('id', 'title')
     list_editable = ('is_published', 'organ_system')
     list_filter = ('organ_system__name', 'title', 'is_published', 'thumbsup', 'thumbsdown')
-    fields = ('is_published', 'organ_system', 'title', 'cover', 'get_cover', 'slug',)
-    readonly_fields = ('get_cover',)
-    search_fields = ('id', 'title', 'organ_system')
+    fields = ('is_published', 'organ_system', 'title', 'cover', 'get_cover', 'slug', 'thumbsup', 'thumbsdown', 'comments')
+    readonly_fields = ('get_cover', 'comments', 'thumbsup', 'thumbsdown',)
+    search_fields = ('id', 'title', 'organ_system', 'comments')
     prepopulated_fields = {"slug": ('title',)}
 
+    def comments(self, obj):
+        return obj.comments_count
+
+    comments.short_description = 'Комментариев'
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(comments_count=Count("comments_album"))
+        return queryset
     def get_cover(self, object):
         if object.cover:
             return mark_safe(f"<img src='{object.cover.url}' width=6"
@@ -40,8 +48,8 @@ admin.site.register(Organ_System, OrganSystemAdmin)
 
 
 class CommentsAlbumAdmin(admin.ModelAdmin):
-    list_display = ('album', 'author', 'create_date', 'text', 'status')
-    list_display_links = ('text',)
+    list_display = ('album', 'author', 'create_date', 'text_100', 'status')
+    list_display_links = ('text_100',)
     fields = ('album', 'author', 'text', 'status')
     list_editable = ('status',)
     search_fields = ('album', 'author', 'create_date', 'text',)
