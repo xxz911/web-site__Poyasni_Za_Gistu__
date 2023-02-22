@@ -10,6 +10,7 @@ class Album(models.Model):
     cover = models.ImageField(verbose_name='Обложка', upload_to=album_directory_path,)
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
     is_published = models.BooleanField(verbose_name='Публикация', default=True)
+    time_create = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
 
     organ_system = models.ForeignKey('Organ_System', verbose_name='Система органов', on_delete=models.CASCADE, null=False)
 
@@ -28,7 +29,7 @@ class Album(models.Model):
     class Meta:
         verbose_name = "Альбом"
         verbose_name_plural = "Альбомы"
-        ordering = ['-title']
+        ordering = ['-time_create']
 
 
 class Votes_Album(models.Model):

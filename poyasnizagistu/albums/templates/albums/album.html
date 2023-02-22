@@ -16,7 +16,8 @@
          {%endif%}
          </div>
 <div class="content text-center">
-    <h4 class="texr-center text-danger">Система органов: {{album.organ_system}}</h4>
+    <span class="right" style="float:right;"> <p class="text-danger time">Система органов: {{album.organ_system}}</p></span><span class="left" style="float:left;"><p class="text-muted time">{{album.time_create|date}}</p></span>
+    <br>
     <hr class="text-white" style="margin-top:0%; margin-bottom:1%">
     <h2 class="text-info fs-4 text-center">{{album.title}}</h2>
     <hr class="text-white" style="margin-top:0%; margin-bottom:1%">

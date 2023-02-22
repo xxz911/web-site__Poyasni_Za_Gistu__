@@ -207,3 +207,19 @@ def thumbsarticle(request):
     pass
 
 
+class SearchArticles(ArticleMixin,ListView):
+    template_name = 'articles/search.html'
+
+    context_object_name = 'articles'
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        words = "".join(q[0].upper()) + q[1:]
+        return Article.objects.filter(title__icontains = words, is_published=True)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["q"] = f'q={self.request.GET.get("q")}&'
+        context['title'] = 'Поиск Статей'
+        return context
+

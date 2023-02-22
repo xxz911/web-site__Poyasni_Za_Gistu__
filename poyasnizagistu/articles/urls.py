@@ -7,6 +7,7 @@ urlpatterns = [
     path('article/<slug:article_slug>/', ArticleDetail.as_view(), name='article'),
     path('thumbs_article/', thumbsarticle, name='thumbs_article'),
     path('thematic/<slug:thematic_slug>/', ShowThematic.as_view(), name='thematic'),
+    path('search_articles/', SearchArticles.as_view(), name='search_articles'),
 
 
 ]

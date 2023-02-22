@@ -23,7 +23,7 @@ class CustomUser(AbstractUser):
     avatar = models.ImageField(verbose_name='Аватар', default='users/avatar/default/default_avatar.jpeg',
                                 upload_to=user_directory_path, blank=True, )
     gender = models.CharField(verbose_name='Пол', max_length=1, choices=GENDERS, default='-', blank=True)
-    age = models.PositiveSmallIntegerField(verbose_name='Возраст',null=True,  blank=True,)
+    age = models.PositiveSmallIntegerField(verbose_name='Возраст',null=True,  blank=True)
     birthday = models.DateField(verbose_name='Дата рождения', blank=True, null=True)
     email = models.EmailField(unique=True)
 

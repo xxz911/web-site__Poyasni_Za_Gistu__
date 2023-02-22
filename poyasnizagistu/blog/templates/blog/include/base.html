@@ -28,7 +28,7 @@
 {% block navbar %}
     <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container-fluid ">
-            <a class="logo-container" href="{% url 'home' %}">
+            <a class="logo-container">
              {% if request.user.is_authenticated %}
              <img class="logo"  src='{{ user.avatar.url }}' alt="Avatar" width="60em" height="55em" >
              <a href="{{ user.get_absolute_url }}"><button type="button" class="btn btn-outline-warning btn-sm btn-profile">Профиль</button></a>
@@ -44,9 +44,11 @@
 		    </button>
 		    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link"  href="{% url home.url_name %}"  {% if home.url_name in request.resolver_match.view_name %} style='color: red;' {% endif %}>{{home.title}}</a>
+                    </li>
 {% for m in menu %}
                     <li class="nav-item">
-
                         <a class="nav-link"  href="{% url m.url_name %}"  {% if m.url_name in request.path %} style='color: red;' {% endif %}>{{m.title}}</a>
                     </li>
 {% endfor %}

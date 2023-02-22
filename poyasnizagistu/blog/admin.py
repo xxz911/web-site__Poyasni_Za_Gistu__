@@ -51,5 +51,17 @@ class CommentsPostAdmin(admin.ModelAdmin):
 
 admin.site.register(Comments_Post, CommentsPostAdmin)
 
+class HomeHiAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'body')
+    list_display_links = ('id', 'body',)
+    fields = ('title', 'body',)
+    readonly_fields = ('title',)
+
+
+
+
+admin.site.register(HomeHi, HomeHiAdmin)
+
+
 admin.site.site_title = 'Администрирование сайта "Поясни за Гисту"'
 admin.site.site_header = 'Администрирование сайта "Поясни за Гисту"'

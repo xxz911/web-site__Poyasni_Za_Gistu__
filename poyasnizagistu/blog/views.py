@@ -7,14 +7,33 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 
-
+from albums.models import Album
+from articles.models import Article
 from .forms import CommentForm
 from .models import *
 from .utils import PostMixin
 
 
 def home(request):
-    return render(request, 'blog/home.html')
+    posts = Post.objects.filter(is_published=True).order_by('-time_create')[:2]
+    articles = Article.objects.filter(is_published=True).order_by('-time_create')[:2]
+    albums = Album.objects.filter(is_published=True).order_by('-time_create')[:2]
+    hi = HomeHi.objects.all()[0]
+    context = {
+        'title': 'Главная',
+        'posts': posts,
+        'articles': articles,
+        'albums': albums,
+        'hi': hi
+        }
+
+    return render(request, 'blog/home.html', context=context)
+def about(request):
+    context = {
+        'title': 'О сайте',
+        }
+
+    return render(request, 'blog/about.html', context=context)
 
 def thumbs(request):
     if request.POST.get('action') == 'thumbs':

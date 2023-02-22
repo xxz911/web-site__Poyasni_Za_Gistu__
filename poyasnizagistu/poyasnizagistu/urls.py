@@ -17,11 +17,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
-from blog.views import home, pageNotFound
+from blog.views import home, pageNotFound, about
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
+    path('about', about, name='about'),
     path('blog/', include('blog.urls')),
     path('users/', include('users.urls')),
     path('albums/', include('albums.urls')),

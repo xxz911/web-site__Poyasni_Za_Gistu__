@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from users.models import CustomUser
-
+from ckeditor_uploader.fields import RichTextUploadingField
 def post_directory_path(instance, filename):
     return 'blog/category/{0}/{1}/{2}'.format(instance.cat.slug, instance.slug, filename)
 class Post(models.Model):
@@ -67,3 +67,19 @@ class Categories_Post(models.Model):
     class Meta:
         verbose_name = "Категорию"
         verbose_name_plural = "Категории"
+
+
+class HomeHi(models.Model):
+    title = models.CharField(verbose_name='Приветствие', max_length=40, unique=True)
+    body = RichTextUploadingField(verbose_name='Содержание приветсвия')
+
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('home')
+
+    class Meta:
+        verbose_name = "Одно приветствие"
+        verbose_name_plural = "Одно приветствие"

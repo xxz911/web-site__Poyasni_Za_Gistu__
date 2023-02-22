@@ -7,6 +7,7 @@ urlpatterns = [
     path('album/<slug:album_slug>/', AlbumDetail.as_view(), name='album'),
     path('thumbs_album/', thumbsalbum, name='thumbs_album'),
     path('organ_system/<slug:organ_slug>/', ShowOrganSystem.as_view(), name='organ'),
+    path('search_albums/', SearchAlbums.as_view(), name='search_albums'),
 
 
 ]

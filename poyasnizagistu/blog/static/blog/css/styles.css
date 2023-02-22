@@ -437,6 +437,10 @@ background: none;
 .btn-profile {
   margin: 0px;
 }
+div .card {
+border: none;
+}
+
 
 
 /* СТИЛИ КОММЕНТАРИЕВ НА СТРАНИЦЕ ПОСТА */
@@ -552,7 +556,7 @@ svg#thumbsup.up.bi.bi-hand-thumbs-up, svg#thumbsdown.down.bi.bi-hand-thumbs-down
   color:white;
 }
 svg#thumbsup.up.bi.bi-hand-thumbs-up:hover, svg#thumbsdown.down.bi.bi-hand-thumbs-down:hover{
-  background-color:rgba(23, 23, 23, 0.99);
+  background:none;
 }
 .thumb-active {
   fill: gold;
@@ -575,9 +579,29 @@ svg#thumbsup.up.bi.bi-hand-thumbs-up:hover, svg#thumbsdown.down.bi.bi-hand-thumb
 }
 
 
+/* ДОМАШНЯЯ СТРАНИЦА */
+.home-h {
+ color:rgb(255, 255, 255);
+ margin-left:25%;
+ margin-right:25%;
+ margin-top: 8%;
+ background:rgba(255, 0, 0, 0.612);
+ border-radius:1em;
+ box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+}
+.home-t {
+ color:rgb(255, 255, 255);
+ margin-left:25%;
+ margin-right:25%;
+ margin-top: 4%;
+ background:rgba(255, 0, 0, 0.612);
+ border-radius:1em;
+ box-shadow: 0 0px 3px rgb(141, 141, 141), 0 0px 3px rgb(0, 0, 0);
+}
+
+
 /* ТЕСТОВЫЕ СТИЛИ */
 .test-class {
   color: rgba(255, 255, 255, 0.986);
   margin-bottom: 0;
 }
-
