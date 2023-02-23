@@ -2,13 +2,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.db.models import Count, Q, F
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 
 from albums.forms import CommentAlbumForm
-from albums.models import Album, Votes_Album, Images
+from albums.models import Album, Votes_Album, Organ_System
 from albums.utils import AlbumsMixin
 
 
@@ -26,7 +25,7 @@ class AlbumList(AlbumsMixin, ListView):
     def get_queryset(self):
         return Album.objects.annotate(number_of_comments=Count('comments_album', filter=Q(comments_album__status=True))) \
             .filter(is_published=True) \
-            .order_by('-title')
+            .order_by('-title').select_related('organ_system')
 
 class ShowOrganSystem(AlbumsMixin, ListView):
     model = Album
@@ -35,14 +34,15 @@ class ShowOrganSystem(AlbumsMixin, ListView):
     allow_empty = False
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Система органов - ' + str(context['albums'][0].organ_system)
-        context['organ_selected'] = context['albums'][0].organ_system.slug
+        o = Organ_System.objects.get(slug=self.kwargs['organ_slug'])
+        context['title'] = 'Система органов - ' + str(o.name)
+        context['organ_selected'] = o.slug
         return context
     def get_queryset(self):
         return Album.objects.filter(organ_system__slug=self.kwargs['organ_slug'], is_published=True)\
             .annotate(number_of_comments=Count('comments_album', filter=Q(comments_album__status=True))) \
             .filter(is_published=True) \
-            .order_by('-title')
+            .order_by('-title').select_related('organ_system')
 
 class AlbumDetail(SuccessMessageMixin, FormMixin, DetailView):
     model = Album
@@ -75,10 +75,11 @@ class AlbumDetail(SuccessMessageMixin, FormMixin, DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Пост - ' + str(context['album'])
-        album = get_object_or_404(Album, slug=self.kwargs['album_slug'])
+        obj = self.object
+        context['title'] = 'Альбом - ' + str(obj.title)
+
         def get_vote(self):
-            votes = Votes_Album.objects.filter(user=self.request.user.id, album=album)
+            votes = Votes_Album.objects.filter(user=self.request.user.id, album=obj)
             if len(votes) == 0:
                 return 'not_vote'
             if len(votes) == 1:
@@ -102,7 +103,7 @@ class AlbumDetail(SuccessMessageMixin, FormMixin, DetailView):
         return context
 
     def get_modereted_comments(self):
-        queryset = self.object.comments_album.filter(status=True)
+        queryset = self.object.comments_album.filter(status=True).select_related('author')
         paginator = Paginator(queryset, 6)
         page = self.request.GET.get('page')
         comments = paginator.get_page(page)
@@ -214,13 +215,12 @@ def thumbsalbum(request):
 
 class SearchAlbums(AlbumsMixin,ListView):
     template_name = 'albums/search.html'
-
     context_object_name = 'albums'
 
     def get_queryset(self):
         q = self.request.GET.get('q')
         words = "".join(q[0].upper()) + q[1:]
-        return Album.objects.filter(title__icontains = words, is_published=True)
+        return Album.objects.filter(title__icontains = words, is_published=True).annotate(number_of_comments=Count('comments_album', filter=Q(comments_album__status=True))).select_related('organ_system')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

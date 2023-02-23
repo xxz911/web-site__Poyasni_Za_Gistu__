@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'debug_toolbar',
     'django_cleanup.apps.CleanupConfig',
 
 
@@ -60,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'poyasnizagistu.urls'
@@ -245,3 +249,9 @@ DEFAULT_FROM_EMAIL = 'Команда Поясни за гисту <hystologyvk@g
 
 
 DATE_INPUT_FORMATS = ["%Y-%m-%d"]
+
+INTERNAL_IPS = [
+
+    "127.0.0.1",
+
+]

@@ -1,8 +1,8 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator
 from django.db.models import Count, Q, F
 from django.http import HttpResponseNotFound, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
@@ -15,9 +15,9 @@ from .utils import PostMixin
 
 
 def home(request):
-    posts = Post.objects.filter(is_published=True).order_by('-time_create')[:2]
-    articles = Article.objects.filter(is_published=True).order_by('-time_create')[:2]
-    albums = Album.objects.filter(is_published=True).order_by('-time_create')[:2]
+    posts = Post.objects.filter(is_published=True).order_by('-time_create')[:2].select_related('cat')
+    articles = Article.objects.filter(is_published=True).order_by('-time_create')[:2].select_related('thematic')
+    albums = Album.objects.filter(is_published=True).order_by('-time_create')[:2].select_related('organ_system')
     hi = HomeHi.objects.all()[0]
     context = {
         'title': 'Главная',
@@ -148,20 +148,7 @@ class PostList(PostMixin, ListView):
     def get_queryset(self):
         return Post.objects.annotate(number_of_comments=Count('comments_post', filter=Q(comments_post__status=True)))\
             .filter(is_published=True)\
-            .order_by('-time_create')
-
-# def blog(request):
-#     posts = Post.objects.all().order_by('-time_create')
-#
-#     context = {
-#     'posts': posts,
-#     'cat_selected': 0
-#     }
-#
-#
-#     return render(request, 'blog/blog.html', context=context)
-
-
+            .order_by('-time_create').select_related('cat')
 
 
 class PostDetail(SuccessMessageMixin, FormMixin, DetailView):
@@ -195,10 +182,11 @@ class PostDetail(SuccessMessageMixin, FormMixin, DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Пост - ' + str(context['post'])
-        post = get_object_or_404(Post, slug=self.kwargs['post_slug'])
+        obj = self.object
+        context['title'] = 'Пост - ' + str(obj.title)
+
         def get_vote(self):
-            votes = Votes_Post.objects.filter(user=self.request.user.id, post=post)
+            votes = Votes_Post.objects.filter(user=self.request.user.id, post=obj)
             if len(votes) == 0:
                 return 'not_vote'
             if len(votes) == 1:
@@ -218,20 +206,11 @@ class PostDetail(SuccessMessageMixin, FormMixin, DetailView):
         return context
 
     def get_modereted_comments(self):
-        queryset = self.object.comments_post.filter(status=True)
+        queryset = self.object.comments_post.filter(status=True).select_related('author')
         paginator = Paginator(queryset, 6)
         page = self.request.GET.get('page')
         comments = paginator.get_page(page)
         return comments
-
-
-
-# def show_post(request, post_slug):
-#     one_post = get_object_or_404(Post, slug=post_slug)
-#     comments = Comments_Post.objects.filter(post__slug=post_slug)
-#     form = CommentForm(request.POST)
-#
-#     return render(request, 'blog/post.html', {'one_post': one_post, 'comments':comments, 'form':form})
 
 
 class ShowCategory(PostMixin, ListView):
@@ -241,67 +220,31 @@ class ShowCategory(PostMixin, ListView):
     allow_empty = False
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Категория - ' + str(context['posts'][0].cat)
-        context['cat_selected'] = context['posts'][0].cat.slug
+        c = Categories_Post.objects.get(slug=self.kwargs['cat_slug'])
+        context['title'] = 'Категория - ' + str(c.name)
+
+        context['cat_selected'] = c.slug
         return context
     def get_queryset(self):
         return Post.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)\
             .annotate(number_of_comments=Count('comments_post', filter=Q(comments_post__status=True)))\
-            .order_by('-time_create')
-
-
-# def show_category(request, cat_slug):
-#     posts = Post.objects.filter(cat__slug=cat_slug)
-#
-#     context = {
-#     'posts': posts,
-#     'cat_selected': cat_slug
-#     }
-#
-#     if len(posts) == 0:
-#         raise Http404()
-#     return render(request, 'blog/category.html', context=context)
+            .order_by('-time_create').select_related('cat')
 
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
-
 class SearchPosts(PostMixin,ListView):
     template_name = 'blog/search.html'
-
     context_object_name = 'posts'
 
     def get_queryset(self):
         q = self.request.GET.get('q')
         words = "".join(q[0].upper()) + q[1:]
-        return Post.objects.filter(title__icontains = words, is_published=True)
+        return Post.objects.filter(title__icontains = words, is_published=True).annotate(number_of_comments=Count('comments_post', filter=Q(comments_post__status=True))).select_related('cat')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         context['title'] = 'Поиск Постов'
         return context
-
-    # def get(self, request, *args, **kwargs):
-    #     context = {}
-    #
-    #     question = request.GET.get('q')
-    #     if question is not None:
-    #         search_articles = Post.objects.filter(title__icontains = question)
-    #
-    #         # формируем строку URL, которая будет содержать последний запрос
-    #         # Это важно для корректной работы пагинации
-    #         context['last_question'] = '?q=%s' % question
-    #
-    #         current_page = Paginator(search_articles, 10)
-    #
-    #         page = request.GET.get('page')
-    #         try:
-    #             context['article_lists'] = current_page.page(page)
-    #         except PageNotAnInteger:
-    #             context['article_lists'] = current_page.page(1)
-    #         except EmptyPage:
-    #             context['article_lists'] = current_page.page(current_page.num_pages)
-    #
-    #             return render(template_name = self.template_name, context = context)

@@ -2,13 +2,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.db.models import Count, Q, F
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 
 from articles.forms import CommentArticleForm
-from articles.models import Article, Votes_Article
+from articles.models import Article, Votes_Article, Thematic
 from articles.utils import ArticleMixin
 
 
@@ -27,7 +26,7 @@ class ArticlesList(ArticleMixin, ListView):
     def get_queryset(self):
         return Article.objects.annotate(number_of_comments=Count('comments_article', filter=Q(comments_article__status=True)))\
             .filter(is_published=True)\
-            .order_by('-time_create')
+            .order_by('-time_create').select_related('thematic')
 
 class ShowThematic(ArticleMixin, ListView):
     model = Article
@@ -37,15 +36,17 @@ class ShowThematic(ArticleMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Тематика - ' + str(context['articles'][0].thematic)
-        context['thematic_selected'] = context['articles'][0].thematic.slug
+        t = Thematic.objects.get(slug=self.kwargs['thematic_slug'])
+
+        context['title'] = 'Тематика - ' + str(t.name)
+        context['thematic_selected'] = t.slug
         return context
 
     def get_queryset(self):
         return Article.objects.filter(thematic__slug=self.kwargs['thematic_slug'], is_published=True)\
             .annotate(number_of_comments=Count('comments_article', filter=Q(comments_article__status=True))) \
             .filter(is_published=True) \
-            .order_by('-title')
+            .order_by('-title').select_related('thematic')
 
 
 class ArticleDetail(SuccessMessageMixin, FormMixin, DetailView):
@@ -79,10 +80,11 @@ class ArticleDetail(SuccessMessageMixin, FormMixin, DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Статья - ' + str(context['article'])
-        article = get_object_or_404(Article, slug=self.kwargs['article_slug'])
+        obj = self.object
+        context['title'] = 'Статья - ' + str(obj.title)
+
         def get_vote(self):
-            votes = Votes_Article.objects.filter(user=self.request.user.id, article=article)
+            votes = Votes_Article.objects.filter(user=self.request.user.id, article=obj)
             if len(votes) == 0:
                 return 'not_vote'
             if len(votes) == 1:
@@ -102,7 +104,7 @@ class ArticleDetail(SuccessMessageMixin, FormMixin, DetailView):
         return context
 
     def get_modereted_comments(self):
-        queryset = self.object.comments_article.filter(status=True)
+        queryset = self.object.comments_article.filter(status=True).select_related('author')
         paginator = Paginator(queryset, 6)
         page = self.request.GET.get('page')
         comments = paginator.get_page(page)
@@ -215,7 +217,7 @@ class SearchArticles(ArticleMixin,ListView):
     def get_queryset(self):
         q = self.request.GET.get('q')
         words = "".join(q[0].upper()) + q[1:]
-        return Article.objects.filter(title__icontains = words, is_published=True)
+        return Article.objects.filter(title__icontains = words, is_published=True).annotate(number_of_comments=Count('comments_article', filter=Q(comments_article__status=True))).select_related('thematic')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
