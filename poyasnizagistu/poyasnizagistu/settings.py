@@ -150,6 +150,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 
+# CACHE
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'poyasnizagistu_cache')
+    }
+}
+
 #ckeditor upload path
 CKEDITOR_UPLOAD_PATH="articles/uploads/"
 
@@ -238,7 +246,7 @@ CAPTCHA_LENGTH = 5
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "hystologyvk@gmail.com"
-EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST_PASSWORD = "kwmiuyebocejmjnd"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
@@ -251,7 +259,5 @@ DEFAULT_FROM_EMAIL = 'Команда Поясни за гисту <hystologyvk@g
 DATE_INPUT_FORMATS = ["%Y-%m-%d"]
 
 INTERNAL_IPS = [
-
     "127.0.0.1",
-
 ]

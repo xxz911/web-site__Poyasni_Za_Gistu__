@@ -603,3 +603,13 @@ svg#thumbsup.up.bi.bi-hand-thumbs-up:hover, svg#thumbsdown.down.bi.bi-hand-thumb
   color: rgba(255, 255, 255, 0.986);
   margin-bottom: 0;
 }
+.gold-title {
+ color: rgb(0, 170, 255);
+ text-align: center;
+ margin-left: 20%;
+ margin-right: 20%;
+ margin-bottom: 5%;
+ color:yellow;
+ text-shadow: 1px 0 rgb(0, 0, 0), -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 0 -1px rgb(0, 0, 0),
+  1px 1px rgb(0, 0, 0), -1px -1px rgb(0, 0, 0), 1px -1px rgb(0, 0, 0), -1px 1px rgb(0, 0, 0);
+}
