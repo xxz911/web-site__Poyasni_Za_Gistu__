@@ -34,8 +34,8 @@
     </span>
       <span id="thumbs" class="left" style="float:left;" data-value="{{post.id}}">
       </span>
-         <ul class="lines">
-             <li class="lines"><span id="i_like_this" class="text-danger"><span id="up" style="margin-bottom:0px; font-size:24px;">{{post.thumbsup}}</span></span>
+        <ul class="lines">
+            <li class="lines"><span id="i_like_this" class="text-danger"><span id="up" style="margin-bottom:0px; font-size:24px;">{{post.thumbsup}}</span></span>
                   <a {% if request.user.is_authenticated %}
                     class="btn btn-link text-dark p-0 border-0 btn-outline-black thumbaction" {% else %}
                     href="{% url 'login' %}" class="btn btn-link text-dark p-0 border-0 btn-outline-black"
@@ -54,7 +54,7 @@
                       </svg>
                       {%endif%}
                   </a>
-             <li class="lines"> <span id="down"  class="text-primary" style="margin-bottom:0px; font-size:24px;">{{post.thumbsdown}}</span>
+            <li class="lines"> <span id="down"  class="text-primary" style="margin-bottom:0px; font-size:24px;">{{post.thumbsdown}}</span>
                   <a {% if request.user.is_authenticated %}
                     class="btn btn-link text-dark p-0 border-0 btn-outline-black thumbaction" {% else %}
                     href="{% url 'login' %}" class="btn btn-link text-dark p-0 border-0 btn-outline-black"

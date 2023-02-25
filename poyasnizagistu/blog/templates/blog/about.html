@@ -6,20 +6,73 @@
 {% endblock %}
 
 {% block content %}
-<div class="content text-center">
-    <p class="test-class "> Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент Контент
-      Контент Контент Контент Контент Контент Контент Контент Контент Контент
+<div class="profile">
+
+    <h5 class="text-center text-warning boldtext" style="margin-bottom: 3%; font-style: italic; ">Какова главная идея сайта?</h5>
+    <p class="text-white fst-italic" style="text-align: justify; text-indent: 30px;">
+    Идея простая: предоставить максимально понятные материалы по гистологии, держать в курсе последних новостей и не забывать конечно же о юморе. Но это не значит, что мы остановимся на гисте :)
     </p>
+
+    <h5 class="text-center text-warning boldtext" style="margin-bottom: 3%; font-style: italic; ">Как появилась идея о сайте?</h5>
+    <p class="text-white fst-italic" style="text-align: justify; text-indent: 30px;"> Идею о создании сайта я вынашивал давно, но недавно оно стало реализуемо благодаря моего другу, который занимается back-end разработкой (но по итогу он делал и front и back, выполняя функции full-stack разработчика :D). Я сам увлекаюсь разработкой на языке С++, но это совершенно другая история.
+    </p>
+
+    <h5 class="text-center text-warning boldtext" style="margin-bottom: 3%; font-style: italic; ">Какие разделы на сайте есть на данный момент?</h5>
+    <div class="cont-right  boldtext" style="color:red; text-align: justify; text-indent: 30px; font-size: 1rem;">Главная
+        <a class="text-white fst-italic" style="text-align: justify; text-decoration:none; font-size: 1rem;">
+        ⇨ на этой странице вы можете найти самые свежие выпуски по всем разделам сайта, а также возможные анонсы новых фич.</a>
+    </div><p></p>
+    <div class="cont-right  boldtext" style="color:red; text-align: justify; text-indent: 30px; font-size: 1rem;">Блог
+        <a class="text-white fst-italic" style="text-align: justify; text-decoration:none; font-size: 1rem;">
+        ⇨ краткие рассказы и замечения, связанные с работой, учёбой и чем-то другим.</a>
+    </div><p></p>
+    <div class="cont-right  boldtext" style="color:red; text-align: justify; text-indent: 30px; font-size: 1rem;">Статьи
+        <a class="text-white fst-italic" style="text-align: justify; text-decoration:none; font-size: 1rem;">
+        ⇨ это по-большей части текстовая информация по определенному разделу, но конечно же с картинками!</a>
+    </div><p></p>
+    <div class="cont-right  boldtext" style="color:red; text-align: justify; text-indent: 30px; font-size: 1rem;">Альбомы
+        <a class="text-white fst-italic" style="text-align: justify; text-decoration:none; font-size: 1rem;">
+        ⇨ наглядные фотографии микро- и макропрепаратов, которые помогут действительно увидеть клетки и нужные структуры.</a>
+    </div><p></p>
+
+    <h5 class="text-center text-warning boldtext" style="margin-bottom: 3%; font-style: italic; ">Какие планы на будущее?</h5>
+    <p class="text-white fst-italic" style="text-align: justify; text-indent: 30px;">
+    Основные идеи для реализации на ближайжее будущее у меня такие:
+    </p>
+    <p class="text-white fst-italic" style="text-align: justify; text-indent: 30px;">
+    • Добавлять контент по нормальной анатомии человека (статьи и альбомы). Возможно отдельный полноценный раздел в будущем.
+    </p>
+    <p class="text-white fst-italic" style="text-align: justify; text-indent: 30px;">
+    • Разработать приложение для смартфонов по гистологии, для наглядного и быстрого обучения.
+    </p>
+    <p class="text-white fst-italic" style="text-align: justify; text-indent: 30px;">
+    На самом деле у меня очень много идеи для развития как сайта, так и других проектов, направленных на студентов-медиков (и не только).
+    </p>
+
+    <h5 class="text-center text-warning boldtext" style="margin-bottom: 3%; font-style: italic; ">Как с Вами связаться?</h5>
+    <p class="text-white fst-italic" style="text-align: justify; text-indent: 30px;">
+    Свои предложения и идеи по контенту, рекламе, проблемах сайта присылайте на нашу почту hystologyvk@gmail.com
+    </p>
+    <h2 class="text-center text-primary" style="margin-bottom: 4%;">Наша скромная команда:</h2>
+
+    <div class="avatar-container">
+        <img class="avatar"  src='{% static 'blog/images/person1.jpg' %}' alt="" width="200em" height="195em">
+    </div>
+    <h4 class="text-center text-danger">Оганян Эдгар </h4>
+    <h6 class="text-center text-info" style="margin-top:0px; margin-left:0px;">hayk4500@mail.ru</h6>
+    <p class="text-warning text-center fst-italic" >
+    Врач-патологоанатом (ещё бы!), увлекается также разработкой на С++. Идейный вдохновитель сайта и основатель.
+    </p>
+
+    <div class="avatar-container" style="margin-top:5%;">
+    <img class="avatar"  src='{% static 'blog/images/person2.jpg' %}' alt="" width="200em" height="195em">
+    </div>
+    <h4 class="text-center text-danger">Ковальский Николай</h4>
+    <h6 class="text-center text-info" style="margin-top:0px; margin-left:0px;">kovalskiy_work@mail.ru</h6>
+    <p class="text-warning text-center fst-italic" >
+    Разработчик(Юрист). Техническая реализация сайта.
+    </p>
+
 </div>
 {% endblock %}
 
