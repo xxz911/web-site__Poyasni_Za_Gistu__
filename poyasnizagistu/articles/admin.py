@@ -13,15 +13,16 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = ('id', 'thematic', 'title', 'time_create', 'comments')
     prepopulated_fields = {"slug": ('title',)}
 
+    #   Метод для колличества комментариев у Статей
     def comments(self, obj):
         return obj.comments_count
 
     comments.short_description = 'Комментариев'
+
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         queryset = queryset.annotate(comments_count=Count("comments_article"))
         return queryset
-
 
 
 admin.site.register(Article, ArticleAdmin)
@@ -35,8 +36,8 @@ class ArticleThematicAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ('name',)}
 
 
-
 admin.site.register(Thematic, ArticleThematicAdmin)
+
 
 class CommentsArticleAdmin(admin.ModelAdmin):
     list_display = ('status', 'text_100', 'article', 'author', 'create_date')
@@ -45,8 +46,6 @@ class CommentsArticleAdmin(admin.ModelAdmin):
     list_editable = ('status',)
     search_fields = ('article', 'author', 'create_date', 'text',)
     list_filter = ('status', 'article__title', 'author__username', 'create_date',)
-
-
 
 
 admin.site.register(Comments_Article, CommentsArticleAdmin)

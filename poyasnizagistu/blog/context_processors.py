@@ -1,3 +1,5 @@
+# БАЗОВЫЙ КОНТЕКСТ ДЛЯ ВСЕГО САЙТА
+
 menu = [
 {'title': "Блог", 'url_name': 'blog'},
 {'title': "Статьи", 'url_name': 'articles'},
@@ -5,6 +7,7 @@ menu = [
 {'title': "О сайте", 'url_name': 'about'},
 ]
 home = {'title': "Главная", 'url_name': 'home'}
-def menu_context_processor(request):
 
+
+def menu_context_processor(request):
     return {'menu': menu, 'home': home}

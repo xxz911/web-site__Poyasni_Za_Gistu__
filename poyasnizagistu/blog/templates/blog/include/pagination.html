@@ -1,30 +1,47 @@
+<!--Шаблон пагинации постов для подключения-->
+
+<!--Если страниц пагинации более 1-->
 {% if page_obj.has_other_pages %}
 <nav class="list-pages">
     <ul>
-{% if page_obj.has_previous %}
-<li class="page-num">
-    <a href="?{% if request.GET.q %}{{q}}page={{ page_obj.previous_page_number }}
-    {%else%}page={{ page_obj.previous_page_number }}
-    {% endif %}">&lt;</a>
-</li>
-{%endif%}
-        {% for p in page_obj.paginator.page_range %}
-        {% if page_obj.number == p %}
-        <li class="page-num page-num-selected"><p class="pag">{{ p }}</p></li>
-        {% elif p >= page_obj.number|add:-3 and p <= page_obj.number|add:3 %}
+
+<!--    Если есть предыдущая страница-->
+        {% if page_obj.has_previous %}
         <li class="page-num">
-            <a href="?{% if request.GET.q %}{{q}}page={{p}}
-            {%else%}page={{p}}{% endif %}">{{p}}</a>
+<!--         Если в запросе есть данные q (поиск),то добавляем в адрес ссылки на страницу-->
+<!--         пагинации параметр q-->
+            <a href="?{% if request.GET.q %}{{q}}page={{ page_obj.previous_page_number }}
+            {%else%}page={{ page_obj.previous_page_number }}
+            {% endif %}">&lt</a>
         </li>
         {% endif %}
-        {% endfor %}
-{% if page_obj.has_next %}
-<li class="page-num">
-    <a href="?{% if request.GET.q %}{{q}}page={{ page_obj.next_page_number }}
-    {%else%}page={{ page_obj.next_page_number }}
-    {% endif %}">&gt;</a>
-</li>
-{%endif%}
+
+<!--            Вывод номеров страниц-->
+                {% for p in page_obj.paginator.page_range %}
+                {% if page_obj.number == p %}
+                <li class="page-num page-num-selected"><p class="pag">{{ p }}</p></li>
+                {% elif p >= page_obj.number|add:-3 and p <= page_obj.number|add:3 %}
+                <li class="page-num">
+
+<!--                Если в запросе есть данные q (поиск),то добавляем в адрес ссылки на страницу-->
+<!--                пагинации параметр q-->
+                    <a href="?{% if request.GET.q %}{{q}}page={{p}}
+                    {% else %}page={{p}}{% endif %}">{{p}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+<!--    Если есть следующая страница-->
+        {% if page_obj.has_next %}
+        <li class="page-num">
+
+<!--        Если в запросе есть данные q (поиск),то добавляем в адрес ссылки на страницу-->
+<!--        пагинации параметр q-->
+            <a href="?{% if request.GET.q %}{{q}}page={{page_obj.next_page_number}}
+            {% else %}page={{page_obj.next_page_number}}
+            {% endif %}">&gt;</a>
+        </li>
+        {% endif %}
     </ul>
 </nav>
-{%endif%}
+{% endif %}

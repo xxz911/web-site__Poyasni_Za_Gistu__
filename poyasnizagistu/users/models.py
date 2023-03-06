@@ -5,14 +5,16 @@ from slugify import slugify
 from django.urls import reverse
 
 
+# Метод для создания адаптивного пути для сохранения аватарок пользователей
 def user_directory_path(instance, filename):
     return 'users/avatar/{0}/{1}'.format(instance.slug,filename)
 
+
+# Расширение базового класса User путем наследования от AbstractUser
 class CustomUser(AbstractUser):
     class Meta:
         verbose_name = 'Профили'
         verbose_name_plural = 'Профили'
-
 
     GENDERS = (
         ('', 'Не указано'),
@@ -33,6 +35,7 @@ class CustomUser(AbstractUser):
     def get_absolute_url(self):
         return reverse('profile', kwargs={'user_slug': self.slug})
 
+# Метод для отображения возраста пользователей в админке
     def save(self, *args, **kwargs,):
         if not self.slug:
             self.slug = slugify(self.username)

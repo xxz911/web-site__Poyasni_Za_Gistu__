@@ -95,7 +95,7 @@
                     <div class="col-lg-2 ">
                         <img class="logo_comment"  src='{{c.author.avatar.url}}' alt="Avatar" width="60em" height="55em" style="margin-right: 0px;">
                         <p class="text-primary time" >{{c.author}}</p></span>
-                        <p class="text-muted time">{{c.create_date}}</p>
+                        <p class="text-muted time">{{c.create_date|date:'H:i, d M Y'}}</p>
                     </div>
                     <div class="col-lg-10">
                         <p class="text-white text-one-comment">{{c.text}}</p>

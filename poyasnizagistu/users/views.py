@@ -12,16 +12,19 @@ from users.forms import ProfileChangeForm, CustomUserCreationForm
 from users.models import CustomUser
 
 
+# Класс представления для регистрации пользователей
 class RegisterUser(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'registration/register.html'
 
     def form_valid(self, form):
+        # Если форма валидна, сохраняем данные в БД и авторизируем пользователя
         user = form.save()
         login(self.request, user)
         return redirect('home')
 
 
+# Класс представления для изменения данных профиля пользователей
 class AccauntUser(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         model = CustomUser
         form_class = ProfileChangeForm
@@ -36,12 +39,14 @@ class AccauntUser(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return reverse_lazy('profile', kwargs={'user_slug': self.get_object().slug})
 
 
+# Метод представления для профиля пользователей
 def profile(request, user_slug):
     profil = CustomUser.objects.get(slug=user_slug)
 
     if request.user.is_authenticated != True:
         return redirect('login')
 
+    # Если адрес пользователя не соответсвует slug пользователя, то исключение 404
     if profil.slug != request.user.slug:
         raise Http404()
 

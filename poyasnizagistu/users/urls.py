@@ -9,7 +9,7 @@ urlpatterns = [
     path('profile/<slug:user_slug>/', profile, name='profile'),
     path('profile_change/', AccauntUser.as_view(), name='profile_change'),
 
-
+# Переопределение шаблона email письма при восстановлении пароля
     path('password_reset/', auth_views.PasswordResetView.as_view(
         html_email_template_name='registration/password_reset_emaill.html',
 

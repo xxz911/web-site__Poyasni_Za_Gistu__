@@ -1,25 +1,34 @@
+<!--Шаблон пагинации изображений альбомов для подключения-->
+
+<!--Если страниц пагинации более 1-->
 {% if page_obj_img.has_other_pages %}
 <nav class="list-pages">
     <ul>
-{% if page_obj_img.has_previous %}
-<li class="page-num">
-    <a href="?page={{ page_obj_img.previous_page_number }}">&lt;</a>
-</li>
-{%endif%}
-        {% for p in page_obj_img.paginator.page_range %}
-        {% if page_obj_img.number == p %}
-        <li class="page-num page-num-selected"><p class="pag">{{ p }}</p></li>
-        {% elif p >= page_obj_img.number|add:-3 and p <= page_obj_img.number|add:3 %}
+
+<!--    Если есть предыдущая страница-->
+        {% if page_obj_img.has_previous %}
         <li class="page-num">
-            <a href="?page={{p}}">{{p}}</a>
+            <a href="?page={{page_obj_img.previous_page_number}}">&lt;</a>
+        </li>
+        {%endif%}
+
+<!--        Вывод номеров страниц-->
+            {% for p in page_obj_img.paginator.page_range %}
+            {% if page_obj_img.number == p %}
+            <li class="page-num page-num-selected"><p class="pag">{{p}}</p></li>
+            {% elif p >= page_obj_img.number|add:-3 and p <= page_obj_img.number|add:3 %}
+            <li class="page-num">
+                <a href="?page={{p}}">{{p}}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+<!--    Если есть следующая страница-->
+        {% if page_obj_img.has_next %}
+        <li class="page-num">
+            <a href="?page={{page_obj_img.next_page_number}}">&gt;</a>
         </li>
         {% endif %}
-        {% endfor %}
-{% if page_obj_img.has_next %}
-<li class="page-num">
-    <a href="?page={{ page_obj_img.next_page_number }}">&gt;</a>
-</li>
-{%endif%}
     </ul>
 </nav>
-{%endif%}
+{% endif %}

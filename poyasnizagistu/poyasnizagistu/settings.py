@@ -27,7 +27,6 @@ SECRET_KEY = 'django-insecure-(*ntz#7abm++^-wjcg3o*a5#(=a4ag3mv&&2^_pigxq$f_x*(=
 DEBUG = True
 
 ALLOWED_HOSTS = []
-CSRF_COOKIE_SECURE = False
 
 # Application definition
 
@@ -50,8 +49,6 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
     'django_cleanup.apps.CleanupConfig',
-
-
 ]
 
 MIDDLEWARE = [
@@ -146,6 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # MEDIA 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
@@ -160,7 +158,6 @@ CACHES = {
 
 #ckeditor upload path
 CKEDITOR_UPLOAD_PATH="articles/uploads/"
-
 CKEDITOR_CONFIGS = {
     'default': {
 
@@ -221,10 +218,6 @@ CKEDITOR_CONFIGS = {
             'dialogui',
             'elementspath',
             'codesnippet',
-
-
-
-
         ]),
     }
 }
@@ -239,10 +232,6 @@ CAPTCHA_LENGTH = 5
 
 
 # EMAIL
-
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "hystologyvk@gmail.com"
@@ -256,6 +245,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = 'Команда Поясни за гисту <hystologyvk@gmail.com >'
 
 
+# DATE SETTINGS
 DATE_INPUT_FORMATS = ["%Y-%m-%d"]
 
 INTERNAL_IPS = [

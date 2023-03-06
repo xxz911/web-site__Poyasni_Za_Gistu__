@@ -2,8 +2,13 @@ from django.db import models
 from django.urls import reverse
 from users.models import CustomUser
 from ckeditor_uploader.fields import RichTextUploadingField
+
+
+# Метод для создания адаптивного пути для сохранения обложки поста
 def post_directory_path(instance, filename):
     return 'blog/category/{0}/{1}/{2}'.format(instance.cat.slug, instance.slug, filename)
+
+
 class Post(models.Model):
     title = models.CharField(verbose_name='_____Пост_____', max_length=40, unique=True)
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
@@ -12,23 +17,19 @@ class Post(models.Model):
     time_create = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
     is_published = models.BooleanField(verbose_name='Публикация', default=True)
     cat = models.ForeignKey('Categories_Post', verbose_name='Категория', on_delete=models.PROTECT, null=False)
-
     thumbsup = models.IntegerField(verbose_name='Нравится', default='0')
     thumbsdown = models.IntegerField(verbose_name='Не нравится', default='0')
     thumbs = models.ManyToManyField(CustomUser, verbose_name='Голосовали', related_name='thumbs', default=None, blank=True)
 
-    def comment_count(self):
-        return self.comments_post.all().count()
-
-    comment_count.short_description = 'Комментариев'
-
+    # Метод для сокращения колличества символов в тексте поста
     def text_100(self):
         if len(self.text) > 99:
             return u"%s..." % (self.text[:100],)
         else:
             return self.text
 
-    text_100.short_description = '___Текст поста___'
+    text_100.short_description = 'Текст поста'
+
     def __str__(self):
         return self.title
 
@@ -48,6 +49,7 @@ class Votes_Post(models.Model):
                              on_delete=models.CASCADE, default=None, blank=True)
     vote = models.BooleanField(default=True)
 
+
 class Comments_Post(models.Model):
     post = models.ForeignKey(Post, on_delete= models.CASCADE, verbose_name='Пост', related_name='comments_post' )
     author = models.ForeignKey(CustomUser, on_delete= models.CASCADE, verbose_name='Автор комментария', related_name='comments_post_author')
@@ -55,6 +57,7 @@ class Comments_Post(models.Model):
     text = models.TextField(max_length=700, verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость комментария', default=False)
 
+    # Метод для сокращения количества символов в тексте комментария
     def text_100(self):
         if len(self.text) > 99:
             return u"%s..." % (self.text[:100],)
@@ -62,7 +65,6 @@ class Comments_Post(models.Model):
             return self.text
 
     text_100.short_description = 'Текст комментария'
-
 
     def __str__(self):
         return f'Пост: {self.post} |  Автор:{self.author}'
@@ -74,6 +76,7 @@ class Comments_Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.post.slug})
+
 
 class Categories_Post(models.Model):
     name = models.CharField(verbose_name='Категория', max_length=40, db_index=True, unique=True)
@@ -93,6 +96,7 @@ class Categories_Post(models.Model):
 class HomeHi(models.Model):
     title = models.CharField(verbose_name='Приветствие', max_length=40, unique=True)
     body = RichTextUploadingField(verbose_name='Содержание приветсвия')
+
     def __str__(self):
         return self.title
 

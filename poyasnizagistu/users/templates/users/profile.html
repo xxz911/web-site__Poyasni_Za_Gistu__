@@ -1,10 +1,17 @@
+<!--Шаблон страницы профиля-->
+
+<!--Подключение базового шаблона-->
 {% extends 'blog/include/base.html' %}
 
+<!--Блок заголовка-->
 {% block title %}
     <title>Профиль</title>
 {% endblock %}
 
+<!--Блок контента-->
 {% block content %}
+
+<!--Базовый div-->
 <div class="profile">
   <div class="avatar-container">
     <img class="avatar"  src='{{user.avatar.url}}' alt="{{user.username}}" width="200em" height="195em">

@@ -11,6 +11,7 @@ from poyasnizagistu import settings
 from .models import CustomUser
 
 
+# Расширение базовой формы создания пользователей
 class CustomUserCreationForm(UserCreationForm):
     captcha = CaptchaField(label='Введите код')
     required_css_class = 'required'
@@ -20,12 +21,14 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ('username', 'password1', 'password2', 'email', 'first_name', 'last_name', 'avatar', 'gender', 'birthday')
 
+    # Пользовательский валидатор для проверки длинны имени пользователя
     def clean_username(self):
         username = self.cleaned_data['username']
         if len(username) > 20:
             raise ValidationError("Имя пользователя не должно превышать 20 символов")
         return username
 
+    # Пользовательский валидатор для проверки даты рождения пользователя
     def clean_birthday(self):
         birthday = self.cleaned_data['birthday']
         if birthday:
@@ -38,6 +41,8 @@ class CustomUserCreationForm(UserCreationForm):
             self.birthday = None
             return self.birthday
 
+
+# Расширение базовой формы изменения данных пользователей
 class ProfileChangeForm(forms.ModelForm):
     avatar = forms.ImageField(label='Аватар', widget=forms.FileInput, required=False)
     required_css_class = 'required'
@@ -46,12 +51,14 @@ class ProfileChangeForm(forms.ModelForm):
         model = CustomUser
         fields = ('username', 'first_name', 'last_name', 'email', 'avatar', 'gender', 'birthday')
 
+    # Пользовательский валидатор для проверки длинны имени пользователя
     def clean_username(self):
         username = self.cleaned_data['username']
         if len(username) > 20:
             raise ValidationError("Имя пользователя не должно превышать 20 символов")
         return username
 
+    # Пользовательский валидатор для проверки даты рождения пользователя
     def clean_birthday(self):
         birthday = self.cleaned_data['birthday']
         if birthday:

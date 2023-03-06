@@ -1,18 +1,30 @@
+<!--Переопределенный шаблон для адмики-->
+
+<!--Подключение базового шаблона-->
 {% extends "admin/base.html" %}
+
+<!--Подключение статических файлов-->
 {% load static %}
+
+<!--Блок extrastyle-->
 {% block extrastyle %}
 <link rel="stylesheet" href="{%static 'blog/css/admin.css'%}">
 {% endblock %}
 
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+<!--Блок заголовка-->
+{% block title %}{% if subtitle %}{{subtitle}} | {% endif %}{{title}} | {{site_title|default:_('Django site admin') }}{% endblock %}
 
+<!--Блок branding-->
 {% block branding %}
 <body style="background-image: url('{% static 'blog/images/back.jpeg' %}'); ">
 <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+
+<!--Скрипт настроек визуала для CKEDITOR-->
 <script>
 CKEDITOR.addCss('.cke_editable { background: rgba(23, 23, 23, 0.961); color: black }');
 CKEDITOR.replace( 'description' );
 </script>
+
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

@@ -1,6 +1,17 @@
+<!--Шаблон результатов поиска постов -->
+
+<!--Подключение базового шаблона-->
 {% extends 'blog/include/base.html' %}
+
+<!--Блок заголовка-->
+{% block title %}
+    <title>{{title}}</title>
+{% endblock %}
+
+<!--Блок контента-->
 {% block content %}
 
+<!--Подключение базового шаблона постов-->
 {% include 'blog/include/base_blog.html' %}
 
 {% endblock %}

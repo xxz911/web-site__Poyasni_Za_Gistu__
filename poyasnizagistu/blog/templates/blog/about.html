@@ -1,11 +1,20 @@
+<!--Шаблон страницы "О нас"-->
+
+<!--Подключение базового шаблона-->
 {% extends 'blog/include/base.html' %}
+
+<!--Подключение статических файлов-->
 {% load static %}
 
+<!--Блок заголовка-->
 {% block title %}
     <title>{{title}}</title>
 {% endblock %}
 
+<!--Блок контента-->
 {% block content %}
+
+<!--Базовый div-->
 <div class="profile">
 
     <h5 class="text-center text-warning boldtext" style="margin-bottom: 3%; font-style: italic; ">Какова главная идея сайта?</h5>

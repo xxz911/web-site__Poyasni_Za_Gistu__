@@ -14,21 +14,23 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('id', 'cat', 'title', 'text', 'time_create', 'comments')
     prepopulated_fields = {"slug": ('title',)}
 
+    #   Метод для колличества комментариев у Постов
     def comments(self, obj):
         return obj.comments_count
 
     comments.short_description = 'Комментариев'
+
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         queryset = queryset.annotate(comments_count=Count("comments_post"))
         return queryset
+
+    # Метод для получения миниатюры обложки поста
     def get_photo(self, object):
         if object.photo:
-            return mark_safe(f"<img src='{object.photo.url}' width=6"
-                             f"0>")
+            return mark_safe(f"<img src='{object.photo.url}' width=6"f"0>")
 
     get_photo.short_description = 'Фото'
-
 
 
 admin.site.register(Post, PostAdmin)
@@ -42,8 +44,8 @@ class PostCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ('name',)}
 
 
-
 admin.site.register(Categories_Post, PostCategoryAdmin)
+
 
 class CommentsPostAdmin(admin.ModelAdmin):
     list_display = ('post', 'author', 'create_date', 'text_100', 'status')
@@ -54,10 +56,8 @@ class CommentsPostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'post__title', 'author__username', 'create_date',)
 
 
-
-
-
 admin.site.register(Comments_Post, CommentsPostAdmin)
+
 
 class HomeHiAdmin(admin.ModelAdmin):
     list_display = ('id', 'title',)
@@ -65,12 +65,8 @@ class HomeHiAdmin(admin.ModelAdmin):
     fields = ('title', 'body',)
 
 
-
-
-
-
 admin.site.register(HomeHi, HomeHiAdmin)
 
-
+# ЗАГОЛОВКИ В АДМИНКЕ
 admin.site.site_title = 'Администрирование сайта "Поясни за Гисту"'
 admin.site.site_header = 'Администрирование сайта "Поясни за Гисту"'

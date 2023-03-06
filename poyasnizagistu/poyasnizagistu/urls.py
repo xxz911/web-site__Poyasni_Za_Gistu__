@@ -30,14 +30,16 @@ urlpatterns = [
     path('albums/', include('albums.urls')),
     path('articles/', include('articles.urls')),
 
-
+# Путь для редактора ckeditor в админке
     re_path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
+# Путь Django Debug Toolbar (работает только в режиме отладки)
 if settings.DEBUG:
     urlpatterns = [
         path('__debug__/', include('debug_toolbar.urls')),
     ] + urlpatterns
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# Переопределяем метод обработки ошибки 404
 handler404 = pageNotFound

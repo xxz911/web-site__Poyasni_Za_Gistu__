@@ -5,21 +5,16 @@ from django.urls import reverse
 from users.models import CustomUser
 
 
-
 class Article(models.Model):
     title = models.CharField(verbose_name='Статья', max_length=40, unique=True)
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
-
     body = RichTextUploadingField(verbose_name='Содержание')
-
     time_create = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
     is_published = models.BooleanField(verbose_name='Публикация', default=True)
     thematic = models.ForeignKey('Thematic', verbose_name='Тематика', on_delete=models.PROTECT, null=False)
-
     thumbsup = models.IntegerField(verbose_name='Нравится', default='0')
     thumbsdown = models.IntegerField(verbose_name='Не нравится', default='0')
     thumbs = models.ManyToManyField(CustomUser, verbose_name='Голосовали', related_name='thumbs_article', default=None, blank=True)
-
 
     def __str__(self):
         return self.title
@@ -31,6 +26,7 @@ class Article(models.Model):
         verbose_name = "Статью"
         verbose_name_plural = "Статьи"
         ordering = ['-time_create']
+
 
 class Votes_Article(models.Model):
     article = models.ForeignKey(Article, related_name='articleid',
@@ -47,6 +43,7 @@ class Comments_Article(models.Model):
     text = models.TextField(max_length=700, verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость комментария', default=False)
 
+    # Метод для сокращения количества символов в тексте комментария
     def text_100(self):
         if len(self.text) > 99:
             return u"%s..." % (self.text[:100],)
@@ -54,6 +51,7 @@ class Comments_Article(models.Model):
             return self.text
 
     text_100.short_description = 'Текст комментария'
+
     def __str__(self):
         return f'Статья: {self.article} |  Автор:{self.author}'
 
@@ -64,6 +62,7 @@ class Comments_Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('article', kwargs={'article_slug': self.article.slug})
+
 
 class Thematic(models.Model):
     name = models.CharField(verbose_name='Тематика', max_length=40, db_index=True, unique=True)

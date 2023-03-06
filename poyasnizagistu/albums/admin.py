@@ -14,22 +14,23 @@ class AlbumAdmin(admin.ModelAdmin):
     search_fields = ('id', 'title', 'organ_system', 'comments')
     prepopulated_fields = {"slug": ('title',)}
 
+#   Метод для колличества комментраиев у Альбома
     def comments(self, obj):
         return obj.comments_count
 
     comments.short_description = 'Комментариев'
+
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         queryset = queryset.annotate(comments_count=Count("comments_album"))
         return queryset
+
+    # Метод для получения миниатюры обложки альбома
     def get_cover(self, object):
         if object.cover:
-            return mark_safe(f"<img src='{object.cover.url}' width=6"
-                             f"0>")
+            return mark_safe(f"<img src='{object.cover.url}' width=6"f"0>")
 
     get_cover.short_description = 'Миниатюра'
-
-
 
 
 admin.site.register(Album, AlbumAdmin)
@@ -41,7 +42,6 @@ class OrganSystemAdmin(admin.ModelAdmin):
     fields = ('name', 'slug')
     search_fields = ('name',)
     prepopulated_fields = {"slug": ('name',)}
-
 
 
 admin.site.register(Organ_System, OrganSystemAdmin)
@@ -56,10 +56,8 @@ class CommentsAlbumAdmin(admin.ModelAdmin):
     list_filter = ('status', 'album__title', 'author__username', 'create_date',)
 
 
-
-
-
 admin.site.register(Comments_Album, CommentsAlbumAdmin)
+
 
 class ImagesAdmin(admin.ModelAdmin):
     list_display = ('album', 'title_image', 'get_image', 'comment_image', 'title_image_description', 'get_image_description', 'comment_image_description' )
@@ -70,20 +68,19 @@ class ImagesAdmin(admin.ModelAdmin):
     readonly_fields = ('get_image', 'get_image_description',)
     list_filter = ('album__title', 'title_image', 'title_image_description')
 
+    # Метод для получения миниатюры изображений
     def get_image(self, object):
         if object.image:
-            return mark_safe(f"<img src='{object.image.url}' width=6"
-                             f"0>")
+            return mark_safe(f"<img src='{object.image.url}' width=6"f"0>")
 
     get_image.short_description = 'Миниатюра изображения'
 
+    # Метод для получения миниатюры изображений с пояснениями
     def get_image_description(self, object):
         if object.image_description:
-            return mark_safe(f"<img src='{object.image_description.url}' width=6"
-                             f"0>")
+            return mark_safe(f"<img src='{object.image_description.url}' width=6"f"0>")
 
     get_image_description.short_description = 'Миниатюра изображения с пояснениями'
-
 
 
 admin.site.register(Images, ImagesAdmin)

@@ -1,13 +1,17 @@
+<!--Шаблон списка постов по категориям-->
+
+<!--Подключение базового шаблона-->
 {% extends 'blog/include/base.html' %}
 
-
+<!--Блок заголовка-->
 {% block title %}
     <title>{{title}}</title>
 {% endblock %}
 
-
+<!--Блок контента-->
 {% block content %}
 
+<!--Подключение базового шаблона альбома-->
 {% include 'blog/include/base_blog.html' %}
 
 {% endblock %}

@@ -1,6 +1,17 @@
+<!--Шаблон результатов поиска альбомов -->
+
+<!--Подключение базового шаблона-->
 {% extends 'blog/include/base.html' %}
+
+<!--Блок заголовка-->
+{% block title %}
+    <title>{{title}}</title>
+{% endblock %}
+
+<!--Блок контента-->
 {% block content %}
 
+<!--Подключение базового шаблона альбома-->
 {% include 'albums/include/base_albums.html' %}
 
 {% endblock %}

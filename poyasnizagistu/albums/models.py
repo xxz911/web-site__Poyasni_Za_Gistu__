@@ -3,28 +3,28 @@ from django.urls import reverse
 
 from users.models import CustomUser
 
+
+# Метод для создания адаптивного пути для сохранения обложки альбома
 def album_directory_path(instance, filename):
     return 'album/organ_system/{0}/{1}/cover/{2}'.format(instance.organ_system.slug, instance.slug, filename)
+
+
 class Album(models.Model):
     title = models.CharField(verbose_name='Альбом', max_length=40, unique=True)
     cover = models.ImageField(verbose_name='Обложка', upload_to=album_directory_path,)
     slug = models.SlugField(max_length=40, unique=True, db_index=True, verbose_name='URL')
     is_published = models.BooleanField(verbose_name='Публикация', default=True)
     time_create = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
-
     organ_system = models.ForeignKey('Organ_System', verbose_name='Система органов', on_delete=models.CASCADE, null=False)
-
     thumbsup = models.IntegerField(verbose_name='Нравится', default='0')
     thumbsdown = models.IntegerField(verbose_name='Не нравится', default='0')
     thumbs = models.ManyToManyField(CustomUser, verbose_name='Голосовали', related_name='thumbs_album', default=None, blank=True)
-
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('album', kwargs={'album_slug': self.slug})
-
 
     class Meta:
         verbose_name = "Альбом"
@@ -34,14 +34,17 @@ class Album(models.Model):
 
 class Votes_Album(models.Model):
     album = models.ForeignKey(Album, related_name='albumid',
-                             on_delete=models.CASCADE, default=None, blank=True)
+        on_delete=models.CASCADE, default=None, blank=True)
     user = models.ForeignKey(CustomUser, related_name='useralbumid',
-                             on_delete=models.CASCADE, default=None, blank=True)
+        on_delete=models.CASCADE, default=None, blank=True)
     vote = models.BooleanField(default=True)
 
 
+# Метод для создания адаптивного пути для сохранения изображений альбома
 def album_image_directory_path(instance, filename):
     return 'album/organ_system/{0}/{1}/image/{2}'.format(instance.album.organ_system.slug, instance.album.slug, filename)
+
+
 class Images(models.Model):
     album = models.ForeignKey('Album', related_name='albumimages', verbose_name='Альбом', on_delete=models.CASCADE)
     title_image = models.CharField(verbose_name='Название изображения', max_length=30, unique=True)
@@ -61,6 +64,7 @@ class Images(models.Model):
         verbose_name = "Изображение"
         verbose_name_plural = "Изображения"
 
+
 class Comments_Album(models.Model):
     album = models.ForeignKey(Album, on_delete= models.CASCADE, verbose_name='Название Альбома', related_name='comments_album' )
     author = models.ForeignKey(CustomUser, on_delete= models.CASCADE, verbose_name='Автор комментария', related_name='comments_album_author')
@@ -68,6 +72,7 @@ class Comments_Album(models.Model):
     text = models.TextField(max_length=700, verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость комментария', default=False)
 
+# Метод для сокращения количества символов в тексте комментария
     def text_100(self):
         if len(self.text) > 99:
             return u"%s..." % (self.text[:100],)
@@ -75,6 +80,7 @@ class Comments_Album(models.Model):
             return self.text
 
     text_100.short_description = 'Текст комментария'
+
     def __str__(self):
         return f'Альбом: {self.album} |  Автор:{self.author}'
 
@@ -85,6 +91,7 @@ class Comments_Album(models.Model):
 
     def get_absolute_url(self):
         return reverse('album', kwargs={'album_slug': self.album.slug})
+
 
 class Organ_System(models.Model):
     name = models.CharField(verbose_name='Система органов', max_length=40, db_index=True, unique=True)

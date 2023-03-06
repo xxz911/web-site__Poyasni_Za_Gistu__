@@ -1,16 +1,25 @@
+<!--Шаблон страницы авторизации-->
+
+<!--Подключение базового шаблона-->
 {% extends 'blog/include/base.html' %}
+
+<!--Блок заголовка-->
 {% block title %}
-    <title>Вход</title>
+        <title>Вход</title>
 {% endblock %}
 
-
+<!--Блок контента-->
 {% block content %}
 <div class="fs-2 text-center title">Авторизация</div>
+
+<!--Если ошибка -->
 {% if form.errors %}
 <p class="log-error">Введённые имя пользователя и пароль не верны. Пожалуйста, попробуйте еще.</p>
 {% endif %}
+
+<!--Форма авторизации-->
 <form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+        {% csrf_token %}
         {% for f in form %}
         <p class="label-ul-log"><label class="form-label-log" for="{{f.id_for_label}}">{{ f.label }}</label>{{f}}</p>
         {% endfor %}

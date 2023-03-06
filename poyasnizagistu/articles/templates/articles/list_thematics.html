@@ -1,27 +1,37 @@
+<!--Шаблон пользовательского тега articles_tags (выпадающий список)-->
 
+<!--Базовый div-->
 <div class="text-center">
     <div class="btn-group">
-      <button disabled type="button" class="btn btn-dark">Тематики</button>
-      <hr class="text-white">
-      <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-        <span class="visually-hidden"></span>
-      </button>
-      <ul class="dropdown-menu">
+        <button disabled type="button" class="btn btn-dark">Тематики</button>
+        <hr class="text-white">
+        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden"></span>
+        </button>
+        <ul class="dropdown-menu">
+
+<!--Если thematic_selected передано False, добавляется класс css active кнопке "Все тематики"-->
 {% if not thematic_selected %}
-            <button class="dropdown-item active" type="button">Все тематики</button>
+          <button class="dropdown-item active" type="button">Все тематики</button>
 {% else %}
-            <a href="{% url 'articles' %}"><button class="dropdown-item " type="button">Все тематики</button></a>
+          <a href="{% url 'articles' %}"><button class="dropdown-item " type="button">Все тематики</button></a>
 {% endif %}
 
 {% for t in thematic %}
+
+<!--Если в тематиках более одной статьи, то выводим в раскрывающийся список-->
 {% if t.article__count > 0 %}
-            {% if t.slug == thematic_selected %}
-            <button class="dropdown-item active" type="button">{{t.name}}</button>
-             {% else %}
-            <a class="cat" href="{{ t.get_absolute_url }}"><button class="dropdown-item " type="button">{{t.name}}</button></a>
+
+<!--        Если slug тематики равен thematic_selected из view, то добавляется класс css active-->
+          {% if t.slug == thematic_selected %}
+          <button class="dropdown-item active" type="button">{{t.name}}</button>
+          {% else %}
+          <a class="cat" href="{{t.get_absolute_url}}">
+              <button class="dropdown-item " type="button">{{t.name}}</button>
+          </a>
           {% endif %}
 {% endif %}
 {% endfor %}
-      </ul>
+        </ul>
     </div>
 </div>

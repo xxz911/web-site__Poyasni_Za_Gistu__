@@ -17,11 +17,11 @@ class CustomUserAdmin(UserAdmin):
         *UserAdmin.add_fieldsets,
         (
             'Info',
-           {
-              'fields': ('slug', 'first_name', 'last_name', 'email', 'get_avatar', 'avatar', 'birthday', 'gender')
-           }
+            {
+                'fields': ('slug', 'first_name', 'last_name', 'email', 'get_avatar', 'avatar', 'birthday', 'gender')
+            }
         )
-     )
+    )
 
     fieldsets = (
         *UserAdmin.fieldsets,
@@ -31,12 +31,13 @@ class CustomUserAdmin(UserAdmin):
                 'fields': ('slug', 'get_avatar', 'birthday', 'avatar')
             }
         )
-     )
+    )
 
     readonly_fields = ('get_avatar', 'last_login', 'date_joined', 'age')
+
+    #   Метод для получения миниатюр
     def get_avatar(self, object):
-        return mark_safe(f"<img src='{object.avatar.url}' width=6"
-                             f"0>")
+        return mark_safe(f"<img src='{object.avatar.url}' width=6"f"0>")
 
     get_avatar.short_description = 'Миниатюра'
 
