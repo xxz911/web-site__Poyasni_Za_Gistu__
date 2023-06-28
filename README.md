@@ -1,4 +1,5 @@
 # web-site__Poyasni_Za_Gistu__(Alpha версия)
+Релизной версии нет на GitHub
 Фулстек заказ образовательного сайта по гистологии.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
