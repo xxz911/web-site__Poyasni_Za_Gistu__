@@ -1,5 +1,3 @@
-from types import NoneType
-
 from captcha.fields import CaptchaField
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
